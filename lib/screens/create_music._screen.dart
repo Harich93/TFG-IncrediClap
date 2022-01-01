@@ -118,7 +118,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound1.stop(); 
-                              playList.remove(sound1);
+                              _deleteFromList(sound1);
+                              sound1 = AssetsAudioPlayer();
                             }
                           ),
                           IconButton(
@@ -174,7 +175,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound2.stop(); 
-                              playList.remove(sound2); 
+                              _deleteFromList(sound2);
+                              sound2 = AssetsAudioPlayer();
                             }
                           ),
                           IconButton(
@@ -228,8 +230,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound3.stop();
+                              _deleteFromList(sound3);
                               sound3 = AssetsAudioPlayer();
-                              playList.remove(sound3); 
                             }
                           ),
                           IconButton(
@@ -290,8 +292,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound4.stop(); 
+                              _deleteFromList(sound4);
                               sound4 = AssetsAudioPlayer();
-                              playList.remove(sound4); 
                             }
                           ),
                           IconButton(
@@ -345,8 +347,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound5.stop(); 
+                              _deleteFromList(sound5);
                               sound5 = AssetsAudioPlayer();
-                              playList.remove(sound5); 
                             }
                           ),
                           IconButton(
@@ -400,8 +402,8 @@ class _BoxSoundsState extends State<BoxSounds> {
                           _DeleteIcon(
                             onPressed: () { 
                               sound6.stop();
+                              _deleteFromList(sound6);
                               sound6 = AssetsAudioPlayer();
-                              playList.remove(sound6);
                             }
                           ),
                           IconButton(
@@ -500,7 +502,7 @@ class _BoxSoundsState extends State<BoxSounds> {
   void _play() => {
     playList.forEach( (sound) => sound.play() ),
 
-    if(!playList.length.isNegative && firstPlay )  {
+    if(playList.isNotEmpty)  {
       _setDuration(playList[0]),
       firstPlay = false,
       setState(() {})
@@ -509,6 +511,12 @@ class _BoxSoundsState extends State<BoxSounds> {
   };
 
   void _stop() { playList.forEach( (sound) => sound.stop() );}
+
+  void _deleteFromList( AssetsAudioPlayer sound ) {
+    playList.remove(sound);
+    playListString.remove(sound.id);
+    setState(() {});
+  }
 
   void _setDuration( AssetsAudioPlayer sound ) {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
@@ -523,6 +531,8 @@ class _BoxSoundsState extends State<BoxSounds> {
     });
 
   }
+
+  
 
   String _iconReciveBox( String data ) {
 
