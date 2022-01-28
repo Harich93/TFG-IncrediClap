@@ -34,11 +34,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: LoginScreen.routeName,
+      initialRoute: MusicScreen.routeName,
       routes: {
         LoginScreen.routeName    : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName : ( _ ) => const RegisterScreen(),
-        HomeScreen.routeName     : ( _ ) => const HomeScreen() 
+        HomeScreen.routeName     : ( _ ) => const HomeScreen(),
+        MusicScreen.routeName    : ( _ ) => const MusicScreen(),
       },
     );
   }
