@@ -25,16 +25,16 @@ static const String routeName = 'Music';
                 onPressed: () => {
                   
 
-                  // audios.forEach((element) {element.audio.play();})
-                  audios[1].audio.setVolume(1),
-                  audios[2].audio.setVolume(1),
-                  audios[3].audio.setVolume(1),
-                  audios[4].audio.setVolume(1),
-                  audios[5].audio.setVolume(1),
-                  audios[6].audio.setVolume(1),
-                  audios[7].audio.setVolume(1),
-                  audios[8].audio.setVolume(1),
-                  audios[9].audio.setVolume(1),
+                  // audios.forEach((element) {element.player.play();})
+                  audios[1].player.setVolume(1),
+                  audios[2].player.setVolume(1),
+                  audios[3].player.setVolume(1),
+                  audios[4].player.setVolume(1),
+                  audios[5].player.setVolume(1),
+                  audios[6].player.setVolume(1),
+                  audios[7].player.setVolume(1),
+                  audios[8].player.setVolume(1),
+                  audios[9].player.setVolume(1),
 
 
 
@@ -46,15 +46,15 @@ static const String routeName = 'Music';
                 color: Colors.red,
                 onPressed: () => {
                   
-                  audios[1].audio.setVolume(0),
-                  audios[2].audio.setVolume(0),
-                  audios[3].audio.setVolume(0),
-                  audios[4].audio.setVolume(0),
-                  audios[5].audio.setVolume(0),
-                  audios[6].audio.setVolume(0),
-                  audios[7].audio.setVolume(0),
-                  audios[8].audio.setVolume(0),
-                  audios[9].audio.setVolume(0),
+                  audios[1].player.setVolume(0),
+                  audios[2].player.setVolume(0),
+                  audios[3].player.setVolume(0),
+                  audios[4].player.setVolume(0),
+                  audios[5].player.setVolume(0),
+                  audios[6].player.setVolume(0),
+                  audios[7].player.setVolume(0),
+                  audios[8].player.setVolume(0),
+                  audios[9].player.setVolume(0),
 
 
                 }, 

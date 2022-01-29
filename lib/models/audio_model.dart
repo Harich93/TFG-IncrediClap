@@ -17,7 +17,7 @@ class Audio {
   }
 
   int get id => _id;
-  AudioPlayer get audio => _player;
+  AudioPlayer get player => _player;
   String get musicSheet => _musicSheet;
   String get icon => _icon;
 

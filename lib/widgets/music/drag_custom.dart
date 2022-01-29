@@ -28,7 +28,8 @@ class _DragCustomState extends State<DragCustom> {
 
     final ac = Provider.of<AudiosController>(context);
     final audio = widget.audio;
-    Provider audioCon
+    final player = widget.audio.player;
+    // Provider audioCon
     // final int i = audio;
 
 
@@ -44,26 +45,26 @@ class _DragCustomState extends State<DragCustom> {
             children: [
               _DeleteIcon(
                 onPressed: () => setState(() {
-                  audio.audio.setVolume(0); 
-                  audio.setDragAudio(widget.dragIndx, 0);
-                  audio.setIconDrag(widget.dragIndx,0);
-                  audio.removeAudioOn(audio.audios[i].id);
+                  player.setVolume(0); 
+                  // audio.setDragAudio(widget.dragIndx, 0);
+                  // audio.setIconDrag(widget.dragIndx,0);
+                  // audio.removeAudioOn(audio.audios[i].id);
                 })
               ),
               IconButton(
                 splashRadius: 20,
-                icon: audio.audios[i].volume.value > 0 ? iconMuteOn : iconMuteOff,
+                icon: player.volume > 0 ? iconMuteOn : iconMuteOff,
                 onPressed: () => setState(() {
-                  audio.audio.volume == 0
-                    ? audio.audio.setVolume(1)
-                    : audio.audio.setVolume(0);        
+                  player.volume == 0
+                    ? player.setVolume(1)
+                    : player.setVolume(0);        
                 }),
               )
             ],
           ),
 
           _IconSoundBox(
-            visual:  ac.playNow.contains(audio) ? Text(audio.id.toString()): Text( audio.icon )
+            visual:  ac.playNow.contains(player) ? Text(audio.id.toString()): Text( audio.icon )
           )
         ],
       ),
