@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/controller/audios_controller.dart';
+import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ( _ ) => AuthService() ),
-        ChangeNotifierProvider(create: ( _ ) => AudiosController())
+        ChangeNotifierProvider(create: ( _ ) => AudiosProvider())
       ],
       child: MyApp(),
     );
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: HomeScreen.routeName,
+      initialRoute: MusicScreen.routeName,
       routes: {
         LoginScreen.routeName    : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName : ( _ ) => const RegisterScreen(),
