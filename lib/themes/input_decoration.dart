@@ -11,11 +11,11 @@ class InputDecorations {
   }) {
     return InputDecoration(
       enabledBorder:const UnderlineInputBorder(
-        borderSide: BorderSide(color: ThemeColors.purple),
+        borderSide: BorderSide(color: ThemeColors.primary),
       ),
       focusedBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
-          color: ThemeColors.purple,
+          color: ThemeColors.primary,
           width: 2  
         ),
       ),
@@ -25,7 +25,7 @@ class InputDecorations {
         color: Colors.grey
       ),
       prefixIcon: prefixIcon != null 
-        ? Icon( prefixIcon, color: ThemeColors.purple)
+        ? Icon( prefixIcon, color: ThemeColors.primary)
         : null 
     );
   }

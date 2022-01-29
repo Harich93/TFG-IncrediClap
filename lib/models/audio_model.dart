@@ -22,7 +22,7 @@ class Audio {
   String get icon => _icon;
 
   void initAudio( pathAudio ) async {
-    await _player.setAsset(pathAudio, preload: true);
+    await _player.setAsset(pathAudio, preload: true );
     _player.setVolume(0);
     _player.play();
   }

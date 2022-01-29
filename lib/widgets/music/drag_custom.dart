@@ -64,6 +64,7 @@ class _DragCustomState extends State<DragCustom> {
           ),
 
           _IconSoundBox(
+            // ignore: iterable_contains_unrelated_type
             visual:  ac.playNow.contains(player) ? Text(audio.id.toString()): Text( audio.icon )
           )
         ],

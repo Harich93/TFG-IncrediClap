@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/themes.dart';
 
-class AuthBackground extends StatelessWidget {
+import '../../themes/themes.dart';
+
+class HomeBackground extends StatelessWidget {
 
   final Widget child;
-  final bool icon;
 
-  const AuthBackground({
+  const HomeBackground({
     Key? key, 
     required this.child,
-    this.icon = true
   }) : super(key: key);
 
   @override
@@ -20,23 +19,8 @@ class AuthBackground extends StatelessWidget {
       child: Stack(
         children: [
           _ColorBox(),
-          if(icon) _UserIcon(),
           child
         ],
-      ),
-    );
-  }
-}
-
-class _UserIcon extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 30),
-        child: const Icon( Icons.person_pin, color: Colors.white, size: 100),
       ),
     );
   }
@@ -52,17 +36,17 @@ class _ColorBox extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: size.height * 0.4,
+      height: size.height,
       decoration: _builBoxDecoration(),
     );
   }
 
   BoxDecoration _builBoxDecoration() => const BoxDecoration(
     gradient: LinearGradient(
-      transform: GradientRotation(90),
+      transform: GradientRotation(120),
       colors: [
-        ThemeColors.darkPrimary,
         ThemeColors.primary,
+        ThemeColors.darkPrimary,
       ]
     )
   );
