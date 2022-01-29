@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/controller/samples_controller.dart';
+import 'package:incredibclap/controller/audios_controller.dart';
 import 'package:incredibclap/models/models.dart';
 
 class MusicScreen extends StatelessWidget {
@@ -11,8 +11,8 @@ static const String routeName = 'Music';
   @override
   Widget build(BuildContext context) {
     
-    SamplesController sc = SamplesController();
-    List<Sample> samples = sc.samples;
+    AudiosController sc = AudiosController();
+    List<Audio> audios = sc.audios;
     
     return Scaffold(
       body: Center(
@@ -25,16 +25,16 @@ static const String routeName = 'Music';
                 onPressed: () => {
                   
 
-                  // samples.forEach((element) {element.audio.play();})
-                  samples[1].audio.setVolume(1),
-                  samples[2].audio.setVolume(1),
-                  samples[3].audio.setVolume(1),
-                  samples[4].audio.setVolume(1),
-                  samples[5].audio.setVolume(1),
-                  samples[6].audio.setVolume(1),
-                  samples[7].audio.setVolume(1),
-                  samples[8].audio.setVolume(1),
-                  samples[9].audio.setVolume(1),
+                  // audios.forEach((element) {element.audio.play();})
+                  audios[1].audio.setVolume(1),
+                  audios[2].audio.setVolume(1),
+                  audios[3].audio.setVolume(1),
+                  audios[4].audio.setVolume(1),
+                  audios[5].audio.setVolume(1),
+                  audios[6].audio.setVolume(1),
+                  audios[7].audio.setVolume(1),
+                  audios[8].audio.setVolume(1),
+                  audios[9].audio.setVolume(1),
 
 
 
@@ -46,15 +46,15 @@ static const String routeName = 'Music';
                 color: Colors.red,
                 onPressed: () => {
                   
-                  samples[1].audio.setVolume(0),
-                  samples[2].audio.setVolume(0),
-                  samples[3].audio.setVolume(0),
-                  samples[4].audio.setVolume(0),
-                  samples[5].audio.setVolume(0),
-                  samples[6].audio.setVolume(0),
-                  samples[7].audio.setVolume(0),
-                  samples[8].audio.setVolume(0),
-                  samples[9].audio.setVolume(0),
+                  audios[1].audio.setVolume(0),
+                  audios[2].audio.setVolume(0),
+                  audios[3].audio.setVolume(0),
+                  audios[4].audio.setVolume(0),
+                  audios[5].audio.setVolume(0),
+                  audios[6].audio.setVolume(0),
+                  audios[7].audio.setVolume(0),
+                  audios[8].audio.setVolume(0),
+                  audios[9].audio.setVolume(0),
 
 
                 }, 

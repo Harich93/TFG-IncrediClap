@@ -1,7 +1,7 @@
 
 import 'package:just_audio/just_audio.dart';
 
-class Sample {
+class Audio {
 
   final _player = AudioPlayer();
 
@@ -9,7 +9,7 @@ class Sample {
   late final String _musicSheet;
   late final String _icon;
 
-  Sample({ id ,pathAudio, pathMusicSheet, pathIcon }) {
+  Audio({ id ,pathAudio, pathMusicSheet, pathIcon }) {
     initAudio(pathAudio);
     _id = id;
     _musicSheet = pathMusicSheet;
