@@ -39,8 +39,8 @@ class _HomeBody extends StatelessWidget {
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 90),
-                Row(
+                const SizedBox(height: 50),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     HomeCard( 
@@ -56,21 +56,16 @@ class _HomeBody extends StatelessWidget {
                       buttonIcon: Icons.list_rounded,
                       onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
                     ),
-
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                    
                     HomeCard( 
                       title: 'Ajustes', 
                       buttonColor: ThemeColors.primary, 
                       buttonIcon: Icons.settings,
                       onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
-                      
                     ),
                   ],
-                )
+                ),
+               
               ],
             ),
           )

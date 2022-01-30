@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/widgets/music/music_draggable.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
@@ -28,10 +27,16 @@ class _MusicScreenState extends State<MusicScreen> {
     DurationModel dm = Provider.of<DurationModel>(context);
     AudiosProvider ap = Provider.of<AudiosProvider>(context);
     const soundEnable = IconButton(onPressed: null, icon: Icon(Icons.bubble_chart));
-    double currentDuration = 0;
+    List<AudioTab> audiosTab = ap.audiostab;
    
+    const textStyleTab = TextStyle( color: Colors.white);
     return Scaffold(
-      
+      appBar: AppBar(
+        elevation: 10,
+        title: Text(dm.currentSecond),
+        backgroundColor: ThemeColors.primary,
+        toolbarHeight: 50,
+      ),
       body:HomeBackground( child: Stack(
           children: [
             
@@ -50,6 +55,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     strokeWidthFront: 3,
                   )
                 ),
+                const Divider(),
 
                 Column( // Drags Container
                   children: [
@@ -213,6 +219,8 @@ class _MusicScreenState extends State<MusicScreen> {
                     ),
                   ],
                 ),
+               
+                const Divider(),
 
                 Column( // Draggables Container
                   children: [
@@ -269,10 +277,73 @@ class _MusicScreenState extends State<MusicScreen> {
                     ),
                   ],
                 ),
+                const Divider(),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[0].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[0].icon, style: textStyleTab,)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[1].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[1].icon, style: textStyleTab,)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[2].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[2].icon, style: textStyleTab,)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[3].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[3].icon, style: textStyleTab,)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[4].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[4].icon, style: textStyleTab,)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () { audiosTab[5].play();}, 
+                          icon: const Icon(Icons.touch_app),
+                        ),
+                        Text(audiosTab[5].icon, style: textStyleTab,)
+                      ],
+                    ),
+                  ],
+                ),
+                const Divider(),
+
                 _MusicMenuLocation()
               ],
             ),
-            // _PlayPause(audios: audios),
+
           ],
         )
       ),
@@ -293,13 +364,6 @@ class _MusicScreenState extends State<MusicScreen> {
           dm.current = event;
         });
       });
-      // assetAudioPlayer.currentPosition.listen( (duration) {
-      //   audioPlayerModel.current = duration;
-      // });
-    
-      // assetAudioPlayer.current.listen( (playingAudio){
-      //   audioPlayerModel.soundDuration = playingAudio?.audio.duration ?? const Duration(seconds: 0);
-      // });
     }
   }
 }
@@ -315,69 +379,11 @@ class _MusicMenuLocation extends StatelessWidget {
       bottom: 40,
       child:  SizedBox(
         width: width,
-        child: Center(child: MusicMenu())
+        child: const Center(child: MusicMenu())
       )
     );
   }
 }
 
-class _PlayPause extends StatelessWidget {
-  const _PlayPause({
-    Key? key,
-    required this.audios,
-  }) : super(key: key);
 
-  final List<Audio> audios;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              color: Colors.teal,
-              onPressed: () => {
-              
-                // audios.forEach((element) {element.player.play();})
-                audios[1].player.setVolume(1),
-                audios[2].player.setVolume(1),
-                audios[3].player.setVolume(1),
-                audios[4].player.setVolume(1),
-                audios[5].player.setVolume(1),
-                audios[6].player.setVolume(1),
-                audios[7].player.setVolume(1),
-                audios[8].player.setVolume(1),
-                audios[9].player.setVolume(1),
-
-
-              }, 
-              icon: const Icon(Icons.play_arrow)
-            ),
-            IconButton(
-              color: Colors.red,
-              onPressed: () => {
-                
-                audios[1].player.setVolume(0),
-                audios[2].player.setVolume(0),
-                audios[3].player.setVolume(0),
-                audios[4].player.setVolume(0),
-                audios[5].player.setVolume(0),
-                audios[6].player.setVolume(0),
-                audios[7].player.setVolume(0),
-                audios[8].player.setVolume(0),
-                audios[9].player.setVolume(0),
-
-
-              }, 
-              icon: const Icon(Icons.stop)
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-}
 

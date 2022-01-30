@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/music/music_widgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class MusicButton {
 
   final Function onPress;
   final IconData icon;
+  final String text;
 
   MusicButton({
     required this.onPress, 
-    required this.icon
+    required this.icon,
+    required this.text
   });
 }
 
 class MusicMenu extends StatelessWidget {
 
   final bool hidden;
-
-  final List<MusicButton> items = [
-    MusicButton(icon: Icons.pie_chart, onPress: () => {} ),
-    MusicButton(icon: Icons.search, onPress: () => {} ),
-    MusicButton(icon: Icons.notifications, onPress: () => {} ),
-    MusicButton(icon: Icons.supervised_user_circle, onPress: () => {} ),
-  ];
-
-  MusicMenu({Key? key,  this.hidden = false }) : super(key: key);
+  const MusicMenu({Key? key,  this.hidden = false }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final List<MusicButton> items = [
+      MusicButton(icon: Icons.radio_button_checked_rounded, text: "Grabar", onPress: () => {}),
+      MusicButton(icon: Icons.music_note, text: "Partitura",onPress: () => showMaterialModalBottomSheet(
+        context: context,
+        builder: (context) => const MusicSheets(),
+      )),
+    ];
+
     return ChangeNotifierProvider(
       create: ( _ ) => _MenuModel(),
       child: _MusicMenuBackground( 
@@ -45,17 +51,12 @@ class _MusicMenuBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
-      height: 60,
+      padding: const EdgeInsets.symmetric( vertical: 5),
+      width: 300,
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 10,
-            spreadRadius: -5,
-          )
-        ],
-        color: Colors.white
+        color: ThemeColors.transparent
       ),
       child: child,
     );
@@ -90,10 +91,15 @@ class _MusicMenuButton extends StatelessWidget{
     final model = Provider.of<_MenuModel>(context);
 
     return GestureDetector(
-      child: Icon( 
-        item.icon, 
-        size: model.selectedIndex == index ? 30 : 25 , 
-        color: model.selectedIndex == index ? Colors.pink : Colors.black54 
+      child: Column(
+        children: [
+          Icon( 
+            item.icon, 
+            size: model.selectedIndex == index ? 25 : 25 , 
+            color: model.selectedIndex == index ? Colors.pink : Colors.black54 
+          ),
+          Text(item.text)
+        ],
       ),
       behavior: HitTestBehavior.translucent,
       onTap: () => {  

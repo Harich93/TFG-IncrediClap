@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:incredibclap/themes/themes.dart';
 
 class HomeCard extends StatelessWidget {
 
@@ -101,14 +102,14 @@ class _CardBackground extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(15),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(40),
         child: BackdropFilter( // Efecto Blur
           filter: ImageFilter.blur( sigmaX: 5, sigmaY: 5 ),
           child: Container(
-            width: 150,
+            width: 220,
             height: 150,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(62, 66, 107, 0.2),
+              color: ThemeColors.transparent,
               // color: ThemeColors.purple,
               borderRadius: BorderRadius.circular(20) 
             ),
