@@ -8,12 +8,14 @@ class Audio {
   late final int _id;
   late final String _musicSheet;
   late final String _icon;
+  late int indDrag;
 
-  Audio({ id ,pathAudio, pathMusicSheet, pathIcon }) {
+  Audio({ id = -1,pathAudio ="", pathMusicSheet="", pathIcon="" }) {
     initAudio(pathAudio);
     _id = id;
     _musicSheet = pathMusicSheet;
     _icon = pathIcon;
+    indDrag = -1;
   }
 
   int get id => _id;
@@ -22,9 +24,11 @@ class Audio {
   String get icon => _icon;
 
   void initAudio( pathAudio ) async {
-    await _player.setAsset(pathAudio, preload: true );
-    _player.setVolume(0);
-    _player.play();
+    if(pathAudio != "") {
+      await _player.setAsset(pathAudio, preload: true );
+      _player.setVolume(0);
+      _player.play();
+    }
   }
 
 }

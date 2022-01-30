@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:incredibclap/controller/audios_controller.dart';
+import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
@@ -22,7 +22,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ( _ ) => AuthService() ),
-        ChangeNotifierProvider(create: ( _ ) => AudiosProvider())
+        ChangeNotifierProvider(create: ( _ ) => AudiosProvider()),
+        ChangeNotifierProvider(create: ( _ ) => DurationModel())
       ],
       child: MyApp(),
     );

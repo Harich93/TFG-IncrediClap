@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/themes.dart';
 
 class HomeCard extends StatelessWidget {
 

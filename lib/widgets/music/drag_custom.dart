@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/controller/audios_controller.dart';
-import 'package:incredibclap/models/models.dart';
 import 'package:provider/provider.dart';
+
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/providers/audio_provider.dart';
 
 // ignore: must_be_immutable
 class DragCustom extends StatefulWidget{
@@ -9,11 +10,11 @@ class DragCustom extends StatefulWidget{
   int dragIndx;
   Audio audio;
 
-  DragCustom(
-    this.dragIndx, 
-    this.audio,
-    {Key? key}
-  ) : super(key: key);
+  DragCustom({
+    Key? key,
+    required this.dragIndx, 
+    required this.audio,
+  }) : super(key: key);
 
   
   @override
@@ -26,12 +27,9 @@ class _DragCustomState extends State<DragCustom> {
   @override
   Widget build(BuildContext context) {
 
-    final ac = Provider.of<AudiosController>(context);
+    final ac = Provider.of<AudiosProvider>(context);
     final audio = widget.audio;
     final player = widget.audio.player;
-    // Provider audioCon
-    // final int i = audio;
-
 
     const iconMuteOn = Icon( Icons.volume_up, color: Colors.black );
     const iconMuteOff = Icon( Icons.volume_off, color: Colors.grey );
@@ -46,9 +44,7 @@ class _DragCustomState extends State<DragCustom> {
               _DeleteIcon(
                 onPressed: () => setState(() {
                   player.setVolume(0); 
-                  // audio.setDragAudio(widget.dragIndx, 0);
-                  // audio.setIconDrag(widget.dragIndx,0);
-                  // audio.removeAudioOn(audio.audios[i].id);
+                  ac.removeAudioInDrag(audio);
                 })
               ),
               IconButton(
@@ -64,8 +60,7 @@ class _DragCustomState extends State<DragCustom> {
           ),
 
           _IconSoundBox(
-            // ignore: iterable_contains_unrelated_type
-            visual:  ac.playNow.contains(player) ? Text(audio.id.toString()): Text( audio.icon )
+            visual:  ac.dragContaintAudio(widget.dragIndx, audio)? Text(audio.icon) : const Icon(Icons.bubble_chart)
           )
         ],
       ),

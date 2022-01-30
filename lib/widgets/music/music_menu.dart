@@ -17,13 +17,13 @@ class MusicMenu extends StatelessWidget {
   final bool hidden;
 
   final List<MusicButton> items = [
-    MusicButton(icon: Icons.pie_chart, onPress: () => print('Icon') ),
-    MusicButton(icon: Icons.search, onPress: () => print('Icon') ),
-    MusicButton(icon: Icons.notifications, onPress: () => print('Icon') ),
-    MusicButton(icon: Icons.supervised_user_circle, onPress: () => print('Icon') ),
+    MusicButton(icon: Icons.pie_chart, onPress: () => {} ),
+    MusicButton(icon: Icons.search, onPress: () => {} ),
+    MusicButton(icon: Icons.notifications, onPress: () => {} ),
+    MusicButton(icon: Icons.supervised_user_circle, onPress: () => {} ),
   ];
 
-  MusicMenu({ this.hidden = false });
+  MusicMenu({Key? key,  this.hidden = false }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

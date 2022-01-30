@@ -14,7 +14,7 @@ class DurationModel extends ChangeNotifier {
   String get currentSecond => _printDuration( _current );
 
   double get porcentaje => _soundDuration.inSeconds > 0 
-                            ? _current.inSeconds / _soundDuration.inSeconds
+                            ? _current.inSeconds / _soundDuration.inSeconds * 100
                             : 0;
 
   late AnimationController _controller;
