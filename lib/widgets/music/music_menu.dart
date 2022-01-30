@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -25,8 +26,10 @@ class MusicMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final rs = Provider.of<RecordService>(context);
+
     final List<MusicButton> items = [
-      MusicButton(icon: Icons.radio_button_checked_rounded, text: "Grabar", onPress: () => {}),
+      MusicButton(icon: Icons.radio_button_checked_rounded, text: "Grabar", onPress: () => { rs.isRecord = !rs.isRecord}),
       MusicButton(icon: Icons.music_note, text: "Partitura",onPress: () => showMaterialModalBottomSheet(
         context: context,
         builder: (context) => const MusicSheets(),
@@ -89,6 +92,8 @@ class _MusicMenuButton extends StatelessWidget{
   Widget build(BuildContext context) {
 
     final model = Provider.of<_MenuModel>(context);
+    final rs = Provider.of<RecordService>(context);
+
 
     return GestureDetector(
       child: Column(
@@ -96,7 +101,7 @@ class _MusicMenuButton extends StatelessWidget{
           Icon( 
             item.icon, 
             size: model.selectedIndex == index ? 25 : 25 , 
-            color: model.selectedIndex == index ? Colors.pink : Colors.black54 
+            color: 0 == index && rs.isRecord ? Colors.pink : Colors.black54 
           ),
           Text(item.text)
         ],
