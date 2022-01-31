@@ -26,10 +26,12 @@ class Audio {
   void initAudio( pathAudio ) async {
     if(pathAudio != "") {
       await _player.setAsset(pathAudio, preload: true );
-      _player.setShuffleModeEnabled(true);
+      await _player.setLoopMode(LoopMode.all);
       _player.setVolume(0);
-      _player.play();
+      // _player.play();
     }
   }
+
+
 
 }

@@ -5,16 +5,16 @@ import 'package:incredibclap/models/models.dart';
 class AudiosProvider with ChangeNotifier {
 
   List<Audio> _audios = [
-    Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "1", pathMusicSheet: "assets/sheets/1.jpg"),
-    Audio( id: 1, pathAudio: 'assets/audios/2_Base_palmas.mp3', pathIcon: "2", pathMusicSheet: "assets/sheets/2.jpg"),
-    Audio( id: 2, pathAudio: 'assets/audios/3_Acento_base_palmas.mp3', pathIcon: "3", pathMusicSheet: "assets/sheets/3.jpg"),
-    Audio( id: 3, pathAudio: 'assets/audios/4_Contra_1.mp3', pathIcon: "4", pathMusicSheet: "assets/sheets/4.jpg"),
-    Audio( id: 4, pathAudio: 'assets/audios/5_Contra_2.mp3', pathIcon: "5", pathMusicSheet: "assets/sheets/5.jpg"),
-    Audio( id: 5, pathAudio: 'assets/audios/6_Contra_3.mp3', pathIcon: "6", pathMusicSheet: "assets/sheets/6.jpg"),
-    Audio( id: 6, pathAudio: 'assets/audios/7_Contra_4.mp3', pathIcon: "7", pathMusicSheet:"assets/sheets/7.jpg"),
-    Audio( id: 7, pathAudio: 'assets/audios/8_Tresillo_taconeo_1.mp3', pathIcon: "8", pathMusicSheet: "assets/sheets/8.jpg"),
-    Audio( id: 8, pathAudio: 'assets/audios/9_Tresillo_taconeo_2.mp3', pathIcon: "9", pathMusicSheet: "assets/sheets/9.jpg"),
-    Audio( id: 9, pathAudio:'assets/audios/10_Cierre.mp3', pathIcon: "10", pathMusicSheet: "assets/sheets/10.jpg"),
+    Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "1", pathMusicSheet: "assets/sheets/1r.jpg"),
+    Audio( id: 1, pathAudio: 'assets/audios/2_Base_palmas.mp3', pathIcon: "2", pathMusicSheet: "assets/sheets/2r.jpg"),
+    Audio( id: 2, pathAudio: 'assets/audios/3_Acento_base_palmas.mp3', pathIcon: "3", pathMusicSheet: "assets/sheets/3r.jpg"),
+    Audio( id: 3, pathAudio: 'assets/audios/4_Contra_1.mp3', pathIcon: "4", pathMusicSheet: "assets/sheets/4r.jpg"),
+    Audio( id: 4, pathAudio: 'assets/audios/5_Contra_2.mp3', pathIcon: "5", pathMusicSheet: "assets/sheets/5r.jpg"),
+    Audio( id: 5, pathAudio: 'assets/audios/6_Contra_3.mp3', pathIcon: "6", pathMusicSheet: "assets/sheets/6r.jpg"),
+    Audio( id: 6, pathAudio: 'assets/audios/7_Contra_4.mp3', pathIcon: "7", pathMusicSheet:"assets/sheets/7r.jpg"),
+    Audio( id: 7, pathAudio: 'assets/audios/8_Tresillo_taconeo_1.mp3', pathIcon: "8", pathMusicSheet: "assets/sheets/8r.jpg"),
+    Audio( id: 8, pathAudio: 'assets/audios/9_Tresillo_taconeo_2.mp3', pathIcon: "9", pathMusicSheet: "assets/sheets/9r.jpg"),
+    Audio( id: 9, pathAudio:'assets/audios/10_Cierre.mp3', pathIcon: "10", pathMusicSheet: "assets/sheets/10r.jpg"),
   ];
   List<Audio> get audios => _audios;
   set audios( List<Audio> value ) {
@@ -32,7 +32,7 @@ class AudiosProvider with ChangeNotifier {
   ];
   List<AudioTab> get audiostab => _audiosTab;
 
-  List<dynamic> _dragAudio = List.generate(10, (index) => false);
+  List<dynamic> _dragAudio = List.generate(8, (index) => false);
   List<dynamic> get dragAudio => _dragAudio;
   set dragAudio( List<dynamic> value ){
     _dragAudio = value;
@@ -60,25 +60,35 @@ class AudiosProvider with ChangeNotifier {
   }
 
   void resetAudiosProvider() {
-    // audios = [
-    //   Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "1", pathMusicSheet: "assets/sheets/1.jpg"),
-    //   Audio( id: 1, pathAudio: 'assets/audios/2_Base_palmas.mp3', pathIcon: "2", pathMusicSheet: "assets/sheets/2.jpg"),
-    //   Audio( id: 2, pathAudio: 'assets/audios/3_Acento_base_palmas.mp3', pathIcon: "3", pathMusicSheet: "assets/sheets/3.jpg"),
-    //   Audio( id: 3, pathAudio: 'assets/audios/4_Contra_1.mp3', pathIcon: "4", pathMusicSheet: "assets/sheets/4.jpg"),
-    //   Audio( id: 4, pathAudio: 'assets/audios/5_Contra_2.mp3', pathIcon: "5", pathMusicSheet: "assets/sheets/5.jpg"),
-    //   Audio( id: 5, pathAudio: 'assets/audios/6_Contra_3.mp3', pathIcon: "6", pathMusicSheet: "assets/sheets/6.jpg"),
-    //   Audio( id: 6, pathAudio: 'assets/audios/7_Contra_4.mp3', pathIcon: "7", pathMusicSheet:"assets/sheets/7.jpg"),
-    //   Audio( id: 7, pathAudio: 'assets/audios/8_Tresillo_taconeo_1.mp3', pathIcon: "8", pathMusicSheet: "assets/sheets/8.jpg"),
-    //   Audio( id: 8, pathAudio: 'assets/audios/9_Tresillo_taconeo_2.mp3', pathIcon: "9", pathMusicSheet: "assets/sheets/9.jpg"),
-    //   Audio( id: 9, pathAudio:'assets/audios/10_Cierre.mp3', pathIcon: "10", pathMusicSheet: "assets/sheets/10.jpg"),
-    // ];
     for (var item in dragAudio) {
       if( item != false){
         item.player.setVolume(0.0);
       }
     }
-    dragAudio = List.generate(10, (index) => false);
+    dragAudio = List.generate(8, (index) => false);
+  }
+
+  bool isDragAudiosEmpty() {
+
+    int cont = 0;
+
+    for (var a in _dragAudio) {
+      a == false ? cont++ : null;
+    }
+    
+    return cont == 8 ? true : false;
+
   }
   
-  
+  void playAll(){
+    for (var audio in _audios) {
+      audio.player.play();
+    }
+  }
+
+  void stopAll(){
+    for (var audio in _audios) {
+      audio.player.setVolume(0);
+    }
+  }
 }

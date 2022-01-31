@@ -39,6 +39,7 @@ class _MusicScreenState extends State<MusicScreen> {
       onWillPop: () async{ 
         ap.resetAudiosProvider();
         dm.playing = false;
+        dm.current = const Duration(seconds: 0);
         return true;
       },
       child: Scaffold(
@@ -55,7 +56,8 @@ class _MusicScreenState extends State<MusicScreen> {
           backgroundColor: ThemeColors.primary,
           toolbarHeight: 50,
         ),
-        body:HomeBackground( child: Stack(
+        body:HomeBackground( 
+          child: Stack(
             children: [
               
               Column(
@@ -112,6 +114,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 1);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 1);
                                 });
                               }
                             },
@@ -130,6 +133,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 2);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 2);
                                 });
                               }
                             },
@@ -149,6 +153,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 3);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 3);
                                 });
                               }
                             },
@@ -175,6 +180,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 4);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 4);
                                 });
                               }
                             },
@@ -193,6 +199,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 5);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 5);
                                 });
                               }
                             },
@@ -211,6 +218,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 6);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 6);
                                 });
                               }
                             },
@@ -230,6 +238,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 setState(() {
                                   ap.addAudioInDrag(audio, 7);
                                   audio.player.setVolume(1);
+                                  _setDuration(dm, ap, 7);
                                 });
                               }
                             },
@@ -269,7 +278,9 @@ class _MusicScreenState extends State<MusicScreen> {
                             : soundEnable,
                         ],
                       ),
+                     
                       const SizedBox(height:20),
+                     
                       Row( // Contenedores de sonidos
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -297,9 +308,10 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ],
                   ),
+                  
                   const Divider(),
     
-                  Row(
+                  Row( // Tabs
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
@@ -358,6 +370,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ],
                   ),
+                  
                   const Divider(),
     
                   _MusicMenuLocation()
@@ -374,6 +387,7 @@ class _MusicScreenState extends State<MusicScreen> {
   void _setDuration( DurationModel dm, AudiosProvider ap, int indDrag) async{ // Establece la duración del sonido
     
     if(!dm.playing) {
+      ap.playAll();
 
       final Audio audio = ap.dragAudio[indDrag] ;
       dm.playing = true;

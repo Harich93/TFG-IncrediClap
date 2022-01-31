@@ -27,7 +27,7 @@ class _DragCustomState extends State<DragCustom> {
   @override
   Widget build(BuildContext context) {
 
-    final ac = Provider.of<AudiosProvider>(context);
+    final ap = Provider.of<AudiosProvider>(context);
     final audio = widget.audio;
     final player = widget.audio.player;
 
@@ -44,7 +44,7 @@ class _DragCustomState extends State<DragCustom> {
               _DeleteIcon(
                 onPressed: () => setState(() {
                   player.setVolume(0); 
-                  ac.removeAudioInDrag(audio);
+                  ap.removeAudioInDrag(audio);
                 })
               ),
               IconButton(
@@ -60,7 +60,7 @@ class _DragCustomState extends State<DragCustom> {
           ),
 
           _IconSoundBox(
-            visual:  ac.dragContaintAudio(widget.dragIndx, audio)? Text(audio.icon) : const Icon(Icons.bubble_chart)
+            visual:  ap.dragContaintAudio(widget.dragIndx, audio)? Text(audio.icon) : const Icon(Icons.bubble_chart)
           )
         ],
       ),
