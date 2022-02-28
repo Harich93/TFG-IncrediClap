@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
+import 'package:incredibclap/providers/muenu_hidden.dart';
+import 'package:incredibclap/screens/player_screen.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: ( _ ) => AudiosProvider()),
         ChangeNotifierProvider(create: ( _ ) => DurationModel()),
         ChangeNotifierProvider(create: ( _ ) => RecordService()),
-
+        ChangeNotifierProvider(create: ( _ ) => MenuHidden()),
       ],
       child: MyApp(),
     );
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName : ( _ ) => const RegisterScreen(),
         HomeScreen.routeName     : ( _ ) => const HomeScreen(),
         MusicScreen.routeName    : ( _ ) => const MusicScreen(),
+        PlayerScreen.routeName   : ( _ ) => const PlayerScreen()
       },
     );
   }

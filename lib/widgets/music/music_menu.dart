@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/models/duration_model.dart';
+import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,29 @@ class MusicMenu extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final rs = Provider.of<RecordService>(context);
+    final ap = Provider.of<AudiosProvider>(context);
+    final dm = Provider.of<DurationModel>(context);
+
 
     final List<MusicButton> items = [
-      MusicButton(icon: Icons.radio_button_checked_rounded, text: "Grabar", onPress: () => { rs.isRecord = !rs.isRecord}),
+      MusicButton(icon: Icons.radio_button_checked_rounded, text: rs.isRecord ? "Guardar" : "Grabar", onPress: () => { 
+        
+        rs.isRecord = !rs.isRecord,
+
+        if( rs.isRecord ) {
+          for (var audio in  ap.dragAudio ) {
+            audio.id != -1 
+              ? rs.addPoint( dm.current, audio) 
+              : null
+          }
+        }
+        else {
+          //TODO: Guardar en BD
+        }
+        
+
+
+      }),
       MusicButton(icon: Icons.music_note, text: "Partitura",onPress: () => showMaterialModalBottomSheet(
         context: context,
         builder: (context) => const MusicSheets(),
@@ -59,7 +80,14 @@ class _MusicMenuBackground extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: ThemeColors.transparent
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            blurRadius: 20,
+            offset: Offset(1,1),
+            color: Colors.black12
+          )
+        ]
       ),
       child: child,
     );

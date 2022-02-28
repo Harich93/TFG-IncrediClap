@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
+import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/widgets/home/home_background.dart';
 import 'package:provider/provider.dart';
 
@@ -63,46 +64,47 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
 
     return SizedBox(
       height: size.height * .42,
-      child: HomeBackground(
+      child: Container(
+        color: ThemeColors.backgroundSheets,
         child: Stack(
-          children: [
-            ListView.builder(
-              itemCount: sheets.length,
-              itemBuilder: ( BuildContext context, int ind ) => SizedBox(
-                width: 600,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: AnimatedBuilder(
-                      animation: controller,
-                      builder: (BuildContext context, Widget? child ) {
-                        return Transform.translate(
-                          offset: Offset(0 - move.value,0),
-                          child: Image(
-                            image: AssetImage(sheets[ind].musicSheet,),
-                            repeat: ImageRepeat.repeatX,
-                            alignment: Alignment.centerLeft,
-                            width: end ,
-                            height: 40,
-                            fit: BoxFit.contain,
-                          ),
-                        );
-                      }
+            children: [
+              ListView.builder(
+                itemCount: sheets.length,
+                itemBuilder: ( BuildContext context, int ind ) => SizedBox(
+                  width: 600,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: AnimatedBuilder(
+                        animation: controller,
+                        builder: (BuildContext context, Widget? child ) {
+                          return Transform.translate(
+                            offset: Offset(0 - move.value,0),
+                            child: Image(
+                              image: AssetImage(sheets[ind].musicSheet,),
+                              repeat: ImageRepeat.repeatX,
+                              alignment: Alignment.centerLeft,
+                              width: end ,
+                              height: 40,
+                              fit: BoxFit.contain,
+                            ),
+                          );
+                        }
+                      ),
                     ),
-                  ),
+                ),
               ),
-            ),
-            Container(
-              margin: const  EdgeInsets.only( left: 0 ),
-              child: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.white, shadows: [
-                Shadow(
-                  blurRadius: 5,
-                  offset: Offset(0,5)
-                )
-              ], )
-            )
-          ]
-        )
-      ),
+              Container(
+                margin: const  EdgeInsets.only( left: 0 ),
+                child: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.white, shadows: [
+                  Shadow(
+                    blurRadius: 5,
+                    offset: Offset(0,5)
+                  )
+                ], )
+              )
+            ]
+          ),
+      )
     );
 
         
@@ -111,7 +113,7 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
   List<Audio> createListSheets( List<dynamic> list ) {
     List<Audio> sheets = List.empty(growable: true);
     for (var item in list) {
-      if( item != false){
+      if( item.musicSheet != ""){
         sheets.add(item);
       }
     }

@@ -23,57 +23,53 @@ class AudiosProvider with ChangeNotifier {
   }
 
   final List<AudioTab> _audiosTab = [
-    AudioTab( id: 0, pathAudio: 'assets/audios/Tabs/Palma_01.wav', pathIcon: "Palma1"),
-    AudioTab( id: 1, pathAudio: 'assets/audios/Tabs/Palma_02.wav', pathIcon: "Palma2"),
-    AudioTab( id: 2, pathAudio: 'assets/audios/Tabs/Palma_03.wav', pathIcon: "Palma3"),
-    AudioTab( id: 3, pathAudio: 'assets/audios/Tabs/Palma_04.wav', pathIcon: "Palma4"),
-    AudioTab( id: 4, pathAudio: 'assets/audios/Tabs/Tacon_01.wav', pathIcon: "Tacon1"),
-    AudioTab( id: 5, pathAudio: 'assets/audios/Tabs/Tacon_02.wav', pathIcon: "Tacon2"),
+    AudioTab( id: 10, pathAudio: 'assets/audios/Tabs/Palma_01.wav', pathIcon: "Palma1"),
+    AudioTab( id: 11, pathAudio: 'assets/audios/Tabs/Palma_02.wav', pathIcon: "Palma2"),
+    AudioTab( id: 12, pathAudio: 'assets/audios/Tabs/Palma_03.wav', pathIcon: "Palma3"),
+    AudioTab( id: 13, pathAudio: 'assets/audios/Tabs/Palma_04.wav', pathIcon: "Palma4"),
+    AudioTab( id: 14, pathAudio: 'assets/audios/Tabs/Tacon_01.wav', pathIcon: "Tacon1"),
+    AudioTab( id: 15, pathAudio: 'assets/audios/Tabs/Tacon_02.wav', pathIcon: "Tacon2"),
   ];
   List<AudioTab> get audiostab => _audiosTab;
 
-  List<dynamic> _dragAudio = List.generate(8, (index) => false);
-  List<dynamic> get dragAudio => _dragAudio;
-  set dragAudio( List<dynamic> value ){
-    _dragAudio = value;
-    notifyListeners();
+  List<Audio> dragAudio = List.generate(8, (index) => Audio(id: -1));
+
+  bool dragContaintAudio( int ind ) {
+    return dragAudio[ind].id != -1 ? true : false;
   }
 
-  bool dragContaintAudio( int ind, Audio audio ) {
-    return _dragAudio[ind] != false && _dragAudio[ind].id != -1 ? true : false;
-  }
-
-  Audio setInitAudioDrag( int indDrag ) {
-    return _dragAudio[indDrag] == false ? Audio() : _dragAudio[indDrag];
-  }
+  // Audio setInitAudioDrag( int indDrag ) {
+  //   return dragAudio[indDrag] == false ? Audio() : dragAudio[indDrag];
+  // }
 
   void addAudioInDrag( Audio audio, int indDrag ) {
     audio.indDrag = indDrag;
-    _dragAudio[indDrag] = audio;
+    dragAudio[indDrag] = audio;
     notifyListeners();
   }
 
   void removeAudioInDrag( Audio value) {
-    _dragAudio = _dragAudio.mapIndexed( (index, element) => index == value.indDrag ? false : element ).toList();
+    dragAudio = dragAudio.mapIndexed( (index, element) => index == value.indDrag ? Audio(id: -1) : element ).toList();
     value.indDrag = -1;
     notifyListeners();
   }
 
   void resetAudiosProvider() {
     for (var item in dragAudio) {
-      if( item != false){
+      if( item.id != -1){
         item.player.setVolume(0.0);
       }
     }
-    dragAudio = List.generate(8, (index) => false);
+    dragAudio = List.generate(8, (index) => Audio(id: -1));
+    notifyListeners();
   }
 
   bool isDragAudiosEmpty() {
 
     int cont = 0;
 
-    for (var a in _dragAudio) {
-      a == false ? cont++ : null;
+    for (var a in dragAudio) {
+      a.id == -1 ? cont++ : null;
     }
     
     return cont == 8 ? true : false;

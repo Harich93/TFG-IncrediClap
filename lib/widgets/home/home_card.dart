@@ -10,27 +10,41 @@ class HomeCard extends StatelessWidget {
     required this.buttonColor,
     required this.buttonIcon,
     required this.title,
-    required this.onPressed
+    required this.onPressed,
+    required this.image
   }) : super(key: key);
   
   final Color buttonColor;
   final IconData buttonIcon;
   final String title;
   final Function onPressed;
+  final AssetImage image; 
+
 
 
   @override
   Widget build(BuildContext context) {
            
-    return _CardBackground( 
-      child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _ButtonGradient( color: buttonColor, icon: buttonIcon, onPressed: onPressed,),
-                const SizedBox( height: 20,),
-                Text(title, style: TextStyle( color: buttonColor, fontSize: 18),)
-              ],
-            )
+    return GestureDetector(
+      onTap: () => onPressed(),
+      child: _CardBackground( 
+        image: image,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            const SizedBox( width: 20 ),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ 
+                Text(title, style: TextStyle( color: buttonColor, fontSize: 40, fontFamily: 'Amadeus') )
+              ]
+            ),
+          ],
+        ),
+        ),
+      
     );
   }
 }
@@ -76,6 +90,7 @@ class _BackgroundButton extends StatelessWidget {
       width: 50,
       height: 50,
       decoration: BoxDecoration(
+
         borderRadius: BorderRadius.circular(50),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -86,6 +101,7 @@ class _BackgroundButton extends StatelessWidget {
           ],
         )
       ),
+      
       child: child
     );
   }
@@ -93,31 +109,37 @@ class _BackgroundButton extends StatelessWidget {
 
 class _CardBackground extends StatelessWidget {
 
-  const _CardBackground( { required this.child } );
+  const _CardBackground( { required this.child, required this.image } );
 
   final Widget child;
+  final AssetImage image; 
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
-        child: BackdropFilter( // Efecto Blur
-          filter: ImageFilter.blur( sigmaX: 5, sigmaY: 5 ),
-          child: Container(
-            width: 220,
-            height: 150,
-            decoration: BoxDecoration(
-              color: ThemeColors.transparent,
-              // color: ThemeColors.purple,
-              borderRadius: BorderRadius.circular(20) 
-            ),
-            child: child,
+      child: Container(
+        width: 350,
+        height: 150,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            alignment: Alignment.centerRight,
+            fit: BoxFit.cover,
+            image: image
           ),
+          boxShadow: [
+            BoxShadow(
+              spreadRadius: 2,
+              color: Colors.grey[200]!,
+              offset: const Offset(1,1),
+              blurRadius: 10
+            )
+          ],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5) 
         ),
+        child: child,
       ),
-      
     );
   }
 }

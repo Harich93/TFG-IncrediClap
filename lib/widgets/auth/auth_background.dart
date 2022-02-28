@@ -35,7 +35,7 @@ class _UserIcon extends StatelessWidget {
     return SafeArea(
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 50),
         child: const Icon( Icons.person_pin, color: Colors.white, size: 100),
       ),
     );
@@ -57,14 +57,15 @@ class _ColorBox extends StatelessWidget {
     );
   }
 
-  BoxDecoration _builBoxDecoration() => const BoxDecoration(
-    gradient: LinearGradient(
-      transform: GradientRotation(90),
-      colors: [
-        ThemeColors.darkPrimary,
-        ThemeColors.primary,
-      ]
-    )
+  BoxDecoration _builBoxDecoration() =>  const BoxDecoration(
+    color: ThemeColors.primary,
+    // gradient: LinearGradient(
+    //   transform: const GradientRotation(90),
+    //   colors: [
+    //     // ThemeColors.darkPrimary,
+    //     ThemeColors.primary,
+    //   ]
+    // )
   );
 }
 

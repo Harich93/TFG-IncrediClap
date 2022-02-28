@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
@@ -8,12 +10,10 @@ import 'package:incredibclap/providers/audio_provider.dart';
 class DragCustom extends StatefulWidget{
 
   int dragIndx;
-  Audio audio;
 
   DragCustom({
     Key? key,
     required this.dragIndx, 
-    required this.audio,
   }) : super(key: key);
 
   
@@ -28,8 +28,13 @@ class _DragCustomState extends State<DragCustom> {
   Widget build(BuildContext context) {
 
     final ap = Provider.of<AudiosProvider>(context);
-    final audio = widget.audio;
-    final player = widget.audio.player;
+    final rs = Provider.of<RecordService>(context);
+    final dm = Provider.of<DurationModel>(context);
+
+
+    dynamic item = ap.dragAudio[widget.dragIndx];
+    Audio audio = item.runtimeType == Audio ? item : Audio();
+    final player = audio.player;
 
     const iconMuteOn = Icon( Icons.volume_up, color: Colors.black );
     const iconMuteOff = Icon( Icons.volume_off, color: Colors.grey );
@@ -45,22 +50,25 @@ class _DragCustomState extends State<DragCustom> {
                 onPressed: () => setState(() {
                   player.setVolume(0); 
                   ap.removeAudioInDrag(audio);
+                  rs.addPoint(dm.current, audio);
                 })
               ),
               IconButton(
                 splashRadius: 20,
-                icon: player.volume > 0 ? iconMuteOn : iconMuteOff,
+                icon: player.volume != 1 ? iconMuteOff : iconMuteOn,
                 onPressed: () => setState(() {
                   player.volume == 0
                     ? player.setVolume(1)
                     : player.setVolume(0);        
+                  rs.addPoint(dm.current, audio);
                 }),
               )
             ],
           ),
 
           _IconSoundBox(
-            visual:  ap.dragContaintAudio(widget.dragIndx, audio)? Text(audio.icon) : const Icon(Icons.bubble_chart)
+            visual:  ap.dragContaintAudio(widget.dragIndx) ? Text(audio.icon) : const Icon(Icons.bubble_chart),
+            activo: ap.dragContaintAudio(widget.dragIndx),
           )
         ],
       ),
@@ -73,9 +81,11 @@ class _IconSoundBox extends StatelessWidget {
   const _IconSoundBox({
     Key? key, 
     required this.visual,
+    required this.activo
   }) : super(key: key);
 
   final Widget visual;
+  final bool activo;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +96,7 @@ class _IconSoundBox extends StatelessWidget {
       width: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: Colors.black26
+        color: !activo ? Colors.black12 : ThemeColors.primary
       ),
       child:  Center(child: visual)
     );

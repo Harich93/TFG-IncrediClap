@@ -41,9 +41,9 @@ class _ColorBox extends StatelessWidget {
     );
   }
 
-  BoxDecoration _builBoxDecoration() => const BoxDecoration(
+  BoxDecoration _builBoxDecoration() => BoxDecoration(
     gradient: LinearGradient(
-      transform: GradientRotation(120),
+      transform: const GradientRotation(120),
       colors: [
         ThemeColors.primary,
         ThemeColors.darkPrimary,

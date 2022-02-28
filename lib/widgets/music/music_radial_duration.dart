@@ -65,7 +65,7 @@ class _RadialProgressState extends State<RadialProgress> with SingleTickerProvid
           width: double.infinity,
           height: double.infinity,
           child: CustomPaint(
-            child: Center(child: Text(widget.percentageString)),
+            child: Center(child: Text(widget.percentageString, style: const TextStyle(fontSize: 12, color: Colors.black87),)),
             painter: _MiRadialProgress( 
               percentage: ( widget.percentage - differsPercentage ) + ( differsPercentage * controller.value ), 
               primaryColor: widget.primaryColor,
