@@ -44,8 +44,6 @@ class AuthButton extends StatelessWidget {
             ? onPressed()
             : null;
 
-          
-
           loginProvider.isLoading = false;
           
       }

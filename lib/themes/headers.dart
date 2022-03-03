@@ -13,17 +13,3 @@ class HeaderCuadradro extends StatelessWidget {
   }
 }
 
-class HeaderCircular extends StatelessWidget {
-  const HeaderCircular({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(70), bottomRight: Radius.circular(70)),
-        color: ThemeColors.primary
-      ),
-    );
-  }
-}

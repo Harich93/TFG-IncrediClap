@@ -3,7 +3,6 @@ import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/themes/colors.dart';
-import 'package:incredibclap/widgets/home/home_background.dart';
 import 'package:provider/provider.dart';
 
 class MusicSheets extends StatefulWidget {
@@ -32,9 +31,9 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
     );
 
     controller.addListener(() { 
-      // if( controller.status == AnimationStatus.completed ) {
-      //   controller.repeat();
-      // }
+      if( controller.status == AnimationStatus.completed ) {
+        controller.repeat();
+      }
     });
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/services/services.dart';
@@ -32,6 +33,49 @@ class MusicMenu extends StatelessWidget {
     final dm = Provider.of<DurationModel>(context);
 
 
+    // Alert confirmacion de guardado
+    Future<void> _showMyDialog() async { 
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Guardar grabación'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('This is a demo alert dialog.'),
+                  Text('¿Desea guardar la grabación?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              
+              TextButton(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+
+              TextButton(
+                child: const Text('Si'),
+                onPressed: () {
+                  rs.addAudio();
+                  Navigator.of(context).pop();
+                },
+              )
+            ]
+          );
+        },
+      );
+    }
+
+  
+    final Audio audio = ap.audios[0];
+    var zeroDuration = const Duration(hours: 0, minutes: 0, seconds: 0, milliseconds: 0);
+    Duration durationless = const Duration();
+
     final List<MusicButton> items = [
       MusicButton(icon: Icons.radio_button_checked_rounded, text: rs.isRecord ? "Guardar" : "Grabar", onPress: () => { 
         
@@ -39,13 +83,40 @@ class MusicMenu extends StatelessWidget {
 
         if( rs.isRecord ) {
           for (var audio in  ap.dragAudio ) {
-            audio.id != -1 
-              ? rs.addPoint( dm.current, audio) 
-              : null
+            if(audio.id != -1)  
+              rs.addPoint( dm.current, audio.id) 
+          },
+
+           if(!dm.playing) {
+            dm.soundDuration = audio.player.duration!,
+
+            audio.player.createPositionStream().listen( (event) {
+              
+              if( dm.playing ) { 
+                // print(event.toString());
+                if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
+                  dm.current = event + durationless;
+                }
+              }
+              
+              else { 
+                durationless = zeroDuration - event; 
+                // print(durationless.toString());
+                dm.current = zeroDuration; 
+              }
+              
+              
+            }),
+
+            dm.playing = true,
           }
+
+
         }
         else {
-          //TODO: Guardar en BD
+
+          _showMyDialog(),
+          dm.playing = false
         }
         
 
@@ -64,6 +135,11 @@ class MusicMenu extends StatelessWidget {
       ),
     );
   }
+
+  
+
+
+
 }
 
 class _MusicMenuBackground extends StatelessWidget {
@@ -77,7 +153,7 @@ class _MusicMenuBackground extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric( vertical: 5),
       width: 300,
-      height: 50,
+      height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         color: Colors.white,

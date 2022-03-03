@@ -6,7 +6,10 @@ class Preferences {
 
   static String _name = '';
   static String _email = '';
+  static String _password = '';
   static String _token = '';
+  static bool _isDarkmode = false;
+  static bool _recordUser = false;
 
   static Future init() async{
     _prefs = await SharedPreferences.getInstance();
@@ -42,6 +45,36 @@ class Preferences {
   static set email( String value ) {
    _email = value;
     _prefs.setString('email', _email);
+  }
+
+    // <-- Password -->
+  static String get password {
+    return _prefs.getString('password') ?? _password;
+  }
+
+  static set password( String value ) {
+    _password = value;
+    _prefs.setString('password', _password);
+  }
+
+  // <!-- isDarkmode -->
+  static bool get isDarkmode {
+    return _prefs.getBool('isDarkmode') ?? _isDarkmode;
+  }
+
+  static set isDarkmode( bool value ) {
+    _isDarkmode = value;
+    _prefs.setBool('isDarkmode', _isDarkmode);
+  }
+
+    // <!-- isDarkmode -->
+  static bool get recordUser {
+    return _prefs.getBool('recordUser') ?? _recordUser;
+  }
+
+  static set recordUser( bool value ) {
+    _recordUser = value;
+    _prefs.setBool('recordUser', _recordUser);
   }
 
 }

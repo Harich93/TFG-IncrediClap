@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/themes.dart';
 
 class HomeCard extends StatelessWidget {
 
@@ -49,63 +47,8 @@ class HomeCard extends StatelessWidget {
   }
 }
 
-class _ButtonGradient extends StatelessWidget {
-  const _ButtonGradient({
-    Key? key,
-    required this.color,
-    required this.icon,
-    required this.onPressed
 
-  }) : super(key: key);
 
-  final Color color;
-  final IconData icon;
-  final Function onPressed;
-  
-  @override
-  Widget build(BuildContext context) {
-
-    return _BackgroundButton(
-      child: IconButton(
-        onPressed: () => onPressed(),
-        icon: Icon(icon, color: Colors.white),
-      ), 
-      color: color
-    ); 
-  }
-}
-
-class _BackgroundButton extends StatelessWidget {
-  const _BackgroundButton({
-    required this.child,
-    required this.color
-  });
-
-  final Widget child;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-
-        borderRadius: BorderRadius.circular(50),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          stops: const [ 0.01, 0.5 ],
-          colors: [
-            Colors.white,
-            color
-          ],
-        )
-      ),
-      
-      child: child
-    );
-  }
-}
 
 class _CardBackground extends StatelessWidget {
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/providers/audio_provider.dart';
-import 'package:incredibclap/providers/muenu_hidden.dart';
+import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/player_screen.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: HomeScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName    : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName : ( _ ) => const RegisterScreen(),

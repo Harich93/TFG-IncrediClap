@@ -84,7 +84,7 @@ class _HomeBodyState extends State<_HomeBody> {
           const Divider(),
           
           SizedBox(
-            height: size.height * 0.72,
+            height: size.height * 0.69,
             child: Stack(
               children: [ 
 
@@ -110,7 +110,7 @@ class _HomeBodyState extends State<_HomeBody> {
                       onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
                     ),
 
-                    const SizedBox(height: 150),
+                    const SizedBox(height: 100),
 
                     Column(
                       children: const [
@@ -152,39 +152,37 @@ class _TitlePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric( vertical: 25, horizontal: 25 ),
       width: double.infinity,
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, 
-          children: const [
-            SizedBox( height: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, 
+        children: const [
+          SizedBox( height: 10),
 
-            Center(
-              child: Text(
-                 'IES Almunia', 
-                style: TextStyle(
-                  color: colorTexto, 
-                  fontFamily: 'Amadeus',
-                  fontSize: 50,
-                )
+          Center(
+            child: Text(
+               'IES Almunia', 
+              style: TextStyle(
+                color: colorTexto, 
+                fontFamily: 'Amadeus',
+                fontSize: 50,
+              )
+            ),
+          ),
+
+          SizedBox( height: 10),
+          
+          Center(
+            child: Text(
+              '2021 - 2022',
+              style:  TextStyle(
+                fontFamily: 'Amadeus',
+                color: colorTexto,
+                fontSize: 15
               ),
             ),
+          ),
 
-            SizedBox( height: 10),
-            
-            Center(
-              child: Text(
-                '2021 - 2022',
-                style:  TextStyle(
-                  fontFamily: 'Amadeus',
-                  color: colorTexto,
-                  fontSize: 15
-                ),
-              ),
-            ),
-
-            
-          ]
-        ),
+          
+        ]
       ),
     );
   }

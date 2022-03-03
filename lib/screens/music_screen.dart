@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
-import 'package:incredibclap/widgets/home/home_widgets.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 
 class MusicScreen extends StatefulWidget {
@@ -25,7 +24,8 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    bool firstPlay = true;
     const soundEnable = IconButton(onPressed: null, icon: Icon(Icons.bubble_chart));
     
     AudiosProvider ap = Provider.of<AudiosProvider>(context);
@@ -35,10 +35,13 @@ class _MusicScreenState extends State<MusicScreen> {
     List<AudioTab> audiosTab = ap.audiostab;
    
     const textStyleTab = TextStyle( color: Colors.black87);
+    
     return WillPopScope(
       onWillPop: () async{ 
         ap.resetAudiosProvider();
         dm.playing = false;
+        firstPlay = true;
+        rs.isRecord = false;
         dm.current = const Duration(seconds: 0);
         return true;
       },
@@ -51,11 +54,15 @@ class _MusicScreenState extends State<MusicScreen> {
           title: const Text("IncredibClap"),
           backgroundColor: ThemeColors.primary,
         ),
+        
         body:Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              
               Column( // Drags Container
                 children: [
+                  
+                  const SizedBox(height: 20),
 
                   SizedBox(  
                     height: 70,
@@ -72,6 +79,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   Row( // Drags 1
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                    
                       DragTarget<Audio>( // Audio 0
                         builder: (
                           BuildContext context,
@@ -80,7 +88,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom( dragIndx: 0 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 0)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 0, firstPlay)
                       ),
                       
                       DragTarget<Audio>( // Audio 1
@@ -91,7 +99,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(  dragIndx: 1 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 1)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 1, firstPlay)
                       ),
             
                       DragTarget<Audio>( // Audio 2
@@ -102,7 +110,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(dragIndx: 2 ),
     
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 2)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 2, firstPlay)
     
                       ),
     
@@ -114,7 +122,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(dragIndx: 3 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 3)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 3, firstPlay)
     
                       ),
                     ],
@@ -125,6 +133,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   Row( // Drags 2
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+             
                       DragTarget<Audio>( // Audio 4
                         builder: (
                           BuildContext context,
@@ -133,7 +142,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom( dragIndx: 4 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 4)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 4, firstPlay)
                       ),
                       
                       DragTarget<Audio>( // Audio 5
@@ -144,7 +153,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(  dragIndx: 5 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 5)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 5, firstPlay)
                       ),
             
                       DragTarget<Audio>( // Audio 6
@@ -155,7 +164,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(dragIndx: 6),
     
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 6)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 6, firstPlay)
     
                       ),
     
@@ -167,7 +176,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         
                         ) => DragCustom(dragIndx: 7 ),
             
-                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 7)
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 7, firstPlay)
     
                       ),
                     ],
@@ -175,7 +184,8 @@ class _MusicScreenState extends State<MusicScreen> {
                 ],
               ),
              
-              // const Divider(),
+              const SizedBox(height: 35),
+
     
               Column( // Draggables Container
                 children: [
@@ -234,8 +244,8 @@ class _MusicScreenState extends State<MusicScreen> {
                   ),
                 ],
               ),
-              
-              // const Divider(),
+
+              const SizedBox(height: 50),
     
               Row( // Tabs
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,8 +258,8 @@ class _MusicScreenState extends State<MusicScreen> {
                   _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
                 ],
               ),
-              
-              // const Divider(),
+
+              const SizedBox(height: 50),
     
               _MusicMenuLocation()
             ],
@@ -258,31 +268,19 @@ class _MusicScreenState extends State<MusicScreen> {
     );
   }
 
-  void _onAccept(AudiosProvider ap, Audio audio, DurationModel dm, RecordService rs, int ind) {
+  void _onAccept(AudiosProvider ap, Audio audio, DurationModel dm, RecordService rs, int ind, bool firstPlay) { 
      if( !ap.dragContaintAudio(ind) ){
       setState(() {
         ap.addAudioInDrag(audio, ind);
         audio.player.setVolume(1);
-        _setDuration(dm, ap, ind);
-        rs.addPoint(dm.current, audio);
-      });
-    }
-  }
 
-  void _setDuration( DurationModel dm, AudiosProvider ap, int indDrag) async{ // Establece la duración del sonido
-    
-    if(!dm.playing) {
-      ap.playAll();
+        if(firstPlay) {
+          audio.player.createPositionStream().listen((event) {dm.currentSheets = event;});
+          firstPlay = false;
+          ap.playAll();
+        }
 
-      final Audio audio = ap.dragAudio[indDrag] ;
-      dm.playing = true;
-
-      dm.soundDuration = audio.player.duration!;
-
-      audio.player.createPositionStream().listen((event) {
-        mounted ? setState(() {
-          dm.current = event;
-        }) : null;
+        rs.addPoint(dm.current, audio.id);
       });
     }
   }
@@ -310,7 +308,7 @@ class _TabAudio extends StatelessWidget {
         IconButton(
           onPressed: () { 
             audioTab.play();
-            rs.isRecord ? rs.addPoint( dm.current , audioTab.audio ) : null;
+            rs.isRecord ? rs.addPoint( dm.current , audioTab.audio.id ) : null;
           }, 
           icon: const Icon(Icons.touch_app),
         ),

@@ -3,20 +3,26 @@ import 'package:incredibclap/providers/login_provider.dart';
 import 'package:incredibclap/themes/input_decoration.dart';
 import 'package:incredibclap/validators/validators.dart';
 
+// ignore: must_be_immutable
 class InputPass extends StatelessWidget {
-  const InputPass({
+  InputPass({
     Key? key,
-    required this.loginProvider, 
+    required this.loginProvider,
+    this.pass 
   }) : super(key: key);
 
   final LoginProvider loginProvider;
+  String? pass = '';
+  
 
 
   @override
   Widget build(BuildContext context) {
+    loginProvider.password = pass!; 
     return TextFormField(
       obscureText: true,
       autocorrect: false,
+      initialValue: pass,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecorations.authInput(
         hintText: 'Password',
@@ -42,6 +48,7 @@ class InputEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    loginProvider.email = email!; 
     return TextFormField(
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,

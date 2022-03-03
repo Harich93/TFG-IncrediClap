@@ -109,7 +109,7 @@ class _RegisterForm extends StatelessWidget {
               if( resp['errors'] != null ) {
                 loginProvider.isError = true;
                 loginProvider.textError = resp['errors']['errors'][0]['msg'];
-                Timer(const Duration(seconds: 2), () => loginProvider.isError = false );
+                Timer(const Duration(seconds: 1), () => loginProvider.isError = false );
                 return;
               }
 
