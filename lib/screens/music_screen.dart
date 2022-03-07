@@ -269,21 +269,27 @@ class _MusicScreenState extends State<MusicScreen> {
   }
 
   void _onAccept(AudiosProvider ap, Audio audio, DurationModel dm, RecordService rs, int ind, bool firstPlay) { 
-     if( !ap.dragContaintAudio(ind) ){
+     
+    if( !ap.dragContaintAudio(ind) ){
+      
       setState(() {
         ap.addAudioInDrag(audio, ind);
         audio.player.setVolume(1);
 
         if(firstPlay) {
+          ap.playAll();
+          dm.soundDuration = audio.player.duration!;
           audio.player.createPositionStream().listen((event) {dm.currentSheets = event;});
           firstPlay = false;
-          ap.playAll();
         }
 
-        rs.addPoint(dm.current, audio.id);
+        rs.addPoint(dm.current, audio);
       });
+
     }
   }
+
+
 }
 
 class _TabAudio extends StatelessWidget {
@@ -308,7 +314,7 @@ class _TabAudio extends StatelessWidget {
         IconButton(
           onPressed: () { 
             audioTab.play();
-            rs.isRecord ? rs.addPoint( dm.current , audioTab.audio.id ) : null;
+            rs.isRecord ? rs.addPoint( dm.current , audioTab.audio ) : null;
           }, 
           icon: const Icon(Icons.touch_app),
         ),

@@ -50,7 +50,7 @@ class _DragCustomState extends State<DragCustom> {
                 onPressed: () => setState(() {
                   player.setVolume(0); 
                   ap.removeAudioInDrag(audio);
-                  rs.addPoint(dm.current, audio.id);
+                  rs.addPoint(dm.current, audio);
                 })
               ),
               IconButton(
@@ -60,7 +60,7 @@ class _DragCustomState extends State<DragCustom> {
                   player.volume == 0
                     ? player.setVolume(1)
                     : player.setVolume(0);        
-                  rs.addPoint(dm.current, audio.id);
+                  rs.addPoint(dm.current, audio);
                 }),
               )
             ],

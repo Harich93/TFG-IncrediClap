@@ -18,7 +18,9 @@ class InputPass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loginProvider.password = pass!; 
+    
+    if( pass != null ) loginProvider.password = pass!; 
+    
     return TextFormField(
       obscureText: true,
       autocorrect: false,
@@ -48,7 +50,9 @@ class InputEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loginProvider.email = email!; 
+    
+    if( email != null ) loginProvider.email = email!;
+
     return TextFormField(
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,

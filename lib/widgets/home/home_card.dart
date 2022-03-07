@@ -62,20 +62,20 @@ class _CardBackground extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(15),
       child: Container(
-        width: 350,
-        height: 150,
+        width: 380,
+        height: 170,
         decoration: BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.centerRight,
             fit: BoxFit.cover,
             image: image
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              spreadRadius: 2,
-              color: Colors.grey[200]!,
-              offset: const Offset(1,1),
-              blurRadius: 10
+              spreadRadius: 1,
+              color: Colors.black26,
+              offset: Offset(0,0),
+              blurRadius: 2
             )
           ],
           color: Colors.white,

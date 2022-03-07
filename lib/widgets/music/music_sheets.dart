@@ -21,7 +21,7 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
 
     final dm = Provider.of<DurationModel>(context, listen: false);
   
-    start = dm.current.inSeconds.toDouble() * 135;
+    start = dm.currentSheets.inSeconds.toDouble() * 135;
     end = dm.soundDuration.inSeconds.toDouble() * 135;
 
     Duration duration = Duration(seconds: dm.soundDuration.inSeconds - dm.current.inSeconds );
@@ -31,9 +31,9 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
     );
 
     controller.addListener(() { 
-      if( controller.status == AnimationStatus.completed ) {
-        controller.repeat();
-      }
+      // if( controller.status == AnimationStatus.completed ) {
+      //   controller.repeat();
+      // }
     });
 
 

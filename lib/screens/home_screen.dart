@@ -3,7 +3,7 @@ import 'package:incredibclap/widgets/settings/pop_menu.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/screens/music_screen.dart';
+import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/home/home_widgets.dart';
 
@@ -78,20 +78,36 @@ class _HomeBodyState extends State<_HomeBody> {
       child: Column( 
         children: [
           const HeaderCuadradro(),
-
+    
           _TitlePage(),
           
           const Divider(),
           
           SizedBox(
-            height: size.height * 0.69,
+            height: size.height * 0.73,
             child: Stack(
               children: [ 
+
+                SizedBox(
+                  height: size.height * .7,
+                  child: const Image(
+                    image: AssetImage('assets/backgrounds/backMusic1.jpg'),
+                  ),
+                ),
+                
+                const SizedBox(
+                  child: Image(
+                    image: AssetImage('assets/backgrounds/backMusic.jpg'),
+                    alignment: Alignment.bottomCenter,
+                    
+                  ),
+                ),
+
 
                 Column(
                   children: [
                     
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 40),
 
                     HomeCard( 
                       title: 'Crea', 
@@ -107,10 +123,10 @@ class _HomeBodyState extends State<_HomeBody> {
                       image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
                       buttonColor: ThemeColors.dark, 
                       buttonIcon: Icons.list_rounded,
-                      onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                      onPressed: () => Navigator.pushNamed(context, ListAudiosScreen.routeName) 
                     ),
 
-                    const SizedBox(height: 100),
+                    const SizedBox(height: 108),
 
                     Column(
                       children: const [
@@ -155,6 +171,7 @@ class _TitlePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, 
         children: const [
+          
           SizedBox( height: 10),
 
           Center(

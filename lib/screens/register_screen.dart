@@ -104,23 +104,29 @@ class _RegisterForm extends StatelessWidget {
             text: 'Registrarse',
             onPressed: () async{ 
 
+              loginProvider.isLoading = true;
+
               final resp = await authService.createUser( loginProvider.name ,loginProvider.email, loginProvider.password );
 
               if( resp['errors'] != null ) {
                 loginProvider.isError = true;
                 loginProvider.textError = resp['errors']['errors'][0]['msg'];
                 Timer(const Duration(seconds: 1), () => loginProvider.isError = false );
-                return;
+                loginProvider.isLoading = false;
+              } 
+              else { // Login
+
+                final resLog = await authService.login( loginProvider.email, loginProvider.password );
+
+                Preferences.email = resp['user']['email'];
+                Preferences.name = resp['user']['name'];
+                Preferences.token = resLog['token'];
+
+                Navigator.pushReplacementNamed(context, HomeScreen.routeName );
+                loginProvider.isLoading = false;
+              
               }
 
-              Preferences.email = resp['user']['email'];
-              Preferences.name = resp['user']['name'];
-
-              final resLog = await authService.login( loginProvider.email, loginProvider.password );
-
-              Preferences.token = resLog['token'];
-
-              Navigator.pushReplacementNamed(context, HomeScreen.routeName );
 
             },
           )

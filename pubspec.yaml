@@ -40,7 +40,7 @@ dependencies:
   just_audio: ^0.9.18
   just_audio_libwinmedia: ^0.0.4
   modal_bottom_sheet: ^2.0.0
-  local_auth: ^1.1.11
+  animate_do: ^2.0.0
   
 
 dev_dependencies:

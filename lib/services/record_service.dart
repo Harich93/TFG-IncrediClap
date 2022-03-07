@@ -5,35 +5,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/services/services.dart';
 
-
-class PointRecord {
-
-  late int idAudio;
-  late Duration duration;
-
-  PointRecord({ required idAudio, required duration }){
-    this.idAudio = idAudio;
-    this.duration = duration;
-  }
-
-  factory PointRecord.fromJson(String str) => PointRecord.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory PointRecord.fromMap(Map<String, dynamic> json) => PointRecord(
-      idAudio: json["idAudio"],
-      duration: json["duration"],
-  );
-
-  Map<String, dynamic> toMap() => {
-      "idAudio": idAudio,
-      "duration": duration.inSeconds.toInt(),
-  };
-
-
-} 
 
 class RecordService with ChangeNotifier {
 
@@ -44,19 +18,28 @@ class RecordService with ChangeNotifier {
     notifyListeners();
   }
 
-  List<PointRecord> listRecord = List.empty(growable: true);
+  List<Track> listTrack = List.empty(growable: true);
   final String _baseUrl = 'incredibclap-backend-ts.herokuapp.com';
 
 
-  void addPoint( Duration duration, int idAudio ) {
-    if( _isRecord ) listRecord.add(PointRecord(idAudio: idAudio ,duration: duration));
+  void addPoint( Duration duration, Audio audio ) {
+
+    Track track = Track( 
+      idAudio: audio.id, 
+      volume: audio.player.volume, 
+      duration: duration.inSeconds.toString() 
+    );
+
+    if( _isRecord ) listTrack.add( track );
+
   }
 
 
-   Future<Map<String, dynamic>> addAudio() async{
+  Future<Map<String, dynamic>> addAudio() async{
 
     final Map<String, dynamic> body = {
-      'track': listRecord,
+      'name' : "Pista",
+      'track': listTrack,
     };
 
     final url = Uri.http( _baseUrl, '/audios/add' );
@@ -66,11 +49,56 @@ class RecordService with ChangeNotifier {
       'x-token': Preferences.token
     });
 
-    final Map<String, dynamic> resDecode =  json.decode( resp.body );
+    final Map<String, dynamic> resDecode = await json.decode( resp.body );
     
     return resDecode;
 
   }
 
+  Future<AudioRecord> getAudio() async{
+
+    final url = Uri.http( _baseUrl, '/audios/62248217efe1b5bc78f1de58' );
+
+    final resp = await http.get(url, headers: { 'Content-Type': 'application/json', });
+
+    final Map<String, dynamic> resDecode = await json.decode( resp.body );
+
+    List<Track> tracks = List<Track>.empty(growable: true);
+
+    for ( var track in resDecode["track"] ) {
+      var t = jsonDecode(track);
+      Track tr = Track.fromMap(t);
+      tracks.add(tr);
+    }
+
+
+    AudioRecord audioRecord = AudioRecord(tracks: tracks, name: "name");
+    
+    return audioRecord;
+
+  }
+
+   Future<AudioRecord> getAllAudios() async{
+
+    final url = Uri.http( _baseUrl, '/audios' );
+
+    final resp = await http.get(url, headers: { 'Content-Type': 'application/json', });
+
+    final Map<String, dynamic> resDecode = await json.decode( resp.body );
+
+    List<Track> tracks = List<Track>.empty(growable: true);
+
+    for ( var track in resDecode["track"] ) {
+      var t = jsonDecode(track);
+      Track tr = Track.fromMap(t);
+      tracks.add(tr);
+    }
+
+
+    AudioRecord audioRecord = AudioRecord(tracks: tracks, name: "name");
+    
+    return audioRecord;
+
+  }
 
 }

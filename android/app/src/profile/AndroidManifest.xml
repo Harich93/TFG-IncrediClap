@@ -4,6 +4,5 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission 
-        android:name="android.permission.INTERNET"
-        android:name="android.permission.USE_FINGERPRINT"/>
+        android:name="android.permission.INTERNET"/>
 </manifest>

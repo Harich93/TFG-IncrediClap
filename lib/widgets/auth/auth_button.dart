@@ -38,14 +38,10 @@ class AuthButton extends StatelessWidget {
       onPressed: loginProvider.isLoading ? null : () async{
 
           FocusScope.of(context).unfocus(); // Quitar teclado
-          loginProvider.isLoading = true;
           
           loginProvider.isValidForm() 
             ? onPressed()
             : null;
-
-          loginProvider.isLoading = false;
-          
       }
     );
   }

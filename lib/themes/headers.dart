@@ -7,8 +7,11 @@ class HeaderCuadradro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      color: ThemeColors.primary
+      height: 70,
+      decoration: const  BoxDecoration(
+        color: ThemeColors.primary,
+
+      ),
     );
   }
 }

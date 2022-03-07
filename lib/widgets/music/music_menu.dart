@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
+import 'package:incredibclap/providers/login_provider.dart';
 import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/auth/auth_inputs_form.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +34,8 @@ class MusicMenu extends StatelessWidget {
     final rs = Provider.of<RecordService>(context);
     final ap = Provider.of<AudiosProvider>(context);
     final dm = Provider.of<DurationModel>(context);
+    String nameRecord = "Pista";
+
 
 
     // Alert confirmacion de guardado
@@ -43,9 +48,19 @@ class MusicMenu extends StatelessWidget {
             title: const Text('Guardar grabación'),
             content: SingleChildScrollView(
               child: ListBody(
-                children: const <Widget>[
-                  Text('This is a demo alert dialog.'),
-                  Text('¿Desea guardar la grabación?'),
+                children: [
+                  const Text('¿Desea guardar la grabación?'),
+                  const SizedBox(height: 20),
+                  // TextFormField(
+                  //   autocorrect: false,
+                  //   keyboardType: TextInputType.name,
+                  //   decoration: InputDecorations.authInput(
+                  //     hintText: 'Pista',
+                  //     labelText: 'Pista',
+                  //     prefixIcon: Icons.music_note_outlined
+                  //   ),
+                  //   onChanged: ( value ) => nameRecord = value,
+                  // )
                 ],
               ),
             ),
@@ -61,10 +76,14 @@ class MusicMenu extends StatelessWidget {
               TextButton(
                 child: const Text('Si'),
                 onPressed: () {
+
+                  //TODO: Agregar duracion del guardado
                   rs.addAudio();
                   Navigator.of(context).pop();
                 },
-              )
+              ),
+
+              
             ]
           );
         },
@@ -84,16 +103,16 @@ class MusicMenu extends StatelessWidget {
         if( rs.isRecord ) {
           for (var audio in  ap.dragAudio ) {
             if(audio.id != -1)  
-              rs.addPoint( dm.current, audio.id) 
+              rs.addPoint( dm.current, audio ) 
           },
 
            if(!dm.playing) {
-            dm.soundDuration = audio.player.duration!,
 
             audio.player.createPositionStream().listen( (event) {
               
+              dm.soundDuration = audio.player.duration!;
+
               if( dm.playing ) { 
-                // print(event.toString());
                 if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
                   dm.current = event + durationless;
                 }
@@ -101,10 +120,8 @@ class MusicMenu extends StatelessWidget {
               
               else { 
                 durationless = zeroDuration - event; 
-                // print(durationless.toString());
                 dm.current = zeroDuration; 
               }
-              
               
             }),
 

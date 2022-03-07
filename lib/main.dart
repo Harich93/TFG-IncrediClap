@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/screens/player_screen.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: ( _ ) => AuthService() ),
+        ChangeNotifierProvider(create: ( _ ) => AuthService()),
         ChangeNotifierProvider(create: ( _ ) => AudiosProvider()),
         ChangeNotifierProvider(create: ( _ ) => DurationModel()),
         ChangeNotifierProvider(create: ( _ ) => RecordService()),
@@ -43,11 +42,12 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: LoginScreen.routeName,
       routes: {
-        LoginScreen.routeName    : ( _ ) => const LoginScreen(),
-        RegisterScreen.routeName : ( _ ) => const RegisterScreen(),
-        HomeScreen.routeName     : ( _ ) => const HomeScreen(),
-        MusicScreen.routeName    : ( _ ) => const MusicScreen(),
-        PlayerScreen.routeName   : ( _ ) => const PlayerScreen()
+        LoginScreen.routeName      : ( _ ) => const LoginScreen(),
+        RegisterScreen.routeName   : ( _ ) => const RegisterScreen(),
+        HomeScreen.routeName       : ( _ ) => const HomeScreen(),
+        MusicScreen.routeName      : ( _ ) => const MusicScreen(),
+        ListAudiosScreen.routeName : ( _ ) => const ListAudiosScreen(),
+        PlayerScreen.routeName     : ( _ ) => PlayerScreen(),
       },
     );
   }

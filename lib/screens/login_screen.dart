@@ -26,7 +26,6 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              
               const SizedBox(height: 250),
               
               CardContainer(
@@ -114,9 +113,12 @@ class _LoginForm extends StatelessWidget {
                 _recorUser(loginProvider);
                 _savePreferncesResp(resp);
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName );
+                loginProvider.isLoading = false;
+              }
+              else {
+                loginProvider.isLoading = false;
               }
 
-              loginProvider.isLoading = false;
 
             },
           ),
@@ -145,9 +147,15 @@ class _LoginForm extends StatelessWidget {
 
   _savePreferncesResp( Map<String,dynamic> resp ){
     
-    Preferences.email = resp['user']['email'];
-    Preferences.name = resp['user']['name'];
-    Preferences.token = resp['token'];
+    try {
+      Preferences.email = resp['user']['email'];
+      Preferences.name = resp['user']['name'];
+      Preferences.token = resp['token'];
+      
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
     
   }
 
