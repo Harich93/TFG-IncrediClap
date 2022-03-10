@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:provider/provider.dart';
 
-import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/widgets/playlist/playlist.dart';
 import 'package:incredibclap/widgets/settings/pop_menu.dart';

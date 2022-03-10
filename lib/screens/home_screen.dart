@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/widgets/settings/pop_menu.dart';
 import 'package:provider/provider.dart';
@@ -72,6 +73,7 @@ class _HomeBodyState extends State<_HomeBody> {
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
+    const durationAnima = Duration(milliseconds: 500);
 
     return SingleChildScrollView(
       controller: controller,
@@ -109,39 +111,48 @@ class _HomeBodyState extends State<_HomeBody> {
                     
                     const SizedBox(height: 40),
 
-                    HomeCard( 
-                      title: 'Crea', 
-                      image: const AssetImage('assets/backgrounds/backMusic.jpg'),
-                      buttonColor: ThemeColors.dark, 
-                      buttonIcon: Icons.play_circle, 
-                      onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                    FadeIn(
+                      duration: durationAnima,
+                      child: HomeCard( 
+                        title: 'Crea', 
+                        image: const AssetImage('assets/backgrounds/backMusic.jpg'),
+                        buttonColor: ThemeColors.dark, 
+                        buttonIcon: Icons.play_circle, 
+                        onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                      ),
                     ),
           
 
-                    HomeCard( 
-                      title: 'Playlist',
-                      image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
-                      buttonColor: ThemeColors.dark, 
-                      buttonIcon: Icons.list_rounded,
-                      onPressed: () => Navigator.pushNamed(context, ListAudiosScreen.routeName) 
+                    FadeIn(
+                      duration: durationAnima,
+                      child: HomeCard( 
+                        title: 'Playlist',
+                        image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
+                        buttonColor: ThemeColors.dark, 
+                        buttonIcon: Icons.list_rounded,
+                        onPressed: () => Navigator.pushNamed(context, ListAudiosScreen.routeName) 
+                      ),
                     ),
 
                     const SizedBox(height: 108),
 
-                    Column(
-                      children: const [
-                        Center(
-                          child: Text(
-                            'Creado por Benito Lopez-Cepero Martin',
-                            style:  TextStyle(
-                              fontFamily: 'Amadeus',
-                              color: ThemeColors.dark,
-                              fontSize: 15
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Column(
+                    //   children: [
+                    //     Center(
+                    //       child: FadeInUp(
+                    //         duration: durationAnima,
+                    //         child: const Text(
+                    //           'Creado por Benito Lopez-Cepero Martin',
+                    //           style:  TextStyle(
+                    //             fontFamily: 'Amadeus',
+                    //             color: ThemeColors.dark,
+                    //             fontSize: 15
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ]
@@ -163,6 +174,7 @@ class _TitlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    const durationAnima = Duration(milliseconds: 800);
     const colorTexto = ThemeColors.dark;
     
     return Container(
@@ -170,30 +182,36 @@ class _TitlePage extends StatelessWidget {
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, 
-        children: const [
+        children: [
           
-          SizedBox( height: 10),
+          const SizedBox( height: 10),
 
-          Center(
-            child: Text(
-               'IES Almunia', 
-              style: TextStyle(
-                color: colorTexto, 
-                fontFamily: 'Amadeus',
-                fontSize: 50,
-              )
+          FadeIn(
+            duration: durationAnima,
+            child: const Center(
+              child: Text(
+                 'IES Almunia', 
+                style: TextStyle(
+                  color: colorTexto, 
+                  fontFamily: 'Amadeus',
+                  fontSize: 50,
+                )
+              ),
             ),
           ),
 
-          SizedBox( height: 10),
+          const SizedBox( height: 10),
           
-          Center(
-            child: Text(
-              '2021 - 2022',
-              style:  TextStyle(
-                fontFamily: 'Amadeus',
-                color: colorTexto,
-                fontSize: 15
+          FadeIn(
+            duration: durationAnima,
+            child: const Center(
+              child: Text(
+                '2021 - 2022',
+                style:  TextStyle(
+                  fontFamily: 'Amadeus',
+                  color: colorTexto,
+                  fontSize: 15
+                ),
               ),
             ),
           ),

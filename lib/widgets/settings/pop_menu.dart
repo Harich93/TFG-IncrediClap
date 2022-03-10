@@ -93,7 +93,7 @@ class PopMenuState extends State<PopMenu> {
           value: ActionsPopMenu.myPlaylist,
           child: _PopMenuContent(
             icon: Icons.list,
-            text: Text('Mi playlist'),
+            text: Text('Mis creaciones'),
           ),
         ),
 

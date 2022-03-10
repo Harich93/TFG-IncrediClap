@@ -115,11 +115,11 @@ class _RegisterForm extends StatelessWidget {
                 loginProvider.isLoading = false;
               } 
               else { // Login
-
+              
                 final resLog = await authService.login( loginProvider.email, loginProvider.password );
 
-                Preferences.email = resp['user']['email'];
-                Preferences.name = resp['user']['name'];
+                Preferences.email = resp['email'];
+                Preferences.name = resp['name'];
                 Preferences.token = resLog['token'];
 
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName );

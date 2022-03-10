@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
-import 'package:incredibclap/providers/login_provider.dart';
 import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/auth/auth_inputs_form.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -48,9 +45,9 @@ class MusicMenu extends StatelessWidget {
             title: const Text('Guardar grabación'),
             content: SingleChildScrollView(
               child: ListBody(
-                children: [
-                  const Text('¿Desea guardar la grabación?'),
-                  const SizedBox(height: 20),
+                children: const[
+                  Text('¿Desea guardar la grabación?'),
+                  SizedBox(height: 20),
                   // TextFormField(
                   //   autocorrect: false,
                   //   keyboardType: TextInputType.name,
