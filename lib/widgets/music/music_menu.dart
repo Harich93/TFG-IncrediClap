@@ -3,6 +3,7 @@ import 'package:incredibclap/models/audio_model.dart';
 import 'package:incredibclap/models/duration_model.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +33,14 @@ class MusicMenu extends StatelessWidget {
     final ap = Provider.of<AudiosProvider>(context);
     final dm = Provider.of<DurationModel>(context);
     String nameRecord = "Pista";
+    Duration durationless = const Duration();
 
 
+    //^ Confirmacion de guardado
+    Future<void> _saveRecordDialog() async { 
 
-    // Alert confirmacion de guardado
-    Future<void> _showMyDialog() async { 
+      ap.audiosInDragPause();
+      
       return showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
@@ -45,19 +49,19 @@ class MusicMenu extends StatelessWidget {
             title: const Text('Guardar grabación'),
             content: SingleChildScrollView(
               child: ListBody(
-                children: const[
-                  Text('¿Desea guardar la grabación?'),
-                  SizedBox(height: 20),
-                  // TextFormField(
-                  //   autocorrect: false,
-                  //   keyboardType: TextInputType.name,
-                  //   decoration: InputDecorations.authInput(
-                  //     hintText: 'Pista',
-                  //     labelText: 'Pista',
-                  //     prefixIcon: Icons.music_note_outlined
-                  //   ),
-                  //   onChanged: ( value ) => nameRecord = value,
-                  // )
+                children: [
+                  const Text('¿Desea guardar la grabación?'),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    autocorrect: false,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecorations.authInput(
+                      hintText: 'Pista',
+                      labelText: 'Pista',
+                      // prefixIcon: Icons.music_note_outlined
+                    ),
+                    onChanged: ( value ) => nameRecord = value,
+                  )
                 ],
               ),
             ),
@@ -66,6 +70,7 @@ class MusicMenu extends StatelessWidget {
               TextButton(
                 child: const Text('No'),
                 onPressed: () {
+                  ap.audiosInDragPlay();
                   Navigator.of(context).pop();
                 },
               ),
@@ -73,9 +78,9 @@ class MusicMenu extends StatelessWidget {
               TextButton(
                 child: const Text('Si'),
                 onPressed: () {
-
-                  //TODO: Agregar duracion del guardado
-                  rs.addAudio();
+                  rs.addPoint(dm.current, Audio(id: -1));
+                  rs.addAudio( nameRecord );
+                  ap.audiosInDragPlay();
                   Navigator.of(context).pop();
                 },
               ),
@@ -87,52 +92,98 @@ class MusicMenu extends StatelessWidget {
       );
     }
 
+    //^ No se puede grabar no se esta reprodciendo nada
+    Future<void> _noAudioInDragDialog() async { 
+
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Sin audio'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const [
+                  Text('Debe de estar reproduciendo para poder realizar la grabación'),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              
+            ]
+          );
+        },
+      );
+    }
+
   
     final Audio audio = ap.audios[0];
     var zeroDuration = const Duration(hours: 0, minutes: 0, seconds: 0, milliseconds: 0);
-    Duration durationless = const Duration();
 
     final List<MusicButton> items = [
       MusicButton(icon: Icons.radio_button_checked_rounded, text: rs.isRecord ? "Guardar" : "Grabar", onPress: () => { 
-        
-        rs.isRecord = !rs.isRecord,
+ 
+        if( ap.isDragAudiosEmpty() ) {
+          _noAudioInDragDialog()
+        }
+        else{
+         
+          rs.isRecord = !rs.isRecord,
 
-        if( rs.isRecord ) {
-          for (var audio in  ap.dragAudio ) {
-            if(audio.id != -1)  
-              rs.addPoint( dm.current, audio ) 
-          },
+          if( rs.isRecord ) {
+           
+            for (var audio in  ap.dragAudio ) {
+              if(audio.id != -1)  
+                rs.addPoint( dm.current, audio ) 
+            },
 
-           if(!dm.playing) {
+            if(!dm.playing) {
 
-            audio.player.createPositionStream().listen( (event) {
-              
-              dm.soundDuration = audio.player.duration!;
+              dm.soundDuration = const Duration(minutes: 2),
 
-              if( dm.playing ) { 
-                if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
-                  dm.current = event + durationless;
+              audio.player.createPositionStream().listen( (event) {
+                
+                if( dm.playing ) { 
+                  
+                  if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
+                    dm.current = event + durationless;
+                  }
+
+                  if( dm.current >= dm.soundDuration ) {
+                    ap.audiosInDragPause();
+                    dm.playing = false;
+                    _saveRecordDialog();
+                  }
+
                 }
-              }
-              
-              else { 
-                durationless = zeroDuration - event; 
-                dm.current = zeroDuration; 
-              }
-              
-            }),
+                
+                else {   
+                  durationless = zeroDuration - event;
+                  dm.current = zeroDuration; 
+                  dm.playing = true;
+                } 
 
-            dm.playing = true,
+                
+              }),
+
+            }
+
+
           }
-
-
+          else {
+            _saveRecordDialog(),
+            dm.playing = false
+          }
+          
         }
-        else {
-
-          _showMyDialog(),
-          dm.playing = false
-        }
-        
 
 
       }),

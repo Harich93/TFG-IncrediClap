@@ -1,11 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/helpers/player_audio.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/settings/pop_menu.dart';
 
@@ -23,16 +23,13 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AudiosProvider ap = Provider.of<AudiosProvider>(context);
-    DurationModel dm = Provider.of<DurationModel>(context);
-    Duration durationZero = const Duration(seconds: 0);
+    
+    PlayerAudio playerAudio = Provider.of<PlayerAudio>(context);
+    RecordService rs = Provider.of<RecordService>(context);
 
     return WillPopScope(
       onWillPop: () async{ 
-        ap.stopAll();
-        dm.playing = false;
-        dm.soundDuration = durationZero;
-        dm.current = durationZero;
+        playerAudio.resetAudios();
         return true;
       },
       child: Scaffold(
@@ -55,7 +52,7 @@ class PlayerScreen extends StatelessWidget {
 
                 ImagenDiscoDuracion(),
 
-                TituloPlay( audioRecord ),
+                TituloPlay()
 
               ],
             ),
@@ -66,35 +63,8 @@ class PlayerScreen extends StatelessWidget {
   }
 }
 
-class Background extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-
-    final screenSize = MediaQuery.of(context).size;
-
-    return Container(
-      width: double.infinity,
-      height: screenSize.height * .95,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(60)),
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.bottomLeft,
-          colors: [
-            ThemeColors.primary,
-            ThemeColors.lightPrimary
-          ]
-        )
-      ),
-    );
-  }
-}
 
 class TituloPlay extends StatefulWidget {
-
-  late List<AudioRecord> listAudios;
-  TituloPlay(List<AudioRecord>? listAudios);
 
   @override
   _TituloPlayState createState() => _TituloPlayState();
@@ -102,19 +72,16 @@ class TituloPlay extends StatefulWidget {
 
 class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateMixin {
 
-  bool isPlaying = false;
-  bool firstTime = true;
+  late PlayerAudio playerAudio;
   late AnimationController playAnimation;
-  late AudioRecord audioRecord;
 
-  List<Track> tracks = List<Track>.empty(growable: true); 
-  List<Track> tracksDelete = List<Track>.empty(growable: true); 
-
+  String title = "";
+  String nameUser = "";
 
   @override
   void initState() {
-    
-    playAnimation = AnimationController( vsync: this, duration: const Duration(milliseconds: 500 ) );
+    playerAudio = Provider.of<PlayerAudio>(context, listen: false);
+    playAnimation = AnimationController( vsync: this, duration: playerAudio.lastDuration );
     super.initState();
   }
 
@@ -124,108 +91,62 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void open() async{
-
-
-    final audioProvider = Provider.of<AudiosProvider>(context, listen: false);
-    final durationModel = Provider.of<DurationModel>(context, listen: false);
-
-    audioProvider.playAll();
-    tracks = audioRecord.tracks;
-
-    durationModel.soundDuration = tracks.last.parseDuration();
-    
-    audioProvider.audios[0].player.createPositionStream().listen( (duration) {
-      
-      durationModel.current = duration;
-
-      tracks = audioRecord.tracks;
-
-      Track track = tracks[0];
-
-      if( track.parseDuration().inSeconds == duration.inSeconds ) {
-        
-        for (var audio in audioProvider.audios) {
-
-          if( audio.id == track.idAudio )  {
-            audio.player.setVolume(track.volume);
-            tracksDelete.add(tracks[0]);
-            tracks.removeAt(0);
-          }
-
-        }
-      }
-    });
-  }
-
-  String name = "Pista";
-
   @override
   Widget build(BuildContext context) {
 
-    final audioProvider = Provider.of<AudiosProvider>(context);
-    // final durationModel = Provider.of<DurationModel>(context);
-    final recordService = Provider.of<RecordService>(context);
-
-
-   
     return Container(
       padding: const EdgeInsets.symmetric( horizontal: 50 ),
       margin: const EdgeInsets.only( top: 40 ),
-      child: Row(
-        children: <Widget>[
-          Column(
+      child: Column(
+        children: [
+
+          const SizedBox(height: 50,),
+
+          Row(
             children: <Widget>[
-              Text(name, style: TextStyle( fontSize: 30, color: Colors.white.withOpacity(0.8) )),
-              Text('-Breaking Benjamin-', style: TextStyle( fontSize: 15, color: Colors.white.withOpacity(0.5) )),
+              Column(
+                children: <Widget>[
+                  
+                  Text( 
+                    playerAudio.title, 
+                    style: TextStyle( 
+                      fontSize: 50, 
+                      color: Colors.white.withOpacity(0.8) 
+                    )
+                  ),
+                  
+                  Text(
+                    '-${playerAudio.userName}-', 
+                    style: TextStyle( 
+                      fontSize: 25, 
+                      color: Colors.white.withOpacity(0.5) 
+                    )
+                  ),
+
+                ],
+              ),
+
+              const Spacer(),
+
+              FloatingActionButton(
+                elevation: 0,
+                highlightElevation: 0,
+                backgroundColor: ThemeColors.dark,
+                child: playerAudio.isPlaying 
+                  ? const Icon(Icons.pause)
+                  : const Icon(Icons.play_arrow), 
+                onPressed: () => playerAudio.playPause(),
+              )
+
             ],
+
           ),
-
-          const Spacer(),
-
-          FloatingActionButton(
-            elevation: 0,
-            highlightElevation: 0,
-            backgroundColor: ThemeColors.dark,
-            child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause, 
-              progress: playAnimation,
-            ),
-            onPressed: () async{
-              
-              if( isPlaying ) {
-                playAnimation.reverse();
-                isPlaying = false;
-                audioProvider.stopAll();
-              }
-
-              if ( firstTime ) {
-                audioRecord = await recordService.getAudio(); 
-                name = audioRecord.name;
-                open();
-                firstTime = false;
-              } else {
-                isPlaying
-                  ? audioProvider.stopAll() 
-                  : continuePlay(audioProvider);
-              }
-
-            },
-          )
-
         ],
       ),
     );
   }
-
-  void continuePlay( AudiosProvider ap ) {
-    for( Track t in tracksDelete ) {
-      if( t.idAudio > 9 ) {
-        ap.audios[t.idAudio].player.setVolume(t.volume);
-      }
-    }
-  }
 }
+
 
 class ImagenDiscoDuracion extends StatelessWidget {
 
@@ -238,15 +159,17 @@ class ImagenDiscoDuracion extends StatelessWidget {
         children: <Widget>[
 
           ImagenDisco(),
-          const SizedBox( width: 20 ),
+          const SizedBox( width: 50 ),
 
           BarraProgreso(),
-          const SizedBox( width: 20 ),
+          // const SizedBox( width: 20 ),
+
         ],
       ),
     );
   }
 }
+
 
 class BarraProgreso extends StatelessWidget {
  
@@ -255,13 +178,12 @@ class BarraProgreso extends StatelessWidget {
 
     final estilo = TextStyle( color: Colors.white.withOpacity(0.4) );
 
-    final audioPlayerModel = Provider.of<DurationModel>(context);
-    final porcentaje = audioPlayerModel.porcentaje;
+    final dmp = Provider.of<DurationModelPlayer>(context);
 
     return Column(
       children: <Widget>[
 
-        Text(audioPlayerModel.soundTotalDuration, style: estilo), 
+        Text(dmp.soundTotalDuration, style: estilo), 
         const SizedBox( height: 10 ),
         Stack(
           children: <Widget>[
@@ -276,7 +198,7 @@ class BarraProgreso extends StatelessWidget {
               bottom: 0,
               child: Container(
                 width: 3,
-                height: 230 * porcentaje,
+                height: dmp.porcentaje/100 * 230,
                 color: Colors.white.withOpacity(0.8),
               ),
             ),
@@ -284,19 +206,22 @@ class BarraProgreso extends StatelessWidget {
           ],
         ),
         const SizedBox( height: 10 ),
-        Text(audioPlayerModel.currentSecond, style: estilo ),
+        Text(dmp.currentSecond, style: estilo ),
       ],
     );
   }
 }
+
 
 class ImagenDisco extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
 
-    final audioPlayerModel = Provider.of<DurationModel>(context);
-
+    final dmp = Provider.of<DurationModelPlayer>(context);
+    RecordService rs = Provider.of<RecordService>(context);
+    Duration discAnimaDuration =  rs.selectedAudioRecord.tracks.last.parseDuration();
+  
     return Container(
       padding: const EdgeInsets.all(20),
       width: 250,
@@ -308,10 +233,13 @@ class ImagenDisco extends StatelessWidget {
           children: <Widget>[
 
             SpinPerfect(
-              duration: const Duration( seconds: 10 ),
+              duration: discAnimaDuration,
               infinite: true,
               manualTrigger: true,
-              controller: ( animationController ) => audioPlayerModel.controller = animationController,
+              controller: ( animationController ) => {
+                dmp.controller = animationController,
+                dmp.controller.stop()  
+              },
               child: const Image( image: AssetImage('assets/aurora.jpg') )
             ),
 
@@ -343,6 +271,32 @@ class ImagenDisco extends StatelessWidget {
           colors: [
             ThemeColors.lightPrimary,
             ThemeColors.dark,
+          ]
+        )
+      ),
+    );
+  }
+}
+
+
+class Background extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      width: double.infinity,
+      height: screenSize.height * .95,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(60)),
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.bottomLeft,
+          colors: [
+            ThemeColors.primary,
+            ThemeColors.lightPrimary
           ]
         )
       ),

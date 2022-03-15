@@ -50,12 +50,15 @@ class AudioRecord {
     AudioRecord({
       this.id = "",
       required this.tracks,
-      required this.name,
+      required this.title,
+      this.userName = ''
     });
 
     String id;
     List<Track> tracks;
-    String name;
+    String title;
+    String userName;
+
 
     factory AudioRecord.fromJson(String str) => AudioRecord.fromMap(json.decode(str));
 
@@ -64,13 +67,15 @@ class AudioRecord {
     factory AudioRecord.fromMap(Map<String, dynamic> json) => AudioRecord(
         id: json["id"],
         tracks: json["tracks"],
-        name: json["name"],
+        title: json["title"],
+        userName: json["userName"]
     );
 
     Map<String, dynamic> toMap() => {
       "id": id,
       "tracks": tracks,
-      "name": name,
+      "title": title,
+      "userName": userName
     };
 
 }

@@ -2,7 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:incredibclap/models/models.dart';
 
-class AudiosProvider with ChangeNotifier {
+class AudiosProviderPlayer with ChangeNotifier {
+
+  bool _isPlaying = false;
+  bool get isPlaying => _isPlaying;
+  set isPlaying(bool isPlaying) {
+    _isPlaying = isPlaying;
+    notifyListeners();
+  }
+
+  bool _firstTime = true;
+  bool get firstTime => _firstTime;
+  set firstTime(bool firstTime) {
+    _firstTime = firstTime;
+    notifyListeners();
+  }
+
+
 
   final List<Audio> _audiosConst = [
     Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "1", pathMusicSheet: "assets/sheets/1r.jpg"),
@@ -19,10 +35,13 @@ class AudiosProvider with ChangeNotifier {
 
   late List<Audio> _audios;
 
-  AudiosProvider() {
-    _audios = _audiosConst.toList();
+  AudiosProviderPlayer() {
+    resetAudios();
   }
 
+  void resetAudios(){
+    _audios = _audiosConst.toList();
+  }
 
   List<Audio> get audios => _audios;
   set audios( List<Audio> value ) {
@@ -38,12 +57,9 @@ class AudiosProvider with ChangeNotifier {
     AudioTab( id: 14, pathAudio: 'assets/audios/Tabs/Tacon_01.wav', pathIcon: "Tacon1"),
     AudioTab( id: 15, pathAudio: 'assets/audios/Tabs/Tacon_02.wav', pathIcon: "Tacon2"),
   ];
-
   List<AudioTab> get audiostab => _audiosTab;
 
   List<Audio> dragAudio = List.generate(8, (index) => Audio(id: -1));
-
-  List<Audio> _dragAudioPaused = List.empty(growable: true);
 
   bool dragContaintAudio( int ind ) {
     return dragAudio[ind].id != -1 ? true : false;
@@ -61,7 +77,7 @@ class AudiosProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetAudiosProvider() {
+  void resetAudiosProviderPlayer() {
     for (var item in dragAudio) {
       if( item.id != -1){
         item.player.setVolume(0.0);
@@ -83,26 +99,6 @@ class AudiosProvider with ChangeNotifier {
 
   }
   
-  void audiosInDragPause() {
-    for( Audio audio in dragAudio ) {
-      if( audio.player.volume > 0 ) {
-        audio.player.setVolume(0.0);
-        _dragAudioPaused.add(audio);
-      }
-    }
-  }
-
-  void audiosInDragPlay() {
-    for( Audio audio in _dragAudioPaused ) {
-      for( Audio a in dragAudio ) {
-        if( audio == a ) { 
-          a.player.setVolume(1);
-        }
-      }
-    }
-    _dragAudioPaused = [];
-  }
-
   void playAll(){
     for (var audio in _audios) {
       audio.player.play();
@@ -111,8 +107,15 @@ class AudiosProvider with ChangeNotifier {
 
   void stopAll(){
     for (var audio in _audios) {
-      // audio.player.setVolume(0);
-      audio.player.dispose();
+      // audio.player.dispose();
+      audio.player.setVolume(0);
+    }
+  }
+
+  void pauseAll(){
+    for (var audio in _audios) {
+      // audio.player.dispose();
+      audio.player.pause();
     }
   }
 }

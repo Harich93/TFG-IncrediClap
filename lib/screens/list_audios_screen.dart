@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/providers/audio_provider_player.dart';
+import 'package:incredibclap/screens/screens.dart';
+import 'package:incredibclap/services/record_service.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:provider/provider.dart';
 
@@ -10,17 +13,18 @@ class ListAudiosScreen extends StatelessWidget {
 
 static const String routeName = 'ListAudios';
 
-  const ListAudiosScreen({Key? key}) : super(key: key);
+  const ListAudiosScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     final menuHiden = Provider.of<MenuHidden>(context);
 
-   
     return Scaffold(
       appBar: AppBar(
-        title: const Text("IncredibClap"),
+        title: const Text("IncrediClap"),
         centerTitle: true,
         actions: const [
           PopMenu()
@@ -41,6 +45,8 @@ static const String routeName = 'ListAudios';
 }
 
 class _ListAudios extends StatefulWidget {
+  
+
   const _ListAudios({
     Key? key,
   }) : super(key: key);
@@ -74,21 +80,24 @@ class _ListAudiosState extends State<_ListAudios> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final recordService  = Provider.of<RecordService>(context);
+    final listAudios = recordService.selectedListRecord;
+
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       controller: controller,
-      itemCount: 10,
+      itemCount: listAudios.length,
       itemBuilder: ( BuildContext context, int index ) => GestureDetector(
         child: CardAudio(
-          buttonColor: ThemeColors.primary,
-          buttonIcon: Icons.ac_unit_rounded,
-          onPressed: () {},
-          title: "Carta de audio",
+          title: listAudios[index].title,
+          userName: listAudios[index].userName,
+          onPressed: () { 
+            Provider(create: (_) => AudiosProviderPlayer());
+            recordService.selectedAudioRecord = listAudios[index];
+            Navigator.pushNamed(context, PlayerScreen.routeName);
+          },
         ),
-        onTap: () {
-          // productsService.selectedProduct = products[index].copy();
-          // Navigator.pushNamed(context, ProductScreen.routeName );
-        }
       )
     );
   }

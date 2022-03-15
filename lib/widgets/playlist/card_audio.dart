@@ -7,30 +7,28 @@ class CardAudio extends StatelessWidget {
 
   const CardAudio({
     Key? key,
-    required this.buttonColor,
-    required this.buttonIcon,
     required this.title,
     required this.onPressed,
-    // required this.image
+    required this.userName,
   }) : super(key: key);
   
-  final Color buttonColor;
-  final IconData buttonIcon;
   final String title;
+  final String userName;
   final Function onPressed;
-  // final AssetImage image; 
 
 
 
   @override
   Widget build(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;
            
     return GestureDetector(
       onTap: () => onPressed(),
       child: FadeIn(
         duration: const Duration(milliseconds: 500),
         child: _CardBackground( 
-          // image: image,
+          size: size,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -46,30 +44,30 @@ class CardAudio extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox( width: 20 ),
+              SizedBox(width: size.width*.02),
       
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: FadeInRight(
                   duration: const Duration(milliseconds: 800),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [ 
                 
-                      const Text(
-                        "Pista 1", 
-                        style: TextStyle( 
+                      Text(
+                        title, 
+                        style: const TextStyle( 
                           color: ThemeColors.dark, 
-                          fontSize: 40, 
+                          fontSize: 35, 
                           fontFamily: 'Amadeus'
                         )
                       ),
                 
                       Text(
-                        "Sara", 
-                        style: TextStyle( 
-                          color: buttonColor, 
-                          fontSize: 40, 
+                        userName,
+                        style: const TextStyle( 
+                          color: ThemeColors.primary, 
+                          fontSize: 25, 
                           fontFamily: 'Amadeus'
                         )
                       ),
@@ -79,7 +77,7 @@ class CardAudio extends StatelessWidget {
               ),
             ],
           ),
-          ),
+        ),
       ),
       
     );
@@ -91,37 +89,31 @@ class CardAudio extends StatelessWidget {
 
 class _CardBackground extends StatelessWidget {
 
-  const _CardBackground( { required this.child } );
+  const _CardBackground( { required this.child, required this.size } );
 
   final Widget child;
-  // final AssetImage image; 
+  final Size size;
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15),
-      child: Container(
-        width: 280,
-        height: 110,
-        decoration: BoxDecoration(
-          // image: DecorationImage(
-          //   alignment: Alignment.centerRight,
-          //   fit: BoxFit.cover,
-          //   image: image
-          // ),
-          boxShadow: const [
-            BoxShadow(
-              spreadRadius: 1,
-              color: Colors.black26,
-              offset: Offset(0,0),
-              blurRadius: 2
-            )
-          ],
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5) 
-        ),
-        child: child,
+      height: size.height*.133,
+      decoration: BoxDecoration(
+
+        boxShadow: const [
+          BoxShadow(
+            spreadRadius: 1,
+            color: Colors.black26,
+            offset: Offset(0,0),
+            blurRadius: 2
+          )
+        ],
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5) 
       ),
+      child: child,
     );
   }
 }

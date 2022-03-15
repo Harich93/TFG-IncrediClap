@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/screens/list_audios_screen.dart';
 import 'package:incredibclap/screens/login_screen.dart';
+import 'package:incredibclap/services/record_service.dart';
 import 'package:incredibclap/themes/colors.dart';
+import 'package:provider/provider.dart';
 
 enum ActionsPopMenu { myAccount, myPlaylist, logout }
 
@@ -18,9 +21,12 @@ class PopMenuState extends State<PopMenu> {
 
   // late ActionsPopMenu _selection;
 
+
   @override
   Widget build(BuildContext context) {
 
+    final rs = Provider.of<RecordService>(context);
+    
     Future<void> _showMyDialog() async { 
       return showDialog<void>(
         context: context,
@@ -72,6 +78,8 @@ class PopMenuState extends State<PopMenu> {
             break;
 
           case ActionsPopMenu.myPlaylist:
+              rs.selectedListRecord = rs.userAudios;
+              Navigator.pushNamed(context, ListAudiosScreen.routeName);
               //TODO: Implementar playlist usuario
             break;
 
@@ -119,15 +127,12 @@ class _PopMenuContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 5),
-      child: Row(
-        children: [
-          Icon(icon, size: 18, color: ThemeColors.lightPrimary,),
-          const SizedBox(width: 5),
-          text
-        ],
-      ),
+    return Row(
+      children: [
+        Icon(icon, size: 18, color: ThemeColors.lightPrimary,),
+        const SizedBox(width: 5),
+        text
+      ],
     );
   }
 }

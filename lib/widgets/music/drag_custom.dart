@@ -13,7 +13,7 @@ class DragCustom extends StatefulWidget{
 
   DragCustom({
     Key? key,
-    required this.dragIndx, 
+    required this.dragIndx
   }) : super(key: key);
 
   
@@ -31,6 +31,8 @@ class _DragCustomState extends State<DragCustom> {
     final rs = Provider.of<RecordService>(context);
     final dm = Provider.of<DurationModel>(context);
 
+    final size = MediaQuery.of(context).size;
+
 
     dynamic item = ap.dragAudio[widget.dragIndx];
     Audio audio = item.runtimeType == Audio ? item : Audio();
@@ -40,11 +42,12 @@ class _DragCustomState extends State<DragCustom> {
     const iconMuteOff = Icon( Icons.volume_off, color: Colors.grey );
 
     return SizedBox(
-      height: 100.0,
-      width: 100.0,
+      height: size.width * 0.25,
+      width: size.width * 0.25,
       child: Column(
         children: [
           Row( 
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _DeleteIcon(
                 onPressed: () => setState(() {
@@ -54,7 +57,8 @@ class _DragCustomState extends State<DragCustom> {
                 })
               ),
               IconButton(
-                splashRadius: 20,
+                iconSize: 20,
+                splashRadius: 10,
                 icon: player.volume != 1 ? iconMuteOff : iconMuteOn,
                 onPressed: () => setState(() {
                   player.volume == 0
@@ -90,10 +94,12 @@ class _IconSoundBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final size = MediaQuery.of(context).size;
+
     
     return Container(
-      height: 50,
-      width: 70,
+      height: size.height*.05,
+      width: size.width*.12,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         color: !activo ? Colors.black12 : ThemeColors.primary
@@ -114,7 +120,8 @@ class _DeleteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      splashRadius: 20,
+      iconSize: 20,
+      splashRadius: 10,
       onPressed: () => onPressed(), 
       icon: const Icon( Icons.clear, color: Colors.red,)
     );

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:incredibclap/services/record_service.dart';
 import 'package:incredibclap/widgets/settings/pop_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +20,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    
     final menuHiden = Provider.of<MenuHidden>(context);
+    final recordService = Provider.of<RecordService>(context);
+
+    recordService.getAllAudios();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("IncredibClap"),
+        title: const Text("IncrediClap"),
         centerTitle: true,
         actions: const [
           PopMenu()
@@ -72,6 +76,7 @@ class _HomeBodyState extends State<_HomeBody> {
   @override
   Widget build(BuildContext context) {
 
+    final rs = Provider.of<RecordService>(context);
     Size size = MediaQuery.of(context).size;
     const durationAnima = Duration(milliseconds: 500);
 
@@ -106,54 +111,59 @@ class _HomeBodyState extends State<_HomeBody> {
                 ),
 
 
-                Column(
-                  children: [
-                    
-                    const SizedBox(height: 40),
+                Center(
+                  child: Column(
+                    children: [
+                      
+                      const SizedBox(height: 40),
 
-                    FadeIn(
-                      duration: durationAnima,
-                      child: HomeCard( 
-                        title: 'Crea', 
-                        image: const AssetImage('assets/backgrounds/backMusic.jpg'),
-                        buttonColor: ThemeColors.dark, 
-                        buttonIcon: Icons.play_circle, 
-                        onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                      FadeIn(
+                        duration: durationAnima,
+                        child: HomeCard( 
+                          title: 'Crea', 
+                          image: const AssetImage('assets/backgrounds/backMusic.jpg'),
+                          buttonColor: ThemeColors.dark, 
+                          buttonIcon: Icons.play_circle, 
+                          onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                        ),
                       ),
-                    ),
           
 
-                    FadeIn(
-                      duration: durationAnima,
-                      child: HomeCard( 
-                        title: 'Playlist',
-                        image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
-                        buttonColor: ThemeColors.dark, 
-                        buttonIcon: Icons.list_rounded,
-                        onPressed: () => Navigator.pushNamed(context, ListAudiosScreen.routeName) 
+                      FadeIn(
+                        duration: durationAnima,
+                        child: HomeCard( 
+                          title: 'Playlist',
+                          image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
+                          buttonColor: ThemeColors.dark, 
+                          buttonIcon: Icons.list_rounded,
+                          onPressed: () => {
+                            rs.selectedListRecord = rs.allAudios,
+                            Navigator.pushNamed(context, ListAudiosScreen.routeName) 
+                          }
+                        ),
                       ),
-                    ),
 
-                    const SizedBox(height: 108),
+                      const SizedBox(height: 108),
 
-                    // Column(
-                    //   children: [
-                    //     Center(
-                    //       child: FadeInUp(
-                    //         duration: durationAnima,
-                    //         child: const Text(
-                    //           'Creado por Benito Lopez-Cepero Martin',
-                    //           style:  TextStyle(
-                    //             fontFamily: 'Amadeus',
-                    //             color: ThemeColors.dark,
-                    //             fontSize: 15
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                  ],
+                      // Column(
+                      //   children: [
+                      //     Center(
+                      //       child: FadeInUp(
+                      //         duration: durationAnima,
+                      //         child: const Text(
+                      //           'Creado por Benito Lopez-Cepero Martin',
+                      //           style:  TextStyle(
+                      //             fontFamily: 'Amadeus',
+                      //             color: ThemeColors.dark,
+                      //             fontSize: 15
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                    ],
+                  ),
                 ),
               ]
 

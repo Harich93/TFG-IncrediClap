@@ -72,6 +72,7 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
                 itemBuilder: ( BuildContext context, int ind ) => SizedBox(
                   width: 600,
                     child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       child: AnimatedBuilder(
                         animation: controller,

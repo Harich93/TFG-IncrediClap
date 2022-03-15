@@ -26,7 +26,7 @@ class _MusicScreenState extends State<MusicScreen> {
   Widget build(BuildContext context) {
 
     const durationAnima = Duration(milliseconds: 800);
-    // final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     bool firstPlay = true;
     const soundEnable = IconButton(onPressed: null, icon: Icon(Icons.bubble_chart));
     
@@ -38,7 +38,7 @@ class _MusicScreenState extends State<MusicScreen> {
    
     const textStyleTab = TextStyle( color: Colors.black87);
     
-    return WillPopScope(
+    return WillPopScope( // Acciones al retroceder
       onWillPop: () async{ 
         ap.resetAudiosProvider();
         dm.playing = false;
@@ -47,41 +47,43 @@ class _MusicScreenState extends State<MusicScreen> {
         dm.current = const Duration(seconds: 0);
         return true;
       },
+
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           foregroundColor: Colors.black87,
-          elevation: 5,
+          elevation: 0,
           centerTitle: true,
-          title: const Text("IncredibClap"),
+          title: const Text("IncrediClap"),
           backgroundColor: ThemeColors.primary,
         ),
         
         body:Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              
-              FadeInDown(
-                duration: durationAnima,
-                child: Column( // Drags Container
-                  children: [
-                    
-                    const SizedBox(height: 20),
-              
-                    SizedBox(  
-                      height: 70,
-                      width: 70,
-                      child: RadialProgress(
-                        primaryColor: rs.isRecord ? Colors.red : Colors.black87 ,
-                        percentage: dm.porcentaje,
-                        percentageString: dm.currentSecond,
-                        strokeWidthBack: 2,
-                        strokeWidthFront: 3,
-                      )
-                    ),
-              
-                    Row( // Drags 1
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            
+            FadeInDown(
+              duration: durationAnima,
+              child: Column( // Drags Container
+                children: [
+                  
+                  SizedBox(height: size.height*.04),
+            
+                  SizedBox(  
+                    height: 70,
+                    width: 70,
+                    child: RadialProgress(
+                      primaryColor: rs.isRecord ? Colors.red : Colors.black87 ,
+                      percentage: dm.porcentaje,
+                      percentageString: dm.currentSecond,
+                      strokeWidthBack: 2,
+                      strokeWidthFront: 3,
+                    )
+                  ),
+            
+                  SizedBox(
+                    width: size.width,
+                    child: Row( // Drags 1
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                       
                         DragTarget<Audio>( // Audio 0
@@ -112,12 +114,12 @@ class _MusicScreenState extends State<MusicScreen> {
                             List<dynamic> accepted,
                             List<dynamic> rejected,
                           
-                          ) => DragCustom(dragIndx: 2 ),
-                  
+                          ) => DragCustom(dragIndx: 2,  ),
+                                    
                           onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 2, firstPlay)
-                  
+                                    
                         ),
-                  
+                                    
                         DragTarget<Audio>( // Audio 3
                           builder: (
                             BuildContext context,
@@ -127,161 +129,162 @@ class _MusicScreenState extends State<MusicScreen> {
                           ) => DragCustom(dragIndx: 3 ),
                           
                           onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 3, firstPlay)
-                  
+                                    
                         ),
-                      ],
-                    ),
-                  
-                    const SizedBox(height:20),
-                  
-                    Row( // Drags 2
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                           
-                        DragTarget<Audio>( // Audio 4
-                          builder: (
-                            BuildContext context,
-                            List<dynamic> accepted,
-                            List<dynamic> rejected,
-                          
-                          ) => DragCustom( dragIndx: 4 ),
-                          
-                          onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 4, firstPlay)
-                        ),
-                        
-                        DragTarget<Audio>( // Audio 5
-                          builder: (
-                            BuildContext context,
-                            List<dynamic> accepted,
-                            List<dynamic> rejected,
-                          
-                          ) => DragCustom(  dragIndx: 5 ),
-                          
-                          onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 5, firstPlay)
-                        ),
-                          
-                        DragTarget<Audio>( // Audio 6
-                          builder: (
-                            BuildContext context,
-                            List<dynamic> accepted,
-                            List<dynamic> rejected,
-                          
-                          ) => DragCustom(dragIndx: 6),
-                  
-                          onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 6, firstPlay)
-                  
-                        ),
-                  
-                        DragTarget<Audio>( // Audio 7
-                          builder: (
-                            BuildContext context,
-                            List<dynamic> accepted,
-                            List<dynamic> rejected,
-                          
-                          ) => DragCustom(dragIndx: 7 ),
-                          
-                          onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 7, firstPlay)
-                  
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-             
-              const SizedBox(height: 35),
-
-    
-              Column( // Draggables Container
-                children: [
-                  FadeInLeft(
-                    duration: durationAnima,
-                    child: Row( // Contenedores de sonidos
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                            
-                        !ap.dragAudio.contains(ap.audios[0]) 
-                          ? MusicDraggable(data: ap.audios[0], child: const Text('1') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[1]) 
-                          ? MusicDraggable(data: ap.audios[1], child: const Text('2')) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[2])  
-                          ? MusicDraggable(data: ap.audios[2], child: const Text('3') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[3])  
-                          ? MusicDraggable(data: ap.audios[3], child: const Text('4') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[4]) 
-                          ? MusicDraggable(data: ap.audios[4], child: const Text('5') ) 
-                          : soundEnable,
                       ],
                     ),
                   ),
-                 
-                  const SizedBox(height:20),
-                 
-                  FadeInRight(
-                    duration: durationAnima,                
-                    child: Row( // Contenedores de sonidos
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                            
-                        !ap.dragAudio.contains(ap.audios[5]) 
-                          ? MusicDraggable(data: ap.audios[5], child: const Text('6') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[6]) 
-                          ? MusicDraggable(data: ap.audios[6], child: const Text('7')) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[7])  
-                          ? MusicDraggable(data: ap.audios[7], child: const Text('8') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[8])  
-                          ? MusicDraggable(data: ap.audios[8], child: const Text('9') ) 
-                          : soundEnable,
-                            
-                        !ap.dragAudio.contains(ap.audios[9]) 
-                          ? MusicDraggable(data: ap.audios[9], child: const Text('10') ) 
-                          : soundEnable,
-                      ],
-                    ),
+                
+                  SizedBox(height: size.height*.01),
+                
+                  Row( // Drags 2
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                          
+                      DragTarget<Audio>( // Audio 4
+                        builder: (
+                          BuildContext context,
+                          List<dynamic> accepted,
+                          List<dynamic> rejected,
+                        
+                        ) => DragCustom( dragIndx: 4 ),
+                        
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 4, firstPlay)
+                      ),
+                      
+                      DragTarget<Audio>( // Audio 5
+                        builder: (
+                          BuildContext context,
+                          List<dynamic> accepted,
+                          List<dynamic> rejected,
+                        
+                        ) => DragCustom(  dragIndx: 5 ),
+                        
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 5, firstPlay)
+                      ),
+                        
+                      DragTarget<Audio>( // Audio 6
+                        builder: (
+                          BuildContext context,
+                          List<dynamic> accepted,
+                          List<dynamic> rejected,
+                        
+                        ) => DragCustom(dragIndx: 6),
+                
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 6, firstPlay)
+                
+                      ),
+                
+                      DragTarget<Audio>( // Audio 7
+                        builder: (
+                          BuildContext context,
+                          List<dynamic> accepted,
+                          List<dynamic> rejected,
+                        
+                        ) => DragCustom(dragIndx: 7 ),
+                        
+                        onAccept: (Audio audio) => _onAccept(ap, audio, dm, rs, 7, firstPlay)
+                
+                      ),
+                    ],
                   ),
                 ],
               ),
-
-              const SizedBox(height: 50),
-    
-              FadeInUp(
-                duration: durationAnima,
-                child: Row( // Tabs
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                  ],
+            ),
+            
+            SizedBox(height: size.height*.03),
+      
+        
+            Column( // Draggables Container
+              children: [
+                FadeInLeft(
+                  duration: durationAnima,
+                  child: Row( // Contenedores de sonidos
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                          
+                      !ap.dragAudio.contains(ap.audios[0]) 
+                        ? MusicDraggable(data: ap.audios[0], child: const Text('1') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[1]) 
+                        ? MusicDraggable(data: ap.audios[1], child: const Text('2')) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[2])  
+                        ? MusicDraggable(data: ap.audios[2], child: const Text('3') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[3])  
+                        ? MusicDraggable(data: ap.audios[3], child: const Text('4') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[4]) 
+                        ? MusicDraggable(data: ap.audios[4], child: const Text('5') ) 
+                        : soundEnable,
+                    ],
+                  ),
                 ),
+                
+                const SizedBox(height:20),
+                
+                FadeInRight(
+                  duration: durationAnima,                
+                  child: Row( // Contenedores de sonidos
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                          
+                      !ap.dragAudio.contains(ap.audios[5]) 
+                        ? MusicDraggable(data: ap.audios[5], child: const Text('6') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[6]) 
+                        ? MusicDraggable(data: ap.audios[6], child: const Text('7')) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[7])  
+                        ? MusicDraggable(data: ap.audios[7], child: const Text('8') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[8])  
+                        ? MusicDraggable(data: ap.audios[8], child: const Text('9') ) 
+                        : soundEnable,
+                          
+                      !ap.dragAudio.contains(ap.audios[9]) 
+                        ? MusicDraggable(data: ap.audios[9], child: const Text('10') ) 
+                        : soundEnable,
+                    ],
+                  ),
+                ),
+              ],
+            ),
+      
+            SizedBox(height: size.height*.04),
+        
+            FadeInUp(
+              duration: durationAnima,
+              child: Row( // Tabs
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                  _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                  _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                  _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                  _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                  _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                ],
               ),
-
-              const SizedBox(height: 50),
-    
-              FadeIn(
-                duration: durationAnima,
-                child: _MusicMenuLocation()
-              )
-            ],
-          )
-        ),
+            ),
+      
+            SizedBox(height: size.height*.05),
+        
+            FadeIn(
+              duration: durationAnima,
+              child: _MusicMenuLocation()
+            )
+          ],
+        )
+      ),
     );
   }
 
