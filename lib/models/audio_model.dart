@@ -8,13 +8,15 @@ class Audio {
   late final int _id;
   late final String _musicSheet;
   late final String _icon;
+  late final String _iconDisable;
   late int indDrag;
 
-  Audio({ id = -1, pathAudio ="", pathMusicSheet="", pathIcon="" }) {
+  Audio({ id = -1, pathAudio ="", pathMusicSheet="", pathIcon="" , pathIconDisable=""}) {
     initAudio(pathAudio);
     _id = id;
     _musicSheet = pathMusicSheet;
     _icon = pathIcon;
+    _iconDisable = pathIconDisable;
     indDrag = -1;
   }
 
@@ -22,6 +24,7 @@ class Audio {
   AudioPlayer get player => _player;
   String get musicSheet => _musicSheet;
   String get icon => _icon;
+  String get iconDisable => _iconDisable;
 
   void initAudio( pathAudio ) async {
     if(pathAudio != "") {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/helpers/player_audio.dart';
 import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/providers/audio_provider_player.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';

@@ -72,6 +72,8 @@ flutter:
     - assets/audios/Tabs/
     - assets/sheets/
     - assets/backgrounds/
+    - assets/icons/
+
 
   fonts:
     - family: Amadeus

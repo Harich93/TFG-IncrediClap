@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:incredibclap/themes/colors.dart';
 
 class HomeCard extends StatelessWidget {
 
@@ -28,15 +29,15 @@ class HomeCard extends StatelessWidget {
       child: _CardBackground( 
         image: image,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
 
             const SizedBox( width: 20 ),
 
             Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [ 
-                Text(title, style: TextStyle( color: buttonColor, fontSize: 40, fontFamily: 'Amadeus') )
+                Text(title, style: TextStyle( color: buttonColor, fontSize: 30, fontFamily: 'Amadeus') )
               ]
             ),
           ],
@@ -67,15 +68,14 @@ class _CardBackground extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.centerRight,
-            fit: BoxFit.cover,
             image: image
           ),
           boxShadow: const [
             BoxShadow(
-              spreadRadius: 1,
-              color: Colors.black26,
+              spreadRadius: 0,
+              color: ThemeColors.dark,
               offset: Offset(0,0),
-              blurRadius: 2
+              blurRadius: 5
             )
           ],
           color: Colors.white,

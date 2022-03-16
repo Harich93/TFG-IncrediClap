@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/providers/audio_provider_player.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/record_service.dart';
 import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/widgets/playlist/playlist.dart';
-import 'package:incredibclap/widgets/settings/pop_menu.dart';
 
 class ListAudiosScreen extends StatelessWidget {
 
@@ -23,14 +22,8 @@ static const String routeName = 'ListAudios';
     final menuHiden = Provider.of<MenuHidden>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("IncrediClap"),
-        centerTitle: true,
-        actions: const [
-          PopMenu()
-        ],
-        foregroundColor: Colors.black87,
-        backgroundColor: ThemeColors.primary,
+      appBar: AppBarCustom(
+        title: "IncrediClap",
         elevation: menuHiden.hidden,
       ),
       body: Stack(

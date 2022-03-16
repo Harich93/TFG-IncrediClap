@@ -1,7 +1,8 @@
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/services/record_service.dart';
-import 'package:incredibclap/widgets/settings/pop_menu.dart';
+import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/providers/providers.dart';
@@ -13,7 +14,6 @@ import 'package:incredibclap/widgets/home/home_widgets.dart';
 class HomeScreen extends StatelessWidget {
 
   static const String routeName = 'Home';
-
   const HomeScreen({Key? key}) : super(key: key);
 
 
@@ -27,14 +27,8 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("IncrediClap"),
-        centerTitle: true,
-        actions: const [
-          PopMenu()
-        ],
-        foregroundColor: Colors.black87,
-        backgroundColor: ThemeColors.primary,
+      appBar: AppBarCustom(
+        title: "IncrediClap",
         elevation: menuHiden.hidden,
       ),
       body:  _HomeBody()
@@ -42,7 +36,6 @@ class HomeScreen extends StatelessWidget {
   }
 
 }
-
 
 
 class _HomeBody extends StatefulWidget {
@@ -76,9 +69,11 @@ class _HomeBodyState extends State<_HomeBody> {
   @override
   Widget build(BuildContext context) {
 
+    final ap = Provider.of<AudiosProvider>(context);
     final rs = Provider.of<RecordService>(context);
-    Size size = MediaQuery.of(context).size;
+    
     const durationAnima = Duration(milliseconds: 500);
+    Size size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
       controller: controller,
@@ -95,22 +90,6 @@ class _HomeBodyState extends State<_HomeBody> {
             child: Stack(
               children: [ 
 
-                SizedBox(
-                  height: size.height * .7,
-                  child: const Image(
-                    image: AssetImage('assets/backgrounds/backMusic1.jpg'),
-                  ),
-                ),
-                
-                const SizedBox(
-                  child: Image(
-                    image: AssetImage('assets/backgrounds/backMusic.jpg'),
-                    alignment: Alignment.bottomCenter,
-                    
-                  ),
-                ),
-
-
                 Center(
                   child: Column(
                     children: [
@@ -124,7 +103,11 @@ class _HomeBodyState extends State<_HomeBody> {
                           image: const AssetImage('assets/backgrounds/backMusic.jpg'),
                           buttonColor: ThemeColors.dark, 
                           buttonIcon: Icons.play_circle, 
-                          onPressed: () => Navigator.pushNamed(context, MusicScreen.routeName) 
+                          onPressed: () => {
+                            ap.isMusicScreen = true,
+                            Navigator.pushNamed(context, MusicScreen.routeName) 
+                            
+                          }
                         ),
                       ),
           
@@ -132,7 +115,7 @@ class _HomeBodyState extends State<_HomeBody> {
                       FadeIn(
                         duration: durationAnima,
                         child: HomeCard( 
-                          title: 'Playlist',
+                          title: 'Reproduce',
                           image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
                           buttonColor: ThemeColors.dark, 
                           buttonIcon: Icons.list_rounded,
@@ -145,23 +128,7 @@ class _HomeBodyState extends State<_HomeBody> {
 
                       const SizedBox(height: 108),
 
-                      // Column(
-                      //   children: [
-                      //     Center(
-                      //       child: FadeInUp(
-                      //         duration: durationAnima,
-                      //         child: const Text(
-                      //           'Creado por Benito Lopez-Cepero Martin',
-                      //           style:  TextStyle(
-                      //             fontFamily: 'Amadeus',
-                      //             color: ThemeColors.dark,
-                      //             fontSize: 15
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                    
                     ],
                   ),
                 ),

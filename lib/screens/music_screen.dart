@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/widgets/music/music_draggable.dart';
+import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
@@ -20,6 +20,16 @@ static const String routeName = 'Music';
 }
 
 class _MusicScreenState extends State<MusicScreen> {
+
+  late AudiosProvider ap;
+  @override
+  void initState() {
+    ap = Provider.of<AudiosProvider>(context, listen: false);
+    // ap.isMusicScreen = true; 
+    super.initState();
+  }
+
+  
 
 
   @override
@@ -44,23 +54,20 @@ class _MusicScreenState extends State<MusicScreen> {
         dm.playing = false;
         firstPlay = true;
         rs.isRecord = false;
+        ap.isMusicScreen = false;
         dm.current = const Duration(seconds: 0);
         return true;
       },
 
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          foregroundColor: Colors.black87,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text("IncrediClap"),
-          backgroundColor: ThemeColors.primary,
+        appBar: const AppBarCustom(
+          title: "IncrediClap",
+          elevation: 2,
         ),
-        
         body:Column(
           children: [
-            
+       
             FadeInDown(
               duration: durationAnima,
               child: Column( // Drags Container
@@ -204,24 +211,24 @@ class _MusicScreenState extends State<MusicScreen> {
                     children: [
                           
                       !ap.dragAudio.contains(ap.audios[0]) 
-                        ? MusicDraggable(data: ap.audios[0], child: const Text('1') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[0], child: Image(image: AssetImage(ap.audios[0].icon)) ) 
+                        : _ImageDisable(path: ap.audios[0].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[1]) 
-                        ? MusicDraggable(data: ap.audios[1], child: const Text('2')) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[1], child: Image(image: AssetImage(ap.audios[1].icon)))
+                        :_ImageDisable(path: ap.audios[1].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[2])  
-                        ? MusicDraggable(data: ap.audios[2], child: const Text('3') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[2], child: Image(image: AssetImage(ap.audios[2].icon)) ) 
+                        : _ImageDisable(path:ap.audios[2].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[3])  
-                        ? MusicDraggable(data: ap.audios[3], child: const Text('4') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[3], child: Image(image: AssetImage(ap.audios[3].icon)) ) 
+                        : _ImageDisable(path:ap.audios[3].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[4]) 
-                        ? MusicDraggable(data: ap.audios[4], child: const Text('5') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[4], child: Image(image: AssetImage(ap.audios[4].icon)) ) 
+                        : _ImageDisable(path:ap.audios[4].iconDisable),
                     ],
                   ),
                 ),
@@ -235,24 +242,24 @@ class _MusicScreenState extends State<MusicScreen> {
                     children: [
                           
                       !ap.dragAudio.contains(ap.audios[5]) 
-                        ? MusicDraggable(data: ap.audios[5], child: const Text('6') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[5], child: Image(image: AssetImage(ap.audios[5].icon)) ) 
+                        : _ImageDisable(path: ap.audios[5].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[6]) 
-                        ? MusicDraggable(data: ap.audios[6], child: const Text('7')) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[6], child: Image(image: AssetImage(ap.audios[6].icon))) 
+                        : _ImageDisable(path:ap.audios[6].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[7])  
-                        ? MusicDraggable(data: ap.audios[7], child: const Text('8') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[7], child: Image(image: AssetImage(ap.audios[7].icon)) ) 
+                        : _ImageDisable(path: ap.audios[7].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[8])  
-                        ? MusicDraggable(data: ap.audios[8], child: const Text('9') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[8], child: Image(image: AssetImage(ap.audios[8].icon))) 
+                        : _ImageDisable(path:ap.audios[8].iconDisable),
                           
                       !ap.dragAudio.contains(ap.audios[9]) 
-                        ? MusicDraggable(data: ap.audios[9], child: const Text('10') ) 
-                        : soundEnable,
+                        ? MusicDraggable(data: ap.audios[9], child: Image(image: AssetImage(ap.audios[9].icon)) ) 
+                        : _ImageDisable(path:ap.audios[9].iconDisable),
                     ],
                   ),
                 ),
@@ -310,6 +317,20 @@ class _MusicScreenState extends State<MusicScreen> {
   }
 
 
+}
+
+class _ImageDisable extends StatelessWidget {
+  const _ImageDisable({
+    Key? key,
+    required this.path,
+  }) : super(key: key);
+
+  final String path;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image(image: AssetImage(path),height: 50);
+  }
 }
 
 class _TabAudio extends StatelessWidget {

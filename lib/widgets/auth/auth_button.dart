@@ -18,12 +18,11 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     final loginProvider = Provider.of<LoginProvider>(context);
     
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      disabledColor: Colors.grey,
+      disabledColor: ThemeColors.dark,
       elevation: 0,
       color: ThemeColors.primary,
       child: Container(

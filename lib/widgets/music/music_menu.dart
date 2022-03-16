@@ -92,7 +92,7 @@ class MusicMenu extends StatelessWidget {
       );
     }
 
-    //^ No se puede grabar no se esta reprodciendo nada
+    //^ No se puede grabar si no hay audios en drags
     Future<void> _noAudioInDragDialog() async { 
 
       return showDialog<void>(
@@ -140,18 +140,18 @@ class MusicMenu extends StatelessWidget {
 
           if( rs.isRecord ) {
            
-            for (var audio in  ap.dragAudio ) {
+            for (var audio in  ap.dragAudio ) { // Guarda todos los audios actuales en comienzo 00:00
               if(audio.id != -1)  
                 rs.addPoint( dm.current, audio ) 
             },
 
             if(!dm.playing) {
 
-              dm.soundDuration = const Duration(minutes: 2),
+              dm.soundDuration = const Duration(minutes: 2), // Maximo duración grabación
 
               audio.player.createPositionStream().listen( (event) {
                 
-                if( dm.playing ) { 
+                if( dm.playing && rs.isRecord ) { 
                   
                   if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
                     dm.current = event + durationless;

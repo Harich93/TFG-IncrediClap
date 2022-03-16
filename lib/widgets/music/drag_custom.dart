@@ -50,28 +50,29 @@ class _DragCustomState extends State<DragCustom> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _DeleteIcon(
-                onPressed: () => setState(() {
+                onPressed: ap.dragAudio[widget.dragIndx].id != -1 ? () => setState(() {
                   player.setVolume(0); 
                   ap.removeAudioInDrag(audio);
                   rs.addPoint(dm.current, audio);
-                })
+                }) : null
               ),
               IconButton(
+                disabledColor: ThemeColors.dark,
                 iconSize: 20,
                 splashRadius: 10,
                 icon: player.volume != 1 ? iconMuteOff : iconMuteOn,
-                onPressed: () => setState(() {
+                onPressed: ap.dragAudio[widget.dragIndx].id != -1 ? () => setState(() {
                   player.volume == 0
                     ? player.setVolume(1)
                     : player.setVolume(0);        
                   rs.addPoint(dm.current, audio);
-                }),
+                }) : null,
               )
             ],
           ),
 
           _IconSoundBox(
-            visual:  ap.dragContaintAudio(widget.dragIndx) ? Text(audio.icon) : const Icon(Icons.bubble_chart),
+            visual: ap.dragContaintAudio(widget.dragIndx) ? Image(image: AssetImage(audio.icon)) : const Icon(Icons.music_note_rounded),
             activo: ap.dragContaintAudio(widget.dragIndx),
           )
         ],
@@ -115,14 +116,15 @@ class _DeleteIcon extends StatelessWidget {
     Key? key, 
     required this.onPressed
   }) : super(key: key);
-  final Function onPressed;
+  final Function? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      disabledColor: ThemeColors.dark,
       iconSize: 20,
       splashRadius: 10,
-      onPressed: () => onPressed(), 
+      onPressed: onPressed != null ? () => onPressed!() : null, 
       icon: const Icon( Icons.clear, color: Colors.red,)
     );
   }

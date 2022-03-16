@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:incredibclap/helpers/player_audio.dart';
 import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/settings/pop_menu.dart';
 
 
 class PlayerScreen extends StatelessWidget {
@@ -25,7 +25,6 @@ class PlayerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     
     PlayerAudio playerAudio = Provider.of<PlayerAudio>(context);
-    RecordService rs = Provider.of<RecordService>(context);
 
     return WillPopScope(
       onWillPop: () async{ 
@@ -33,13 +32,9 @@ class PlayerScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(
+        appBar: const AppBarCustom(
+          title: "",
           elevation: 0,
-          actions: const [
-            PopMenu()
-          ],
-          foregroundColor: ThemeColors.dark,
-          backgroundColor: ThemeColors.primary,
         ),
         body: Stack(
           children: <Widget>[
@@ -102,44 +97,48 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
 
           const SizedBox(height: 50,),
 
-          Row(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  
-                  Text( 
-                    playerAudio.title, 
-                    style: TextStyle( 
-                      fontSize: 50, 
-                      color: Colors.white.withOpacity(0.8) 
-                    )
-                  ),
-                  
-                  Text(
-                    '-${playerAudio.userName}-', 
-                    style: TextStyle( 
-                      fontSize: 25, 
-                      color: Colors.white.withOpacity(0.5) 
-                    )
-                  ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    
+                    Text( 
+                      playerAudio.title, 
+                      style: TextStyle( 
+                        fontSize: 50, 
+                        color: Colors.white.withOpacity(0.8) 
+                      )
+                    ),
+                    
+                    Text(
+                      '-${playerAudio.userName}-', 
+                      style: TextStyle( 
+                        fontSize: 25, 
+                        color: Colors.white.withOpacity(0.5) 
+                      )
+                    ),
 
-                ],
-              ),
+                  ],
+                ),
 
-              const Spacer(),
+                // const Spacer(),
 
-              FloatingActionButton(
-                elevation: 0,
-                highlightElevation: 0,
-                backgroundColor: ThemeColors.dark,
-                child: playerAudio.isPlaying 
-                  ? const Icon(Icons.pause)
-                  : const Icon(Icons.play_arrow), 
-                onPressed: () => playerAudio.playPause(),
-              )
+                FloatingActionButton(
+                  elevation: 0,
+                  highlightElevation: 0,
+                  backgroundColor: ThemeColors.dark,
+                  child: playerAudio.isPlaying 
+                    ? const Icon(Icons.pause)
+                    : const Icon(Icons.play_arrow), 
+                  onPressed: () => playerAudio.playPause(),
+                )
 
-            ],
+              ],
 
+            ),
           ),
         ],
       ),
@@ -159,7 +158,7 @@ class ImagenDiscoDuracion extends StatelessWidget {
         children: <Widget>[
 
           ImagenDisco(),
-          const SizedBox( width: 50 ),
+          const SizedBox( width: 20 ),
 
           BarraProgreso(),
           // const SizedBox( width: 20 ),
@@ -205,6 +204,7 @@ class BarraProgreso extends StatelessWidget {
 
           ],
         ),
+
         const SizedBox( height: 10 ),
         Text(dmp.currentSecond, style: estilo ),
       ],

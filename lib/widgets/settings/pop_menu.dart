@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/screens/list_audios_screen.dart';
-import 'package:incredibclap/screens/login_screen.dart';
-import 'package:incredibclap/services/record_service.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/screens/list_audios_screen.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/colors.dart';
 
 enum ActionsPopMenu { myAccount, myPlaylist, logout }
 
@@ -26,6 +28,7 @@ class PopMenuState extends State<PopMenu> {
   Widget build(BuildContext context) {
 
     final rs = Provider.of<RecordService>(context);
+    final ap = Provider.of<AudiosProvider>(context);
     
     Future<void> _showMyDialog() async { 
       return showDialog<void>(
@@ -46,6 +49,7 @@ class PopMenuState extends State<PopMenu> {
               TextButton(
                 child: const Text('No'),
                 onPressed: () {
+                  ap.isMusicScreen == true ? ap.audiosInDragPlay() : null;
                   Navigator.of(context).pop();
                 },
               ),
@@ -53,7 +57,9 @@ class PopMenuState extends State<PopMenu> {
               TextButton(
                 child: const Text('Si'),
                 onPressed: () {
-                  Navigator.pushNamed(context, LoginScreen.routeName);
+                  ap.isMusicScreen == true ? ap.stopAll() : null;
+                  ap.isMusicScreen = false;
+                  SystemNavigator.pop();
                 },
               )
             ]
@@ -70,7 +76,9 @@ class PopMenuState extends State<PopMenu> {
 
         switch (result) {
           case ActionsPopMenu.logout:
+              ap.isMusicScreen == true ? ap.audiosInDragPause() : null;
               _showMyDialog();
+              ap.isMusicScreen = false;
             break;
 
           case ActionsPopMenu.myAccount:
@@ -78,9 +86,10 @@ class PopMenuState extends State<PopMenu> {
             break;
 
           case ActionsPopMenu.myPlaylist:
+              ap.isMusicScreen == true ? ap.stopAll() : null;
               rs.selectedListRecord = rs.userAudios;
               Navigator.pushNamed(context, ListAudiosScreen.routeName);
-              //TODO: Implementar playlist usuario
+              ap.isMusicScreen == false;
             break;
 
           default:

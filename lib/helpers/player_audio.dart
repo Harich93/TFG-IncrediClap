@@ -192,7 +192,7 @@ class PlayerAudio with ChangeNotifier {
   }
 
   void _play(){
-    
+
     _isPlaying = true;
     sDuration.controller.repeat();
 
@@ -202,11 +202,14 @@ class PlayerAudio with ChangeNotifier {
   }
 
   void _pause(){
+
     _isPlaying = false;
     sDuration.controller.stop();
+    
     for (var audio in _playerAudios) {
       audio.player.pause();
     }
+
   }
  
   void _nextTrack() {

@@ -22,17 +22,17 @@ class MusicDraggable extends StatelessWidget {
       
       data: data,
       feedback: Container(
-        height: 50,
-        width: 50,
-        child: const Icon(Icons.directions_run),
+        height: 60,
+        width: 60,
+        child: Image(image: AssetImage(data.icon)),
         decoration: _buildBoxDecoration(),
       ),
       childWhenDragging: Container(
         height: 50.0,
         width: 50.0,
         decoration: _buildBoxDecoration(),
-        child: const Center(
-          child: Icon(Icons.send_outlined),
+        child: Center(
+          child: Image(image: AssetImage(data.icon)),
         ),
       ),
       child: Container(
@@ -40,7 +40,7 @@ class MusicDraggable extends StatelessWidget {
         width: 50.0,
         decoration: _buildBoxDecoration(),
         child: Center(
-          child: child,
+          child: Image(image: AssetImage(data.icon)),
         ),
       ),
     );
