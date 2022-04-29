@@ -31,7 +31,6 @@ class Audio {
       await _player.setAsset(pathAudio, preload: true );
       await _player.setLoopMode(LoopMode.all);
       _player.setVolume(0);
-      // _player.play();
     }
   }
 

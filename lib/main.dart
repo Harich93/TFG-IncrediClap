@@ -4,6 +4,7 @@ import 'package:incredibclap/helpers/player_audio.dart';
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
+import 'package:incredibclap/screens/settigns_user.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
 
@@ -45,14 +46,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: LoginScreen.routeName,
+      initialRoute: MusicScreen.routeName,
       routes: {
-        LoginScreen.routeName      : ( _ ) => const LoginScreen(),
-        RegisterScreen.routeName   : ( _ ) => const RegisterScreen(),
-        HomeScreen.routeName       : ( _ ) => const HomeScreen(),
-        MusicScreen.routeName      : ( _ ) => const MusicScreen(),
-        ListAudiosScreen.routeName : ( _ ) => const ListAudiosScreen(),
-        PlayerScreen.routeName     : ( _ ) => PlayerScreen(),
+        LoginScreen.routeName        : ( _ ) => const LoginScreen(),
+        RegisterScreen.routeName     : ( _ ) => const RegisterScreen(),
+        HomeScreen.routeName         : ( _ ) => const HomeScreen(),
+        MusicScreen.routeName        : ( _ ) => const MusicScreen(),
+        ListAudiosScreen.routeName   : ( _ ) => const ListAudiosScreen(),
+        SettingsUserScreen.routeName : ( _ ) => const SettingsUserScreen(), 
+        PlayerScreen.routeName       : ( _ ) => PlayerScreen(),
       },
     );
   }

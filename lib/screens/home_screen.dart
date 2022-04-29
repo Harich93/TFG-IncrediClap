@@ -3,6 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/services/record_service.dart';
 import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
+import 'package:incredibclap/widgets/shared/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/providers/providers.dart';
@@ -31,11 +32,13 @@ class HomeScreen extends StatelessWidget {
         title: "IncrediClap",
         elevation: menuHiden.hidden,
       ),
-      body:  _HomeBody()
+      body:  _HomeBody(),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 
 }
+
 
 
 class _HomeBody extends StatefulWidget {

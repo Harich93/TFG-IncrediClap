@@ -263,7 +263,6 @@ class _MusicMenuButton extends StatelessWidget{
     final model = Provider.of<_MenuModel>(context);
     final rs = Provider.of<RecordService>(context);
 
-
     return GestureDetector(
       child: Column(
         children: [

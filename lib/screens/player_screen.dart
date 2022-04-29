@@ -29,6 +29,7 @@ class PlayerScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async{ 
         playerAudio.resetAudios();
+        Navigator.pop(context);
         return true;
       },
       child: Scaffold(

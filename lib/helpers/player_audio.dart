@@ -113,7 +113,7 @@ class PlayerAudio with ChangeNotifier {
     _isFirstPlay = true; 
     
     for (var audio in _playerAudios) {
-      audio.player.dispose();
+      audio.player.setVolume(0);
     }
 
     _playerAudios = [];

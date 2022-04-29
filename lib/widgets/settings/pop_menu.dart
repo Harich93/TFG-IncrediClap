@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:incredibclap/screens/settigns_user.dart';
 import 'package:provider/provider.dart';
 
 import 'package:incredibclap/providers/providers.dart';
@@ -82,6 +83,7 @@ class PopMenuState extends State<PopMenu> {
             break;
 
           case ActionsPopMenu.myAccount:
+              Navigator.pushNamed(context, SettingsUserScreen.routeName);
               // TODO: Implementar ajustes de cuenta
             break;
 
