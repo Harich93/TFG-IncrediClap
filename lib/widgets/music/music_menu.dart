@@ -175,8 +175,6 @@ class MusicMenu extends StatelessWidget {
               }),
 
             }
-
-
           }
           else {
             _saveRecordDialog(),
