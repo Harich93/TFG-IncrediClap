@@ -165,6 +165,7 @@ class MusicMenu extends StatelessWidget {
 
                 }
                 
+                
                 else {   
                   durationless = zeroDuration - event;
                   dm.current = zeroDuration; 
