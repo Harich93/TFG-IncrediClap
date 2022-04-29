@@ -156,6 +156,7 @@ class MusicMenu extends StatelessWidget {
                   if( durationless.inSeconds != 0 || durationless.inMilliseconds != 0 ) {
                     dm.current = event + durationless;
                   }
+                  
 
                   if( dm.current >= dm.soundDuration ) {
                     ap.audiosInDragPause();
