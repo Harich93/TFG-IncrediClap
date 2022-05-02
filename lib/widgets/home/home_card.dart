@@ -9,36 +9,38 @@ class HomeCard extends StatelessWidget {
     required this.buttonColor,
     required this.buttonIcon,
     required this.title,
-    required this.onPressed,
-    required this.image
+    required this.image,
+    required this.text,
+    this.reverse = false,
   }) : super(key: key);
   
   final Color buttonColor;
+  final String text;
   final IconData buttonIcon;
   final String title;
-  final Function onPressed;
   final AssetImage image; 
-
-
+  final bool reverse;
 
   @override
   Widget build(BuildContext context) {
-           
     return GestureDetector(
-      onTap: () => onPressed(),
-      child: _CardBackground( 
+      child: _CardBackground(
+        reverse: reverse, 
         image: image,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: !reverse ? MainAxisAlignment.start : MainAxisAlignment.end,
           children: [
-
             const SizedBox( width: 20 ),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
-                Text(title, style: TextStyle( color: buttonColor, fontSize: 30, fontFamily: 'Amadeus') )
-              ]
+            SizedBox(
+              width: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [ 
+                  Text(title, style: TextStyle( color: buttonColor, fontSize: 20, fontFamily: 'Amadeus') ),
+                  Text(text, style: TextStyle( color: buttonColor, fontSize: 15) ),
+                ]
+              ),
             ),
           ],
         ),
@@ -53,10 +55,11 @@ class HomeCard extends StatelessWidget {
 
 class _CardBackground extends StatelessWidget {
 
-  const _CardBackground( { required this.child, required this.image } );
+  const _CardBackground( { required this.child, required this.image, required this.reverse } );
 
   final Widget child;
   final AssetImage image; 
+  final bool reverse;
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +67,20 @@ class _CardBackground extends StatelessWidget {
       margin: const EdgeInsets.all(15),
       child: Container(
         width: 380,
-        height: 170,
+        height: 90,
         decoration: BoxDecoration(
           image: DecorationImage(
-            alignment: Alignment.centerRight,
+            alignment: !reverse ? Alignment.centerRight : Alignment.centerLeft,
             image: image
           ),
-          boxShadow: const [
-            BoxShadow(
-              spreadRadius: 0,
-              color: ThemeColors.dark,
-              offset: Offset(0,0),
-              blurRadius: 5
-            )
-          ],
+          // boxShadow: const [
+          //   BoxShadow(
+          //     spreadRadius: 0,
+          //     color: ThemeColors.dark,
+          //     offset: Offset(0,0),
+          //     blurRadius: 0
+          //   )
+          // ],
           color: Colors.white,
           borderRadius: BorderRadius.circular(5) 
         ),

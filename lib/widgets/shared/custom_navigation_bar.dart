@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/themes/themes.dart';
+import 'package:provider/provider.dart';
 
-class CustomNavigationBar extends StatefulWidget {
+class CustomNavigationBar extends StatelessWidget {
+  
   const CustomNavigationBar({
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<CustomNavigationBar> createState() => _CustomNavigationBarState();
-}
-
-class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  
   @override
   Widget build(BuildContext context) {
+
+    UiProvider uiProvider = Provider.of<UiProvider>(context);
+
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -23,14 +24,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           icon: Icon(Icons.music_video_outlined),
           label: 'Crea',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.list),
-          label: 'Playlist',
-        ),
       ],
-      currentIndex: 1,
+      currentIndex: uiProvider.selectedMenuOpt,
       selectedItemColor: ThemeColors.primary,
-      onTap: (val) => {},
+      onTap: (val) => {uiProvider.selectedMenuOpt = val}  
     );
   }
 }

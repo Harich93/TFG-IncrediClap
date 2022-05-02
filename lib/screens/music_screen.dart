@@ -12,8 +12,6 @@ import 'package:incredibclap/widgets/music/music_widgets.dart';
 
 class MusicScreen extends StatefulWidget {
 
-static const String routeName = 'Music';
-
   const MusicScreen({Key? key}) : super(key: key);
   
   @override
@@ -26,12 +24,8 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   void initState() {
     ap = Provider.of<AudiosProvider>(context, listen: false);
-    // ap.isMusicScreen = true; 
     super.initState();
   }
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,106 +43,81 @@ class _MusicScreenState extends State<MusicScreen> {
    
     const textStyleTab = TextStyle( color: Colors.black87);
     
-    return WillPopScope( // Acciones al retroceder
-      onWillPop: () async{ 
-        ap.resetAudiosProvider();
-        dm.playing = false;
-        firstPlay = true;
-        rs.isRecord = false;
-        ap.isMusicScreen = false;
-        dm.current = const Duration(seconds: 0);
-        return true;
-      },
-
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: const AppBarCustom(
-          title: "IncrediClap",
-          elevation: 2,
-        ),
-        body:Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: SizedBox(
-                  height: size.height * 0.55,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          CustomButton(),
-                          CustomButton(),
-                          CustomButton(),
-                          CustomButton(),
-                        ],
-                      ),
-                    
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          CustomButton(),
-                          CustomButton(),
-                          CustomButton(),
-                          CustomButton(),
-                        ],
-                      )
-                    ],
+    return Container(
+      child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Center(
+                  child: SizedBox(
+                    height: size.height * 0.55,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            CustomButton(),
+                            CustomButton(),
+                            CustomButton(),
+                            CustomButton(),
+                          ],
+                        ),
+                      
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            CustomButton(),
+                            CustomButton(),
+                            CustomButton(),
+                            CustomButton(),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-    
       
-            SizedBox(height: size.height*.05),
         
-            FadeInUp(
-              duration: durationAnima,
-              child: Column(
-                children: [
-                  Row( // Tabs
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    ],
-                  ),
-                  Row( // Tabs
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      Container(
-                        margin: EdgeInsets.only(top: 30),
-                        child: FloatingActionButton(
-                          elevation: 0,
-                          mini: true,
-                          onPressed: (){}, 
-                          child: const Icon(Icons.music_note, color: ThemeColors.dark,),
-                          backgroundColor: ThemeColors.primary,
+              SizedBox(height: size.height*.01),
+          
+              FadeInUp(
+                duration: durationAnima,
+                child: Column(
+                  children: [
+                    Row( // Tabs
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                        _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                        _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                        _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      ],
+                    ),
+                    Row( // Tabs
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                        Container(
+                          margin: EdgeInsets.only(top: 30),
+                          child: FloatingActionButton(
+                            elevation: 0,
+                            mini: true,
+                            onPressed: (){}, 
+                            child: const Icon(Icons.music_note, color: ThemeColors.dark,),
+                            backgroundColor: ThemeColors.primary,
+                          ),
                         ),
-                      ),
-                      _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                    ],
-                  ),
-                ],
+                        _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-      
-          ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){},
-          child: const Icon(Icons.radio_button_checked_rounded, color: ThemeColors.dark,),
-          backgroundColor: ThemeColors.primary,
-          elevation: 10,
-        ),
-        bottomNavigationBar: const CustomNavigationBar(),
-      ),
+        
+            ],
+          ),
     );
   }
 

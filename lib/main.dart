@@ -24,6 +24,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: ( _ ) => UiProvider()),
         ChangeNotifierProvider(create: ( _ ) => AuthService()),
         ChangeNotifierProvider(create: ( _ ) => AudiosProvider()),
         ChangeNotifierProvider(create: ( _ ) => DurationModel()),
@@ -46,13 +47,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: MusicScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
         LoginScreen.routeName        : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName     : ( _ ) => const RegisterScreen(),
         HomeScreen.routeName         : ( _ ) => const HomeScreen(),
-        MusicScreen.routeName        : ( _ ) => const MusicScreen(),
-        ListAudiosScreen.routeName   : ( _ ) => const ListAudiosScreen(),
         SettingsUserScreen.routeName : ( _ ) => const SettingsUserScreen(), 
         PlayerScreen.routeName       : ( _ ) => PlayerScreen(),
       },

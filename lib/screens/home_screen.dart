@@ -23,17 +23,20 @@ class HomeScreen extends StatelessWidget {
 
     final menuHiden = Provider.of<MenuHidden>(context);
     final recordService = Provider.of<RecordService>(context);
+    final uiProvider = Provider.of<UiProvider>(context);
 
     recordService.getAllAudios();
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarCustom(
-        title: "IncrediClap",
+        title: "Incrediclap",
         elevation: menuHiden.hidden,
       ),
-      body:  _HomeBody(),
-      bottomNavigationBar: CustomNavigationBar(),
+      body:  uiProvider.selectedMenuOpt == 0 
+        ? _HomeBody()
+        : const MusicScreen(),
+      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 
@@ -82,61 +85,84 @@ class _HomeBodyState extends State<_HomeBody> {
       controller: controller,
       child: Column( 
         children: [
-          const HeaderCuadradro(),
-    
+      
           _TitlePage(),
+        
+          Center(
+            child: Column(
+              children: const [
           
-          const Divider(),
-          
-          SizedBox(
-            height: size.height * 0.73,
-            child: Stack(
-              children: [ 
-
-                Center(
-                  child: Column(
-                    children: [
-                      
-                      const SizedBox(height: 40),
-
-                      FadeIn(
-                        duration: durationAnima,
-                        child: HomeCard( 
-                          title: 'Crea', 
-                          image: const AssetImage('assets/backgrounds/backMusic.jpg'),
-                          buttonColor: ThemeColors.dark, 
-                          buttonIcon: Icons.play_circle, 
-                          onPressed: () => {
-                            ap.isMusicScreen = true,
-                            Navigator.pushNamed(context, MusicScreen.routeName) 
-                            
-                          }
-                        ),
-                      ),
-          
-
-                      FadeIn(
-                        duration: durationAnima,
-                        child: HomeCard( 
-                          title: 'Reproduce',
-                          image: const AssetImage('assets/backgrounds/backMusic1.jpg'),
-                          buttonColor: ThemeColors.dark, 
-                          buttonIcon: Icons.list_rounded,
-                          onPressed: () => {
-                            rs.selectedListRecord = rs.allAudios,
-                            Navigator.pushNamed(context, ListAudiosScreen.routeName) 
-                          }
-                        ),
-                      ),
-
-                      const SizedBox(height: 108),
-
-                    
-                    ],
-                  ),
+                HomeCard( 
+                  title: ' Ané Carrasco', 
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.play_circle, 
+                  text: 'El percusionista flamenco del siglo XXI',
                 ),
-              ]
-
+                  
+                HomeCard( 
+                  reverse: true,
+                  title: 'El BO',
+                  image: AssetImage('assets/artistas/bo.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.list_rounded,
+                  text: 'El rey del jaleo.',
+                ),
+                
+                HomeCard( 
+                  title: 'Gregorio Fernández', 
+                  image: AssetImage('assets/artistas/bo.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.play_circle, 
+                  text: 'La Filarmónica de Santiago en estado puro.',
+                ),
+                
+                HomeCard( 
+                  reverse: true,
+                  title: 'Chicharito',
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.list_rounded,
+                  text: 'Ritmo con los cinco sentidos',
+                ),
+                
+                HomeCard( 
+                  title: 'Carlos Grilo', 
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.play_circle, 
+                  text: 'El nuevo referente del soniquete jerezano',
+                ),
+                
+                  
+                HomeCard( 
+                  reverse: true,
+                  title: 'Luis y Ali de la Tota',
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.list_rounded,
+                  text: 'Los gemelos palmean dos veces.',
+                ),
+                
+                HomeCard( 
+                  title: 'El Monea', 
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.play_circle, 
+                  text: 'El pulso de los Rubichi',
+                ),
+                  
+                HomeCard( 
+                  reverse: true,
+                  title: 'José Rubichi',
+                  image: AssetImage('assets/artistas/chicharito.jpg'),
+                  buttonColor: ThemeColors.dark, 
+                  buttonIcon: Icons.list_rounded,
+                  text: 'Compás por los cuatro costados',
+                ),
+                
+              
+              ],
             ),
           ),
         ],
@@ -145,9 +171,6 @@ class _HomeBodyState extends State<_HomeBody> {
   }
 }
 
-
-
-
 class _TitlePage extends StatelessWidget {
 
 
@@ -155,47 +178,39 @@ class _TitlePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const durationAnima = Duration(milliseconds: 800);
-    const colorTexto = ThemeColors.dark;
     
     return Container(
-      padding: const EdgeInsets.symmetric( vertical: 25, horizontal: 25 ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            ThemeColors.primary,
+            Colors.white
+          ],
+          stops: [
+            .1,
+            .8
+          ],
+          transform: GradientRotation(71) 
+        )
+      ),
+      padding: const EdgeInsets.symmetric( vertical: 20 ),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, 
         children: [
-          
-          const SizedBox( height: 10),
-
           FadeIn(
             duration: durationAnima,
             child: const Center(
               child: Text(
-                 'IES Almunia', 
-                style: TextStyle(
-                  color: colorTexto, 
-                  fontFamily: 'Amadeus',
-                  fontSize: 50,
-                )
-              ),
-            ),
-          ),
-
-          const SizedBox( height: 10),
-          
-          FadeIn(
-            duration: durationAnima,
-            child: const Center(
-              child: Text(
-                '2021 - 2022',
+                'IES Almunia',
                 style:  TextStyle(
                   fontFamily: 'Amadeus',
-                  color: colorTexto,
-                  fontSize: 15
+                  // color: colorTexto,
+                  fontSize: 20
                 ),
               ),
             ),
           ),
-
           
         ]
       ),

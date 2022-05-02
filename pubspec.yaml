@@ -73,6 +73,7 @@ flutter:
     - assets/sheets/
     - assets/backgrounds/
     - assets/icons/
+    - assets/artistas/
 
 
   fonts:
