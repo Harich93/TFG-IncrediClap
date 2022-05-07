@@ -2,10 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/colors.dart';
-import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
-import 'package:incredibclap/widgets/shared/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/audio_provider.dart';
 import 'package:incredibclap/widgets/music/music_widgets.dart';
@@ -32,8 +29,8 @@ class _MusicScreenState extends State<MusicScreen> {
 
     const durationAnima = Duration(milliseconds: 800);
     final size = MediaQuery.of(context).size;
-    bool firstPlay = true;
-    const soundEnable = IconButton(onPressed: null, icon: Icon(Icons.bubble_chart));
+    // bool firstPlay = true;
+    // const soundEnable = IconButton(onPressed: null, icon: Icon(Icons.bubble_chart));
     
     AudiosProvider ap = Provider.of<AudiosProvider>(context);
     DurationModel dm = Provider.of<DurationModel>(context);
@@ -43,121 +40,111 @@ class _MusicScreenState extends State<MusicScreen> {
    
     const textStyleTab = TextStyle( color: Colors.black87);
     
-    return Container(
-      child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Center(
-                  child: SizedBox(
-                    height: size.height * 0.55,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
+    return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Center(
+                child: SizedBox(
+                  height: size.height * 0.55,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FadeIn(
+                        duration: const Duration(milliseconds: 800),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            CustomButton(),
-                            CustomButton(),
-                            CustomButton(),
-                            CustomButton(),
+                          children: [
+                            CustomButton(audioIdx: 0),
+                            CustomButton(audioIdx: 1),
+                            CustomButton(audioIdx: 2),
+                            CustomButton(audioIdx: 3),
                           ],
                         ),
-                      
-                        Column(
+                      ),
+
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FloatingActionButton(
+                            elevation: 0,
+                            // mini: true,
+                            onPressed: (){}, 
+                            child: const Icon(Icons.queue_music_rounded, color: Colors.black,),
+                            backgroundColor: ThemeColors.primary,
+                          ),
+                          const Text('Icono', style: TextStyle( fontSize: 20),)
+                        ],
+                      ),
+                  
+
+                      FadeIn(
+                        duration: const Duration(milliseconds: 800),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            CustomButton(),
-                            CustomButton(),
-                            CustomButton(),
-                            CustomButton(),
+                          children: [
+                            CustomButton(audioIdx: 4),
+                            CustomButton(audioIdx: 5),
+                            CustomButton(audioIdx: 6),
+                            CustomButton(audioIdx: 7),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
+            ),
+    
       
+            // SizedBox(height: size.height*.01),
         
-              SizedBox(height: size.height*.01),
-          
-              FadeInUp(
-                duration: durationAnima,
-                child: Column(
-                  children: [
-                    Row( // Tabs
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                        _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                        _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                        _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      ],
-                    ),
-                    Row( // Tabs
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                        Container(
-                          margin: EdgeInsets.only(top: 30),
-                          child: FloatingActionButton(
-                            elevation: 0,
-                            mini: true,
-                            onPressed: (){}, 
-                            child: const Icon(Icons.music_note, color: ThemeColors.dark,),
-                            backgroundColor: ThemeColors.primary,
-                          ),
-                        ),
-                        _TabAudio(audioTab: audiosTab[5], rs: rs, dm: dm, textStyleTab: textStyleTab),
-                      ],
-                    ),
-                  ],
-                ),
+            FadeInUp(
+              duration: durationAnima,
+              child: Column(
+                children: [
+                  FloatingActionButton(
+                    elevation: 0,
+                    mini: true,
+                    onPressed: (){}, 
+                    child: const Icon(Icons.queue_music_rounded, color: Colors.black,),
+                    backgroundColor: ThemeColors.primary,
+                  ),
+                  Row( // Tabs
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _TabAudio(audioTab: audiosTab[0], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      _TabAudio(audioTab: audiosTab[1], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      _TabAudio(audioTab: audiosTab[2], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      _TabAudio(audioTab: audiosTab[3], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                      _TabAudio(audioTab: audiosTab[4], rs: rs, dm: dm, textStyleTab: textStyleTab),
+                    ],
+                  ),
+                ],
               ),
-        
-            ],
-          ),
-    );
-  }
-
-  void _onAccept(AudiosProvider ap, Audio audio, DurationModel dm, RecordService rs, int ind, bool firstPlay) { 
-     
-    if( !ap.dragContaintAudio(ind) ){
+            ),
       
-      setState(() {
-        ap.addAudioInDrag(audio, ind);
-        audio.player.setVolume(1);
-
-        if(firstPlay) {
-          ap.playAll();
-          dm.soundDuration = audio.player.duration!;
-          audio.player.createPositionStream().listen((event) {dm.currentSheets = event;});
-          firstPlay = false;
-        }
-
-        rs.addPoint(dm.current, audio);
-      });
-
-    }
+          ],
+        );
   }
 
 
 }
 
-class _ImageDisable extends StatelessWidget {
-  const _ImageDisable({
-    Key? key,
-    required this.path,
-  }) : super(key: key);
+// class _ImageDisable extends StatelessWidget {
+//   const _ImageDisable({
+//     Key? key,
+//     required this.path,
+//   }) : super(key: key);
 
-  final String path;
+//   final String path;
 
-  @override
-  Widget build(BuildContext context) {
-    return Image(image: AssetImage(path),height: 50);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Image(image: AssetImage(path),height: 50);
+//   }
+// }
 
 class _TabAudio extends StatelessWidget {
   const _TabAudio({
@@ -191,21 +178,6 @@ class _TabAudio extends StatelessWidget {
   }
 }
 
-class _MusicMenuLocation extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-
-    final width = MediaQuery.of(context).size.width;
-
-    return SizedBox(
-      width: width,
-      child: const Center(
-        child: MusicMenu()
-      )
-    );
-  }
-}
 
 
 

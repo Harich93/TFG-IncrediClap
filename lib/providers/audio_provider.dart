@@ -3,6 +3,13 @@ import 'package:collection/collection.dart';
 import 'package:incredibclap/models/models.dart';
 
 class AudiosProvider with ChangeNotifier {
+  
+  bool _firstPlay = true;
+  bool get firstPlay => _firstPlay;
+  set firstPlay(bool val) {
+    _firstPlay = val;
+    notifyListeners();
+  }
 
   bool _isMusicScreen = false;
   bool get isMusicScreen => _isMusicScreen;
@@ -12,16 +19,16 @@ class AudiosProvider with ChangeNotifier {
   }
 
   final List<Audio> _audiosConst = [
-    Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "assets/icons/icono_cajon.png", pathIconDisable: "assets/icons/icono_cajon_off.png", pathMusicSheet: "assets/sheets/1r.jpg"),
-    Audio( id: 1, pathAudio: 'assets/audios/2_Base_palmas.mp3', pathIcon: "assets/icons/icono_palmas.png", pathIconDisable: "assets/icons/icono_palmas_off.png"  ,pathMusicSheet: "assets/sheets/2r.jpg"),
-    Audio( id: 2, pathAudio: 'assets/audios/3_Acento_base_palmas.mp3', pathIcon: "assets/icons/icono_palmas_acento.png", pathIconDisable: "assets/icons/icono_palmas_acento_off.png", pathMusicSheet: "assets/sheets/3r.jpg"),
+    Audio( id: 0, pathAudio: 'assets/audios/1_Base_cajon.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_cajon_off.png", pathMusicSheet: "assets/sheets/1r.jpg"),
+    Audio( id: 1, pathAudio: 'assets/audios/2_Base_palmas.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_palmas_off.png"  ,pathMusicSheet: "assets/sheets/2r.jpg"),
+    Audio( id: 2, pathAudio: 'assets/audios/3_Acento_base_palmas.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_palmas_acento_off.png", pathMusicSheet: "assets/sheets/3r.jpg"),
     // Audio( id: 3, pathAudio: 'assets/audios/8_Tresillo_taconeo_1.mp3', pathIcon: "assets/icons/icono_tresillo_1.png", pathIconDisable: "assets/icons/icono_tresillo_1_off.png", pathMusicSheet: "assets/sheets/8r.jpg"),
     // Audio( id: 4, pathAudio: 'assets/audios/9_Tresillo_taconeo_2.mp3', pathIcon: "assets/icons/icono_tresillo_2.png", pathIconDisable: "assets/icons/icono_tresillo_2_off.png", pathMusicSheet: "assets/sheets/9r.jpg"),
-    Audio( id: 5, pathAudio: 'assets/audios/4_Contra_1.mp3', pathIcon: "assets/icons/icono_contra_1.png", pathIconDisable: "assets/icons/icono_contra_1_off.png", pathMusicSheet: "assets/sheets/4r.jpg"),
-    Audio( id: 6, pathAudio: 'assets/audios/5_Contra_2.mp3', pathIcon: "assets/icons/icono_contra_2.png", pathIconDisable: "assets/icons/icono_contra_2_off.png",  pathMusicSheet: "assets/sheets/5r.jpg"),
-    Audio( id: 7, pathAudio: 'assets/audios/6_Contra_3.mp3', pathIcon: "assets/icons/icono_contra_3.png", pathIconDisable: "assets/icons/icono_contra_3_off.png", pathMusicSheet: "assets/sheets/6r.jpg"),
-    Audio( id: 8, pathAudio: 'assets/audios/7_Contra_4.mp3', pathIcon: "assets/icons/icono_contra_4.png", pathIconDisable: "assets/icons/icono_contra_4_off.png", pathMusicSheet:"assets/sheets/7r.jpg"),
-    Audio( id: 9, pathAudio: 'assets/audios/10_Cierre.mp3', pathIcon: "assets/icons/icono_cierre.png", pathIconDisable: "assets/icons/icono_cierre_off.png", pathMusicSheet: "assets/sheets/10r.jpg"),
+    Audio( id: 5, pathAudio: 'assets/audios/4_Contra_1.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_contra_1_off.png", pathMusicSheet: "assets/sheets/4r.jpg"),
+    Audio( id: 6, pathAudio: 'assets/audios/5_Contra_2.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_contra_2_off.png",  pathMusicSheet: "assets/sheets/5r.jpg"),
+    Audio( id: 7, pathAudio: 'assets/audios/6_Contra_3.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_contra_3_off.png", pathMusicSheet: "assets/sheets/6r.jpg"),
+    Audio( id: 8, pathAudio: 'assets/audios/7_Contra_4.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_contra_4_off.png", pathMusicSheet:"assets/sheets/7r.jpg"),
+    Audio( id: 9, pathAudio: 'assets/audios/10_Cierre.mp3', pathIcon: "assets/artistas/bo.jpg", pathIconDisable: "assets/icons/icono_cierre_off.png", pathMusicSheet: "assets/sheets/10r.jpg"),
   ];
 
   late List<Audio> _audios;
@@ -47,76 +54,43 @@ class AudiosProvider with ChangeNotifier {
 
   List<AudioTab> get audiostab => _audiosTab;
 
-  List<Audio> dragAudio = List.generate(8, (index) => Audio(id: -1));
+  List<Audio> audiosPlaying = List.generate(8, (index) => Audio(id: -1));
 
-  List<Audio> _dragAudioPaused = List.empty(growable: true);
-
+ 
   bool dragContaintAudio( int ind ) {
-    return dragAudio[ind].id != -1 ? true : false;
+    return audiosPlaying[ind].id != -1 ? true : false;
   }
 
   void addAudioInDrag( Audio audio, int indDrag ) {
     audio.indDrag = indDrag;
-    dragAudio[indDrag] = audio;
+    audiosPlaying[indDrag] = audio;
     notifyListeners();
   }
 
-  void removeAudioInDrag( Audio value) {
-    dragAudio = dragAudio.mapIndexed( (index, element) => index == value.indDrag ? Audio(id: -1) : element ).toList();
+  void removeAudioPlaying(Audio value) {
+    audiosPlaying = audiosPlaying.mapIndexed( (index, element) => index == value.indDrag ? Audio(id: -1) : element ).toList();
     value.indDrag = -1;
     notifyListeners();
   }
 
   void resetAudiosProvider() {
-    for (var item in dragAudio) {
+    for (var item in audiosPlaying) {
       if( item.id != -1){
         item.player.setVolume(0.0);
       }
     }
-    dragAudio = List.generate(8, (index) => Audio(id: -1));
+    audiosPlaying = List.generate(8, (index) => Audio(id: -1));
     notifyListeners();
   }
-
-  bool isDragAudiosEmpty() {
-
-    int cont = 0;
-
-    for (var a in dragAudio) {
-      a.id == -1 ? cont++ : null;
-    }
-    
-    return cont == 8 ? true : false;
-
-  }
   
-  void audiosInDragPause() {
-    for( Audio audio in dragAudio ) {
-      if( audio.player.volume > 0 ) {
-        audio.player.setVolume(0.0);
-        _dragAudioPaused.add(audio);
-      }
-    }
-  }
-
-  void audiosInDragPlay() {
-    for( Audio audio in _dragAudioPaused ) {
-      for( Audio a in dragAudio ) {
-        if( audio == a ) { 
-          a.player.setVolume(1);
-        }
-      }
-    }
-    _dragAudioPaused = [];
-  }
-
   void playAll(){
-    for (var audio in _audios) {
+    for (Audio audio in _audios) {
       audio.player.play();
     }
   }
 
   void stopAll(){
-    for (var audio in _audios) {
+    for (Audio audio in _audios) {
       // audio.player.setVolume(0);
       audio.player.dispose();
     }

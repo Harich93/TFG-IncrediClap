@@ -71,16 +71,16 @@ class _CardBackground extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             alignment: !reverse ? Alignment.centerRight : Alignment.centerLeft,
-            image: image
+            image: image,
           ),
-          // boxShadow: const [
-          //   BoxShadow(
-          //     spreadRadius: 0,
-          //     color: ThemeColors.dark,
-          //     offset: Offset(0,0),
-          //     blurRadius: 0
-          //   )
-          // ],
+          boxShadow: const [
+            BoxShadow(
+              spreadRadius: 0,
+              color: ThemeColors.dark,
+              offset: Offset(0,0),
+              blurRadius: 5
+            )
+          ],
           color: Colors.white,
           borderRadius: BorderRadius.circular(5) 
         ),

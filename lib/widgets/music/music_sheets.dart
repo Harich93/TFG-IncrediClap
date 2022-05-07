@@ -58,7 +58,7 @@ class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStat
 
     final size = MediaQuery.of(context).size;
     final ap = Provider.of<AudiosProvider>(context);
-    final sheets = createListSheets(ap.dragAudio);
+    final sheets = createListSheets(ap.audios);
     controller.forward(); 
 
     return SizedBox(

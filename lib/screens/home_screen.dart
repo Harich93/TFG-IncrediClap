@@ -2,6 +2,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/widgets/home/home_card_swiper.dart';
 import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:incredibclap/widgets/shared/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,15 @@ class HomeScreen extends StatelessWidget {
         ? _HomeBody()
         : const MusicScreen(),
       bottomNavigationBar: const CustomNavigationBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: uiProvider.selectedMenuOpt == 1 
+        ? FloatingActionButton(
+          onPressed: (){},
+          mini: true,
+          backgroundColor: ThemeColors.primary,
+          child: const Icon(Icons.radio_button_checked_rounded, color: Colors.black87,),
+        )
+        : null
     );
   }
 
@@ -76,103 +86,25 @@ class _HomeBodyState extends State<_HomeBody> {
   Widget build(BuildContext context) {
 
     final ap = Provider.of<AudiosProvider>(context);
-    final rs = Provider.of<RecordService>(context);
+    // final rs = Provider.of<RecordService>(context);
     
-    const durationAnima = Duration(milliseconds: 500);
-    Size size = MediaQuery.of(context).size;
+    // const durationAnima = Duration(milliseconds: 500);
+    // Size size = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      controller: controller,
-      child: Column( 
-        children: [
+    return Column( 
+      children: [
+    
+        _TitlePage(),
       
-          _TitlePage(),
-        
-          Center(
-            child: Column(
-              children: const [
-          
-                HomeCard( 
-                  title: ' Ané Carrasco', 
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.play_circle, 
-                  text: 'El percusionista flamenco del siglo XXI',
-                ),
-                  
-                HomeCard( 
-                  reverse: true,
-                  title: 'El BO',
-                  image: AssetImage('assets/artistas/bo.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.list_rounded,
-                  text: 'El rey del jaleo.',
-                ),
-                
-                HomeCard( 
-                  title: 'Gregorio Fernández', 
-                  image: AssetImage('assets/artistas/bo.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.play_circle, 
-                  text: 'La Filarmónica de Santiago en estado puro.',
-                ),
-                
-                HomeCard( 
-                  reverse: true,
-                  title: 'Chicharito',
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.list_rounded,
-                  text: 'Ritmo con los cinco sentidos',
-                ),
-                
-                HomeCard( 
-                  title: 'Carlos Grilo', 
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.play_circle, 
-                  text: 'El nuevo referente del soniquete jerezano',
-                ),
-                
-                  
-                HomeCard( 
-                  reverse: true,
-                  title: 'Luis y Ali de la Tota',
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.list_rounded,
-                  text: 'Los gemelos palmean dos veces.',
-                ),
-                
-                HomeCard( 
-                  title: 'El Monea', 
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.play_circle, 
-                  text: 'El pulso de los Rubichi',
-                ),
-                  
-                HomeCard( 
-                  reverse: true,
-                  title: 'José Rubichi',
-                  image: AssetImage('assets/artistas/chicharito.jpg'),
-                  buttonColor: ThemeColors.dark, 
-                  buttonIcon: Icons.list_rounded,
-                  text: 'Compás por los cuatro costados',
-                ),
-                
-              
-              ],
-            ),
-          ),
-        ],
-      ),
+        Center(
+          child: CardSwiper(audios: ap.audios)
+        )
+      ]
     );
   }
 }
 
 class _TitlePage extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -180,33 +112,21 @@ class _TitlePage extends StatelessWidget {
     const durationAnima = Duration(milliseconds: 800);
     
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            ThemeColors.primary,
-            Colors.white
-          ],
-          stops: [
-            .1,
-            .8
-          ],
-          transform: GradientRotation(71) 
-        )
-      ),
       padding: const EdgeInsets.symmetric( vertical: 20 ),
       width: double.infinity,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        crossAxisAlignment: CrossAxisAlignment.center, 
         children: [
+          Icon(Icons.library_music_sharp, size: 100,),
           FadeIn(
             duration: durationAnima,
             child: const Center(
               child: Text(
-                'IES Almunia',
-                style:  TextStyle(
+                'IncrediClap',
+                style: TextStyle(
                   fontFamily: 'Amadeus',
                   // color: colorTexto,
-                  fontSize: 20
+                  fontSize: 60
                 ),
               ),
             ),

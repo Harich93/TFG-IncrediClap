@@ -50,7 +50,7 @@ class PopMenuState extends State<PopMenu> {
               TextButton(
                 child: const Text('No'),
                 onPressed: () {
-                  ap.isMusicScreen == true ? ap.audiosInDragPlay() : null;
+                  // ap.isMusicScreen == true ? ap.audiosInDragPlay() : null;
                   Navigator.of(context).pop();
                 },
               ),
@@ -77,7 +77,7 @@ class PopMenuState extends State<PopMenu> {
 
         switch (result) {
           case ActionsPopMenu.logout:
-              ap.isMusicScreen == true ? ap.audiosInDragPause() : null;
+              // ap.isMusicScreen == true ? ap.audiosInDragPause() : null;
               _showMyDialog();
               ap.isMusicScreen = false;
             break;
