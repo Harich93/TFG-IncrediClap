@@ -21,6 +21,7 @@ class CustomButton extends StatelessWidget {
     final audio = ap.audios[audioIdx];
 
     return GestureDetector(
+
       onTap: () => {
         if(ap.firstPlay) { ap.playAll() },
 
@@ -28,17 +29,15 @@ class CustomButton extends StatelessWidget {
           ? audio.player.setVolume(0)
           : audio.player.setVolume(1)
       },
-      child: Container(
-        height: 60,
-        width: 60,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: ThemeColors.dark
-        ),
+      child: SizedBox(
+        height: 80,
+        width: 80,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
             child: Center(
               child: Image(
+                height: 80,
+                width: 80,
                 image: AssetImage(audio.icon),
                 fit: BoxFit.cover,
               )

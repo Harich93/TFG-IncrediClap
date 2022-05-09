@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:incredibclap/models/audio_model.dart';
@@ -14,6 +15,7 @@ class CardSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    int currentIndex = 0;
     final size = MediaQuery.of(context).size;
 
     if ( audios.isEmpty ) {
@@ -30,10 +32,11 @@ class CardSwiper extends StatelessWidget {
       width: double.infinity,
       height: size.height * 0.43,
       child: Swiper(
+        onIndexChanged: (val) => currentIndex = val ,
         itemCount: audios.length,
-        layout: SwiperLayout.DEFAULT,
-        itemWidth: size.width * 0.8,
-        itemHeight: size.height * 0.7,
+        layout: SwiperLayout.STACK,
+        itemWidth: size.width,
+        itemHeight: size.width,
         itemBuilder: ( _ , int index ){
 
           final audio = audios[index];
@@ -42,10 +45,10 @@ class CardSwiper extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: size.width * .75,
-                // height: size.height * .27,
+                height: size.width * .5,
+                width: size.width * .5,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(100),
                   child: FadeInImage(
                     placeholder: const AssetImage('assets/artistas/loading.gif'), 
                     image: AssetImage( audio.icon ),
@@ -53,8 +56,13 @@ class CardSwiper extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text('Artista: Frase del artista $index', style: TextStyle( fontSize: 26),)
+              const SizedBox(height: 20),
+              
+              if(currentIndex == index) 
+                FadeIn(
+                  duration: const Duration(milliseconds: 300), 
+                  child: Text('Artista: Frase del artista $index', style: const TextStyle( fontSize: 26))
+                )
             ],
           );
         },
