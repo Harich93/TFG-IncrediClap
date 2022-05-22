@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/settings/pop_menu.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 
 class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
   const AppBarCustom({
@@ -18,10 +18,10 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
 
       systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarContrastEnforced: true
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: true
       ),
 
       title: Text(title),

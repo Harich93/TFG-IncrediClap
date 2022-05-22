@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/services/user_preferences_service.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 
 class SettingsUserScreen extends StatelessWidget {
 

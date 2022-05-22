@@ -1,109 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/models/audio_model.dart';
-import 'package:incredibclap/models/duration_model.dart';
-import 'package:incredibclap/providers/audio_provider.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/themes/colors.dart';
 
-class MusicSheets extends StatefulWidget {
+class MusicSheets extends StatelessWidget{
   const MusicSheets({Key? key}) : super(key: key);
-
-  @override
-  State<MusicSheets> createState() => _MusicSheetsState();
-}
-
-class _MusicSheetsState extends State<MusicSheets> with SingleTickerProviderStateMixin{
-
-  
-
-  @override
-  void initState() {
-
-    final dm = Provider.of<DurationModel>(context, listen: false);
-  
-    start = dm.currentSheets.inSeconds.toDouble() * 135;
-    end = dm.soundDuration.inSeconds.toDouble() * 135;
-
-    Duration duration = Duration(seconds: dm.soundDuration.inSeconds - dm.current.inSeconds );
-
-    controller = AnimationController( 
-      vsync: this, duration: duration
-    );
-
-    controller.addListener(() { 
-      // if( controller.status == AnimationStatus.completed ) {
-      //   controller.repeat();
-      // }
-    });
-
-
-    move = Tween( begin: start , end: end ).animate(controller);
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  late AnimationController controller;
-  late Animation<double> move;
-  late double start;
-  late double end;
 
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
     final ap = Provider.of<AudiosProvider>(context);
-    final sheets = createListSheets(ap.audios);
-    controller.forward(); 
+    final sheets = createListSheets(ap.nowPlaying);
 
     return SizedBox(
-      height: size.height * .42,
+      height: size.height * .55,
       child: Container(
         color: ThemeColors.backgroundSheets,
         child: Stack(
-            children: [
-              ListView.builder(
-                itemCount: sheets.length,
-                itemBuilder: ( BuildContext context, int ind ) => SizedBox(
-                  width: 600,
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: AnimatedBuilder(
-                        animation: controller,
-                        builder: (BuildContext context, Widget? child ) {
-                          return Transform.translate(
-                            offset: Offset(0 - move.value,0),
-                            child: Image(
-                              image: AssetImage(sheets[ind].musicSheet,),
-                              repeat: ImageRepeat.repeatX,
-                              alignment: Alignment.centerLeft,
-                              width: end ,
-                              height: 40,
-                              fit: BoxFit.contain,
-                            ),
-                          );
-                        }
-                      ),
-                    ),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Text('Partitura', style: GoogleFonts.righteous(
+                    textStyle: const TextStyle(
+                      color: ThemeColors.darkPrimary,
+                      fontSize: 30
+                    )
+                  )),
                 ),
+              ],
+            ),
+            ListView.builder(
+              padding: const EdgeInsets.only(top: 80),
+              itemCount: sheets.length,
+              itemBuilder: ( BuildContext context, int idx ) => SizedBox(
+                width: 600,
+                  child: Image(
+                    image: AssetImage(sheets[idx].musicSheet,),
+                    repeat: ImageRepeat.noRepeat,
+                    alignment: Alignment.centerLeft,
+                    height: 40,
+                    fit: sheets[idx].musicSheet == "assets/sheets/7.jpg" ? BoxFit.cover : BoxFit.contain,
+                  ),
               ),
-              Container(
-                margin: const  EdgeInsets.only( left: 0 ),
-                child: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.white, shadows: [
-                  Shadow(
-                    blurRadius: 5,
-                    offset: Offset(0,5)
-                  )
-                ], )
-              )
-            ]
-          ),
+            ),
+          ],
+        ),
       )
     );
 

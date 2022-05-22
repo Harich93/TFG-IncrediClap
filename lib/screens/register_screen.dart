@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:incredibclap/services/user_preferences_service.dart';
 import 'package:provider/provider.dart';
-
-import 'package:incredibclap/providers/login_provider.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
-import 'package:incredibclap/services/auth_service.dart';
-import 'package:incredibclap/widgets/auth/auth_widgets.dart';
+import 'package:incredibclap/widgets/auth/auth.dart';
 
 class RegisterScreen extends StatelessWidget {
 

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:incredibclap/models/audio_model.dart';
-// import 'package:incredibclap/models/duration_model.dart';
-// import 'package:incredibclap/providers/audio_provider.dart';
+// import 'package:incredibclap/models/models.dart';
+// import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/services/services.dart';
 // import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/music/music_widgets.dart';
+import 'package:incredibclap/widgets/music/music.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 

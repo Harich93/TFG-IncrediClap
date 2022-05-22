@@ -15,6 +15,8 @@ class CustomNavigationBar extends StatelessWidget {
     UiProvider uiProvider = Provider.of<UiProvider>(context);
 
     return BottomNavigationBar(
+      elevation: 0,
+      backgroundColor: ThemeColors.primary,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -26,7 +28,7 @@ class CustomNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: uiProvider.selectedMenuOpt,
-      selectedItemColor: ThemeColors.primary,
+      selectedItemColor: ThemeColors.darkPrimary,
       onTap: (val) => {uiProvider.selectedMenuOpt = val}  
     );
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/screens/screens.dart';
-import 'package:incredibclap/services/record_service.dart';
-import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
 import 'package:provider/provider.dart';
 
+import 'package:incredibclap/screens/screens.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/widgets/playlist/playlist.dart';
 

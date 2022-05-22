@@ -1,16 +1,14 @@
-
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:incredibclap/services/record_service.dart';
-import 'package:incredibclap/widgets/home/home_card_swiper.dart';
-import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
-import 'package:incredibclap/widgets/shared/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
+import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/themes.dart';
-import 'package:incredibclap/widgets/home/home_widgets.dart';
+import 'package:incredibclap/widgets/home/home.dart';
+import 'package:incredibclap/widgets/music/music.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -23,28 +21,44 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final menuHiden = Provider.of<MenuHidden>(context);
-    final recordService = Provider.of<RecordService>(context);
+    final rs = Provider.of<RecordService>(context);
+    final dm = Provider.of<DurationModel>(context);
     final uiProvider = Provider.of<UiProvider>(context);
 
-    recordService.getAllAudios();
+    rs.getAllAudios();
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarCustom(
-        title: "Incrediclap",
+        title: "",
         elevation: menuHiden.hidden,
       ),
-      body:  uiProvider.selectedMenuOpt == 0 
-        ? _HomeBody()
-        : const MusicScreen(),
+      body: HomeBackground(
+        child: uiProvider.selectedMenuOpt == 0 
+          ? _HomeBody()
+          : const MusicScreen(),
+      ),
       bottomNavigationBar: const CustomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: uiProvider.selectedMenuOpt == 1 
         ? FloatingActionButton(
           onPressed: (){},
-          mini: true,
-          backgroundColor: ThemeColors.primary,
-          child: const Icon(Icons.radio_button_checked_rounded, color: Colors.black87,),
+          // mini: true,
+          backgroundColor: ThemeColors.darkPrimary,
+          child: Stack(
+            children: [
+              RadialProgress(
+                primaryColor: rs.isRecord ? Colors.red : ThemeColors.primary ,
+                secondColor: ThemeColors.primary,
+                percentage: dm.porcentaje,
+                percentageString: dm.currentSecond,
+                strokeWidthBack: 5,
+                strokeWidthFront: 5,
+              ),
+              // const Icon(Icons.radio_button_checked_rounded, color: Colors.black87)
+
+            ]
+          ),
         )
         : null
     );
@@ -93,9 +107,7 @@ class _HomeBodyState extends State<_HomeBody> {
 
     return Column( 
       children: [
-    
-        _TitlePage(),
-      
+        const TitlePage(),
         Center(
           child: CardSwiper(audios: ap.audios)
         )
@@ -104,37 +116,5 @@ class _HomeBodyState extends State<_HomeBody> {
   }
 }
 
-class _TitlePage extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-
-    const durationAnima = Duration(milliseconds: 800);
-    
-    return Container(
-      padding: const EdgeInsets.symmetric( vertical: 20 ),
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, 
-        children: [
-          Icon(Icons.library_music_sharp, size: 100,),
-          FadeIn(
-            duration: durationAnima,
-            child: const Center(
-              child: Text(
-                'IncrediClap',
-                style: TextStyle(
-                  fontFamily: 'Amadeus',
-                  // color: colorTexto,
-                  fontSize: 60
-                ),
-              ),
-            ),
-          ),
-          
-        ]
-      ),
-    );
-  }
-}
 

@@ -24,20 +24,21 @@ class CustomButton extends StatelessWidget {
 
       onTap: () => {
         if(ap.firstPlay) { ap.playAll() },
-
-        audio.player.volume == 1
-          ? audio.player.setVolume(0)
-          : audio.player.setVolume(1)
+        ap.changeVolume(audio)
       },
-      child: SizedBox(
-        height: 80,
-        width: 80,
+      child: Container(
+        decoration: BoxDecoration(
+          color: audio.player.volume == 1 ? ThemeColors.darkPrimary : Colors.transparent,
+          borderRadius: const BorderRadius.all(Radius.circular(100)),
+        ),
+        height: 100,
+        width: 100,
           child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(100)),
             child: Center(
               child: Image(
-                height: 80,
-                width: 80,
+                height: 95,
+                width: 95,
                 image: AssetImage(audio.icon),
                 fit: BoxFit.cover,
               )

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ThemeColors {
 
   static const lightPrimary = Color.fromRGBO(227, 195, 234,1);
-  static const primary = Color.fromRGBO(165, 94, 181,1);
-  static const darkPrimary = Color.fromRGBO(125, 54, 121,1);
+  static const primary = Color.fromRGBO(0, 156, 217,1);
+  static const darkPrimary = Color.fromRGBO(54, 46, 113,1);
 
 
   static const dark = Color.fromRGBO(70, 90, 101,1);

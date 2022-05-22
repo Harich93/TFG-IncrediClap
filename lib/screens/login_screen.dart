@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/colors.dart';
 import 'package:provider/provider.dart';
-
+import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/services/services.dart';
-
-import 'package:incredibclap/providers/login_provider.dart';
-import 'package:incredibclap/widgets/auth/auth_widgets.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/widgets/auth/auth.dart';
 
 
 import 'package:incredibclap/screens/screens.dart';
