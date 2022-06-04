@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/widgets/music/music_radial_duration.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/providers/providers.dart';
-import 'package:incrediclap/services/services.dart';
-import 'package:incrediclap/themes/themes.dart';
-import 'package:incrediclap/widgets/music/music.dart';
+import 'package:incredibclap/widgets/music/music_radial_duration.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/music/music.dart';
 import 'package:provider/provider.dart';
 
 class FloatingRecordButton extends StatelessWidget {

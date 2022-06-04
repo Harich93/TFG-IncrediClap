@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:incrediclap/providers/providers.dart';
-import 'package:incrediclap/themes/themes.dart';
-import 'package:incrediclap/widgets/shared/shared.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 import 'package:provider/provider.dart';
 
 class AppBarCustom extends StatelessWidget with PreferredSizeWidget {

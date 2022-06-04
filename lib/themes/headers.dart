@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/themes/colors.dart';
+import 'package:incredibclap/themes/colors.dart';
 
 class HeaderCuadradro extends StatelessWidget {
   

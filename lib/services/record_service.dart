@@ -5,8 +5,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/services/services.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/services/services.dart';
 
 
 class RecordService with ChangeNotifier {

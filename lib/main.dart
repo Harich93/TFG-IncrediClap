@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/providers/providers.dart';
-import 'package:incrediclap/screens/screens.dart';
-import 'package:incrediclap/services/services.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/screens/screens.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:provider/provider.dart';
 
 void main() async { 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/providers/providers.dart';
-import 'package:incrediclap/themes/colors.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/themes/colors.dart';
 
 class MusicSheets extends StatelessWidget{
   const MusicSheets({Key? key}) : super(key: key);

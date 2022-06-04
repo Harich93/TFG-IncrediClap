@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/providers/login_provider.dart';
-import 'package:incrediclap/themes/themes.dart';
+import 'package:incredibclap/providers/login_provider.dart';
+import 'package:incredibclap/themes/themes.dart';
 import 'package:provider/provider.dart';
 
 class AuthButton extends StatelessWidget {

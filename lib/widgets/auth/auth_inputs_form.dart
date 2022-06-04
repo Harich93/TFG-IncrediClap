@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/providers/login_provider.dart';
-import 'package:incrediclap/themes/input_decoration.dart';
-import 'package:incrediclap/validators/validators.dart';
+import 'package:incredibclap/providers/login_provider.dart';
+import 'package:incredibclap/themes/input_decoration.dart';
+import 'package:incredibclap/validators/validators.dart';
 
 // ignore: must_be_immutable
 class InputPass extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/models/duration_model.dart';
-import 'package:incrediclap/providers/providers.dart';
-import 'package:incrediclap/services/record_service.dart';
-import 'package:incrediclap/themes/colors.dart';
+import 'package:incredibclap/models/duration_model.dart';
+import 'package:incredibclap/providers/providers.dart';
+import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable

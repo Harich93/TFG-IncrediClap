@@ -2,8 +2,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:incrediclap/services/record_service.dart';
-import 'package:incrediclap/themes/colors.dart';
+import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 class CardAudio extends StatelessWidget {

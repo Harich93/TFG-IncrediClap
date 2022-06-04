@@ -4,10 +4,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:incrediclap/models/s_audios.dart';
-import 'package:incrediclap/services/record_service.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/services/services.dart';
+import 'package:incredibclap/models/s_audios.dart';
+import 'package:incredibclap/services/record_service.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/services/services.dart';
 
 class PlayerAudio with ChangeNotifier {
 

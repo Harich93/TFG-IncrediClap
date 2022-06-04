@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/themes/themes.dart';
+import 'package:incredibclap/themes/themes.dart';
 
 class AuthBackground extends StatelessWidget {
 

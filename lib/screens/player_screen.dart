@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:incrediclap/themes/colors.dart';
-import 'package:incrediclap/widgets/home/background.dart';
-import 'package:incrediclap/services/services.dart';
-import 'package:incrediclap/widgets/shared/shared.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/themes/themes.dart';
+import 'package:incredibclap/themes/colors.dart';
+import 'package:incredibclap/widgets/home/background.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/themes/themes.dart';
 
 
 class PlayerScreen extends StatelessWidget {

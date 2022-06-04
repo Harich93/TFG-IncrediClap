@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/models/s_audios.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/models/s_audios.dart';
 
 class AudiosProviderPlayer with ChangeNotifier {
 

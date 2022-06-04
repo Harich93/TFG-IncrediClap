@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:incrediclap/services/services.dart';
-import 'package:incrediclap/themes/colors.dart';
-import 'package:incrediclap/themes/themes.dart';
-import 'package:incrediclap/widgets/shared/shared.dart';
+import 'package:incredibclap/services/services.dart';
+import 'package:incredibclap/themes/colors.dart';
+import 'package:incredibclap/themes/themes.dart';
+import 'package:incredibclap/widgets/shared/shared.dart';
 
 class SettingsUserScreen extends StatelessWidget {
 

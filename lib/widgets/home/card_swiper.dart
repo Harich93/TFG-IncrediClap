@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:incrediclap/models/models.dart';
-import 'package:incrediclap/themes/colors.dart';
+import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/themes/colors.dart';
 
 class CardSwiper extends StatelessWidget {
 
