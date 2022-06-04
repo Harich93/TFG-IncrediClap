@@ -1,4 +1,4 @@
-export 'package:incredibclap/widgets/playlist/card_audio.dart';
+export 'package:incrediclap/widgets/playlist/card_audio.dart';
 
 
 

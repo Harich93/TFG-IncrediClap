@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:incrediclap/themes/colors.dart';
 
 class TitlePage extends StatelessWidget {
 
@@ -23,7 +23,7 @@ class TitlePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center, 
         children: [
           withIcon 
-            ? const Icon(Icons.library_music_sharp, size: 100) 
+            ? const Icon(Icons.library_music_sharp, size: 70) 
             : const SizedBox(height: 0),
           FadeIn(
             duration: durationAnima,
@@ -32,7 +32,7 @@ class TitlePage extends StatelessWidget {
                 'IncrediClap',
                 style: GoogleFonts.righteous(
                   textStyle: TextStyle(
-                    fontSize: withIcon ? 60 : 30,
+                    fontSize: withIcon ? 40 : 30,
                     color: ThemeColors.darkPrimary
                   )
                 )

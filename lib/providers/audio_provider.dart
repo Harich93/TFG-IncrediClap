@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/models/s_audios.dart';
+import 'package:incrediclap/models/models.dart';
+import 'package:incrediclap/models/s_audios.dart';
 
 class AudiosProvider with ChangeNotifier {
   
@@ -19,20 +19,22 @@ class AudiosProvider with ChangeNotifier {
   }
 
   late List<Audio> _audios;
+  late List<Audio> _nowPlaying;
   late List<AudioTab> _audiosTab;
 
   AudiosProvider() {
     _audios = lstAudios.toList();
     _audiosTab = lstAudiosTab.toList();
+    _nowPlaying = List<Audio>.empty(growable: true);
   }
 
   List<Audio> get audios => _audios;
   List<AudioTab> get audiostab => _audiosTab;
-  List<Audio> get nowPlaying => audios.where( (val) => val.player.volume == 1 ).toList();
-
- 
-  bool dragContaintAudio( int ind ) {
-    return nowPlaying[ind].id != -1 ? true : false;
+  List<Audio> get nowPlaying => _nowPlaying; 
+  
+  void addNowPlaying() {
+    _nowPlaying = audios.where( (val) => val.player.volume == 1 ).toList(); 
+    notifyListeners();  
   }
 
   void resetAudiosProvider() {
@@ -56,12 +58,34 @@ class AudiosProvider with ChangeNotifier {
     for (Audio audio in _audios) {
       audio.player.play();
     }
+    notifyListeners();
+  }
+
+  void pauseAll(){
+    for (Audio audio in _audios) {
+      audio.player.pause();
+    }
+    notifyListeners();
+  }
+
+  void pauseNowPlaying() {
+    for (Audio audio in _nowPlaying) {
+      audio.player.pause();
+    }
+    notifyListeners();
+  }
+  
+  void playNowPlaying() {
+    for (Audio audio in _nowPlaying) {
+      audio.player.play();
+    }
+    notifyListeners();
   }
 
   void stopAll(){
     for (Audio audio in _audios) {
-      // audio.player.setVolume(0);
-      audio.player.dispose();
+      audio.player.setVolume(0);
     }
+    notifyListeners();
   }
 }

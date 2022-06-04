@@ -9,7 +9,6 @@ class DurationModelPlayer extends ChangeNotifier {
   bool _playing = false;
   Duration _soundDuration = const Duration(milliseconds: 0);
   Duration _current = const Duration(milliseconds: 0);
-  Duration _currentSheets = const Duration(milliseconds: 0);
 
   String get soundTotalDuration => _printDuration( _soundDuration );
   String get currentSecond => _printDuration( _current );
@@ -39,12 +38,6 @@ class DurationModelPlayer extends ChangeNotifier {
   Duration get current => _current;
   set current( Duration value ) {
     _current = value;
-    notifyListeners();
-  }
-
-  Duration get currentSheets => _currentSheets;
-  set currentSheets( Duration value ) {
-    _currentSheets = value;
     notifyListeners();
   }
 

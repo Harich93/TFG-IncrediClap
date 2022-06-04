@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/models/models.dart';
+import 'package:incrediclap/models/user_model.dart';
+import 'package:incrediclap/models/models.dart';
 
 class LoginProvider extends ChangeNotifier {
 

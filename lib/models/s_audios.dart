@@ -1,4 +1,4 @@
-import 'package:incredibclap/models/models.dart';
+import 'package:incrediclap/models/models.dart';
 
 final List<Audio> lstAudios = [
     Audio( 

@@ -47,36 +47,35 @@ class Track {
 
 class AudioRecord {
     
-    AudioRecord({
-      this.id = "",
-      required this.tracks,
-      required this.title,
-      this.userName = ''
-    });
+  AudioRecord({
+    this.id = "",
+    required this.tracks,
+    required this.title,
+    this.userName = ''
+  });
 
-    String id;
-    List<Track> tracks;
-    String title;
-    String userName;
+  String id;
+  List<Track> tracks;
+  String title;
+  String userName;
 
 
-    factory AudioRecord.fromJson(String str) => AudioRecord.fromMap(json.decode(str));
+  factory AudioRecord.fromJson(String str) => AudioRecord.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory AudioRecord.fromMap(Map<String, dynamic> json) => AudioRecord(
-        id: json["id"],
-        tracks: json["tracks"],
-        title: json["title"],
-        userName: json["userName"]
-    );
+  factory AudioRecord.fromMap(Map<String, dynamic> json) => AudioRecord(
+      id: json["id"],
+      tracks: json["tracks"],
+      title: json["title"],
+      userName: json["userName"]
+  );
 
-    Map<String, dynamic> toMap() => {
-      "id": id,
-      "tracks": tracks,
-      "title": title,
-      "userName": userName
-    };
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "title": title,
+    "userName": userName
+  };
 
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:incrediclap/themes/colors.dart';
 
 
 class HomeBackground extends StatelessWidget {
@@ -37,18 +37,16 @@ class _ColorBox extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height,
-      decoration: _builBoxDecoration(),
+      decoration: const BoxDecoration(
+        gradient: RadialGradient(
+          colors: [
+            Colors.white,
+            ThemeColors.primary,
+          ],
+          radius: .6
+        )
+      )
     );
   }
-
-  BoxDecoration _builBoxDecoration() => const BoxDecoration(
-    gradient: RadialGradient(
-      colors: [
-        Colors.white,
-        ThemeColors.primary,
-      ],
-      radius: .6
-    )
-  );
 }
 

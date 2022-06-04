@@ -5,8 +5,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/services/services.dart';
+import 'package:incrediclap/models/models.dart';
+import 'package:incrediclap/services/services.dart';
 
 
 class RecordService with ChangeNotifier {
@@ -16,6 +16,13 @@ class RecordService with ChangeNotifier {
     getAudiosUser();
   }
 
+  bool _isSelectedRecordsUser = false;
+  bool get isSelectedReordsUser => _isSelectedRecordsUser;
+  set isSelectedReordsUser(bool val) {
+    _isSelectedRecordsUser = val;
+    notifyListeners();
+  } 
+  
   bool _isRecord = false;
   bool get isRecord => _isRecord;
   set isRecord(bool isRecord) {
@@ -27,12 +34,19 @@ class RecordService with ChangeNotifier {
   List<AudioRecord> allAudios = List.empty(growable: true);
   List<AudioRecord> userAudios = List.empty(growable: true);
 
-  List<AudioRecord> selectedListRecord = [];
+  List<AudioRecord> _selectedListRecord = [];
+  List<AudioRecord> get selectedListRecord => _selectedListRecord;
+  set selectedListRecord(val) {
+    _selectedListRecord = val;
+    notifyListeners();
+  }
 
   late AudioRecord selectedAudioRecord = AudioRecord(tracks: [], title: "");
 
   final String _baseUrl = 'incredibclap-backend-ts.herokuapp.com';
 
+
+  //! <-- Creación de pista --> 
 
   void addPoint( Duration duration, Audio audio ) {
 
@@ -46,6 +60,8 @@ class RecordService with ChangeNotifier {
 
   }
 
+
+  //! <-- Guardar pista en BD --> 
 
   Future<Map<String, dynamic>> addAudio( String title ) async{
 
@@ -64,15 +80,16 @@ class RecordService with ChangeNotifier {
     final Map<String, dynamic> resDecode = await json.decode( resp.body );
     
     listTrack = List.empty(growable: true);
-
+    getAllAudios();
+    getAudiosUser();
     return resDecode;
 
   }
 
 
-  //! <-- Pedir audios guardados --> 
+  //! <-- Pedir pistas guardadas --> 
 
-  //^ Todos los audios
+  //^ Todos las pistas
   Future<List<AudioRecord>> getAllAudios() async{
 
     final url = Uri.http( _baseUrl, '/audios/all' );
@@ -88,7 +105,7 @@ class RecordService with ChangeNotifier {
 
   }
 
-  //^ Audios usuario
+  //^ Pistas usuario
   Future<List<AudioRecord>> getAudiosUser() async{
 
     final url = Uri.http( _baseUrl, '/audios/' );
@@ -103,6 +120,25 @@ class RecordService with ChangeNotifier {
     userAudios = List.empty(growable: true);
     return await _parseResponse(audios, userAudios);
   }
+
+  //^ Eliminar pista
+
+    Future<List<AudioRecord>> deleteAudiosUser(String id) async{
+
+    final url = Uri.http( _baseUrl, '/audios/$id' );
+
+    final resp = await http.get(url, headers: { 
+      'Content-Type': 'application/json', 
+      'x-token': Preferences.token 
+    });
+
+    await json.decode( resp.body );
+    
+    return await getAudiosUser();
+  }
+
+
+
   
 
   //! <-- Funciones auxiliares ->
@@ -113,15 +149,14 @@ class RecordService with ChangeNotifier {
     List<Track> tracks = List<Track>.empty(growable: true);
     AudioRecord audioRecord;
 
-
-    
     for( var audio in audios ) {
 
       tracks = _parseTracks(audio);
       
       audioRecord = AudioRecord(
+        id: audio["id"],
         tracks: tracks, 
-        title: audio["title"], 
+        title: audio["title"],
         userName: audio["user_name"]
       );
 
@@ -136,7 +171,7 @@ class RecordService with ChangeNotifier {
     return listAudios;
   }
 
-  //^ Paseo respuesta tracks
+  //^ Parseo respuesta tracks
   List<Track> _parseTracks( dynamic data ) {
 
     List<Track> tracks = List<Track>.empty(growable: true);

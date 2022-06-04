@@ -1,5 +1,5 @@
 
-import 'package:incredibclap/models/audio_model.dart';
+import 'package:incrediclap/models/models.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioTab {

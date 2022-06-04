@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:incredibclap/helpers/player_audio.dart';
-import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/widgets/shared/shared.dart';
-import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/themes/themes.dart';
+import 'package:incrediclap/themes/colors.dart';
+import 'package:incrediclap/widgets/home/background.dart';
+import 'package:incrediclap/services/services.dart';
+import 'package:incrediclap/widgets/shared/shared.dart';
+import 'package:incrediclap/models/models.dart';
+import 'package:incrediclap/themes/themes.dart';
 
 
 class PlayerScreen extends StatelessWidget {
@@ -23,11 +24,11 @@ class PlayerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    PlayerAudio playerAudio = Provider.of<PlayerAudio>(context);
+    PlayerAudio pa = Provider.of<PlayerAudio>(context);
 
     return WillPopScope(
       onWillPop: () async{ 
-        playerAudio.resetAudios();
+        pa.resetTrack();
         Navigator.pop(context);
         return true;
       },
@@ -36,22 +37,13 @@ class PlayerScreen extends StatelessWidget {
           title: "",
           elevation: 0,
         ),
-        body: Stack(
-          children: <Widget>[
-
-            Container(color: ThemeColors.dark),
-            Background(),
-
-            Column(
-              children: <Widget>[
-
-                ImagenDiscoDuracion(),
-
-                TituloPlay()
-
-              ],
-            ),
-          ],
+        body: HomeBackground(
+          child: Column(
+            children: [
+              ImagenDiscoDuracion(),
+              TituloPlay()
+            ],
+          ),
         )
       )
    );
@@ -109,15 +101,15 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                       playerAudio.title, 
                       style: TextStyle( 
                         fontSize: 50, 
-                        color: Colors.white.withOpacity(0.8) 
+                        color: ThemeColors.darkPrimary.withOpacity(0.8) 
                       )
                     ),
                     
                     Text(
-                      '-${playerAudio.userName}-', 
+                      'Creado por: ${playerAudio.userName}', 
                       style: TextStyle( 
                         fontSize: 25, 
-                        color: Colors.white.withOpacity(0.5) 
+                        color: ThemeColors.darkPrimary.withOpacity(0.4) 
                       )
                     ),
 
@@ -269,7 +261,7 @@ class ImagenDisco extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           colors: [
-            ThemeColors.lightPrimary,
+            ThemeColors.darkPrimary,
             ThemeColors.dark,
           ]
         )
@@ -278,28 +270,3 @@ class ImagenDisco extends StatelessWidget {
   }
 }
 
-
-class Background extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-
-    final screenSize = MediaQuery.of(context).size;
-
-    return Container(
-      width: double.infinity,
-      height: screenSize.height * .95,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(60)),
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.bottomLeft,
-          colors: [
-            ThemeColors.primary,
-            ThemeColors.lightPrimary
-          ]
-        )
-      ),
-    );
-  }
-}

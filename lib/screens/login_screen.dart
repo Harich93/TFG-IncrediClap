@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:incredibclap/themes/colors.dart';
-import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/widgets/auth/auth.dart';
-
-
-import 'package:incredibclap/screens/screens.dart';
+import 'package:incrediclap/providers/providers.dart';
+import 'package:incrediclap/screens/screens.dart';
+import 'package:incrediclap/services/services.dart';
+import 'package:incrediclap/themes/colors.dart';
+import 'package:incrediclap/widgets/auth/auth.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -18,7 +17,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    FlutterNativeSplash.remove();
     return Scaffold(
       body: AuthBackground(
         child: SingleChildScrollView(
@@ -43,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox( height: 50 ),
+              const SizedBox( height: 40 ),
               const TextButtonAuth(text: 'Crear cuenta', ruta: RegisterScreen.routeName,),
               const SizedBox( height: 50 ),
               

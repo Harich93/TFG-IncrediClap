@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:incrediclap/models/duration_model.dart';
+import 'package:incrediclap/providers/providers.dart';
+import 'package:incrediclap/services/record_service.dart';
+import 'package:incrediclap/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -18,13 +20,17 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final ap = Provider.of<AudiosProvider>(context);
+    final rs = Provider.of<RecordService>(context);
+    final dm = Provider.of<DurationModel>(context);
     final audio = ap.audios[audioIdx];
 
     return GestureDetector(
 
       onTap: () => {
         if(ap.firstPlay) { ap.playAll() },
-        ap.changeVolume(audio)
+        ap.changeVolume(audio),
+        rs.addPoint(dm.current, audio),
+        ap.addNowPlaying()
       },
       child: Container(
         decoration: BoxDecoration(

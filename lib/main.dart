@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:incredibclap/helpers/player_audio.dart';
-import 'package:incredibclap/models/models.dart';
-import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/screens/screens.dart';
-import 'package:incredibclap/screens/settigns_user.dart';
-import 'package:incredibclap/services/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:incrediclap/models/models.dart';
+import 'package:incrediclap/providers/providers.dart';
+import 'package:incrediclap/screens/screens.dart';
+import 'package:incrediclap/services/services.dart';
 import 'package:provider/provider.dart';
 
 void main() async { 
-  // Provider.debugCheckInvalidValueType = null;
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Preferences.init();
   configStatusBar();
   return runApp(const AppState());
@@ -46,13 +45,14 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      initialRoute: HomeScreen.routeName,
+      title: 'IncrediClap',
+      initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName        : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName     : ( _ ) => const RegisterScreen(),
         HomeScreen.routeName         : ( _ ) => const HomeScreen(),
         SettingsUserScreen.routeName : ( _ ) => const SettingsUserScreen(), 
+        ListAudiosScreen.routeName   : ( _ ) => const ListAudiosScreen(), 
         PlayerScreen.routeName       : ( _ ) => PlayerScreen(),
       },
     );
@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
 
 void configStatusBar(){
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,

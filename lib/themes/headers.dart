@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:incrediclap/themes/colors.dart';
 
 class HeaderCuadradro extends StatelessWidget {
+  
   const HeaderCuadradro({Key? key}) : super(key: key);
 
   @override
@@ -14,4 +15,3 @@ class HeaderCuadradro extends StatelessWidget {
     );
   }
 }
-

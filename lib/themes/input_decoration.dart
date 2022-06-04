@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incredibclap/themes/colors.dart';
-import 'package:incredibclap/themes/themes.dart';
+import 'package:incrediclap/themes/colors.dart';
+import 'package:incrediclap/themes/themes.dart';
 
 class InputDecorations {
 

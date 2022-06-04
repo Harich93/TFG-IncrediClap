@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:incredibclap/screens/player_screen.dart';
-import 'package:incredibclap/screens/settigns_user.dart';
 import 'package:provider/provider.dart';
-
-import 'package:incredibclap/providers/providers.dart';
-import 'package:incredibclap/screens/list_audios_screen.dart';
-import 'package:incredibclap/services/services.dart';
-import 'package:incredibclap/themes/colors.dart';
+import 'package:flutter/services.dart';
+import 'package:incrediclap/screens/screens.dart';
+import 'package:incrediclap/providers/providers.dart';
+import 'package:incrediclap/services/services.dart';
+import 'package:incrediclap/themes/colors.dart';
 
 enum ActionsPopMenu { myAccount, myPlaylist, allPlaylist, logout }
 
@@ -30,6 +27,7 @@ class PopMenuState extends State<PopMenu> {
 
     final rs = Provider.of<RecordService>(context);
     final ap = Provider.of<AudiosProvider>(context);
+    const textStile = TextStyle(color: ThemeColors.primary);
     
     Future<void> _showMyDialog() async { 
       return showDialog<void>(
@@ -69,26 +67,27 @@ class PopMenuState extends State<PopMenu> {
       );
     }
 
-
     return PopupMenuButton<ActionsPopMenu>(
-      padding: const EdgeInsets.only(right: 20),
-      icon: const Icon(Icons.account_circle_outlined, color: ThemeColors.darkPrimary, size: 30,),
+      padding: const EdgeInsets.only(right: 40),
+      icon: const Icon(Icons.menu, color: ThemeColors.darkPrimary, size: 30,),
+      color: ThemeColors.darkPrimary,
       onSelected: (ActionsPopMenu result) { 
 
         switch (result) {
           case ActionsPopMenu.logout:
-              // ap.isMusicScreen == true ? ap.audiosInDragPause() : null;
               _showMyDialog();
               ap.isMusicScreen = false;
             break;
 
-          case ActionsPopMenu.myAccount:
-              Navigator.pushNamed(context, SettingsUserScreen.routeName);
+          // case ActionsPopMenu.myAccount:
+          //     Navigator.pushNamed(context, SettingsUserScreen.routeName);
               // TODO: Implementar ajustes de cuenta
-            break;
+          //   break;
 
           case ActionsPopMenu.myPlaylist:
               ap.isMusicScreen == true ? ap.stopAll() : null;
+              rs.getAllAudios();
+              rs.isSelectedReordsUser = true;
               rs.selectedListRecord = rs.userAudios;
               Navigator.pushNamed(context, ListAudiosScreen.routeName);
               ap.isMusicScreen == false;
@@ -96,8 +95,10 @@ class PopMenuState extends State<PopMenu> {
 
           case ActionsPopMenu.allPlaylist:
               ap.isMusicScreen == true ? ap.stopAll() : null;
-              rs.selectedListRecord = rs.userAudios;
-              Navigator.pushNamed(context, PlayerScreen.routeName);
+              rs.getAudiosUser();
+              rs.isSelectedReordsUser = false;
+              rs.selectedListRecord = rs.allAudios;
+              Navigator.pushNamed(context, ListAudiosScreen.routeName);
               ap.isMusicScreen == false;
             break;
 
@@ -107,27 +108,27 @@ class PopMenuState extends State<PopMenu> {
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<ActionsPopMenu>>[
         
-        const PopupMenuItem<ActionsPopMenu>(
-          value: ActionsPopMenu.myAccount,
-          child: _PopMenuContent(
-            icon: Icons.account_box_rounded,
-            text: Text('Mi cuenta'),
-          ),
-        ),
+        //const PopupMenuItem<ActionsPopMenu>(
+        //   value: ActionsPopMenu.myAccount,
+        //   child: _PopMenuContent(
+        //     icon: Icons.account_box_rounded,
+        //     text: Text('Mi cuenta', style: textStile),
+        //   ),
+        // ),
 
         const PopupMenuItem<ActionsPopMenu>(
           value: ActionsPopMenu.myPlaylist,
           child: _PopMenuContent(
-            icon: Icons.list,
-            text: Text('Mis creaciones'),
+            icon: Icons.queue_music_rounded,
+            text: Text('Mis creaciones', style: textStile),
           ),
         ),
 
         const PopupMenuItem<ActionsPopMenu>(
           value: ActionsPopMenu.allPlaylist,
           child: _PopMenuContent(
-            icon: Icons.list,
-            text: Text('Todas las Creaciones'),
+            icon: Icons.queue_music_outlined,
+            text: Text('Todas las Creaciones', style: textStile),
           ),
         ),
 
@@ -135,7 +136,7 @@ class PopMenuState extends State<PopMenu> {
           value: ActionsPopMenu.logout,
           child: _PopMenuContent(
             icon: Icons.logout_outlined,
-            text: Text('Cerrar sesión'),
+            text: Text('Cerrar sesión', style: textStile),
           ),
         ),
       ],
@@ -155,7 +156,7 @@ class _PopMenuContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: ThemeColors.lightPrimary,),
+        Icon(icon, size: 20, color: ThemeColors.primary),
         const SizedBox(width: 5),
         text
       ],
