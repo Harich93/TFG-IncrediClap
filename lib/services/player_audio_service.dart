@@ -12,6 +12,7 @@ import 'package:incredibclap/services/services.dart';
 class PlayerAudio with ChangeNotifier {
 
   final Duration _zeroDuration = const Duration(seconds: 0);
+  late StreamSubscription<Duration> stream;
   late RecordService sRecord;
   late DurationModelPlayer sDuration;
   late Track _currentTrack;
@@ -19,7 +20,6 @@ class PlayerAudio with ChangeNotifier {
   late String _title;
   late String _userName;
 
-  late StreamSubscription<Duration> stream;
   Duration _initDuration = const Duration(minutes: 0, seconds: 0, milliseconds: 0);
   List<Track> _tracks = List.empty(growable: true);
   Map _tracksRemove = {};

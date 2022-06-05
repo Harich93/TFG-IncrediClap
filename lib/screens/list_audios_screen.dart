@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:incredibclap/screens/player_screen.dart';
 import 'package:incredibclap/themes/headers.dart';
 import 'package:incredibclap/widgets/playlist/card_audio.dart';
-import 'package:incredibclap/widgets/shared/app_bar_custom.dart';
-import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/screens/screens.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/themes.dart';

@@ -51,7 +51,7 @@ final List<Audio> lstAudios = [
       cite:"Gregorio Fernández: La Filarmónica de Santiago en estado puro."),
   ];
 
-  final List<AudioTab> lstAudiosTab = [
+final List<AudioTab> lstAudiosTab = [
     AudioTab( id: 8, pathAudio: 'assets/audios/Tabs/Palma_01.wav', pathIcon: "assets/icons/icono_palmas_alternativo.png"),
     AudioTab( id: 9, pathAudio: 'assets/audios/Tabs/Palma_02.wav', pathIcon: "assets/icons/icono_palmas_acento_alternativo.png"),
     AudioTab( id: 10, pathAudio: 'assets/audios/Tabs/Palma_03.wav', pathIcon: "assets/icons/icono_palmas.png"),

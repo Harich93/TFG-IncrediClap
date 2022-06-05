@@ -23,7 +23,7 @@ class CardSwiper extends StatelessWidget {
     if ( audios.isEmpty ) {
       return SizedBox(
         width: double.infinity,
-        height: size.height * 0.5,
+        height: size.height * 0.7,
         child: const Center(
           child: CircularProgressIndicator(),
         ),
@@ -32,7 +32,7 @@ class CardSwiper extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: size.height * 0.5,
+      height: size.height * 0.6,
       child: Swiper(
         autoplay: true,
         axisDirection: AxisDirection.left,

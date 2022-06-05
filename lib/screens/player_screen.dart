@@ -81,55 +81,65 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
+    final size = MediaQuery.of(context).size;
+
     return Container(
       padding: const EdgeInsets.symmetric( horizontal: 50 ),
       margin: const EdgeInsets.only( top: 40 ),
       child: Column(
         children: [
 
-          const SizedBox(height: 50,),
+          SizedBox(height: size.height * 0.05),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    
-                    Text( 
-                      playerAudio.title, 
-                      style: TextStyle( 
-                        fontSize: 50, 
-                        color: ThemeColors.darkPrimary.withOpacity(0.8) 
-                      )
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FloatingActionButton(
+                      elevation: 0,
+                      
+                      highlightElevation: 0,
+                      backgroundColor: ThemeColors.dark,
+                      child: playerAudio.isPlaying 
+                        ? const Icon(Icons.pause)
+                        : const Icon(Icons.play_arrow), 
+                      onPressed: () => playerAudio.playPause(),
                     ),
-                    
-                    Text(
-                      'Creado por: ${playerAudio.userName}', 
-                      style: TextStyle( 
-                        fontSize: 25, 
-                        color: ThemeColors.darkPrimary.withOpacity(0.4) 
-                      )
-                    ),
-
                   ],
                 ),
 
-                // const Spacer(),
-
-                FloatingActionButton(
-                  elevation: 0,
-                  highlightElevation: 0,
-                  backgroundColor: ThemeColors.dark,
-                  child: playerAudio.isPlaying 
-                    ? const Icon(Icons.pause)
-                    : const Icon(Icons.play_arrow), 
-                  onPressed: () => playerAudio.playPause(),
-                )
+                SizedBox(height: size.height * 0.05),
+                
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Text( 
+                          playerAudio.title, 
+                          style: TextStyle( 
+                            fontSize: size.width * 0.12, 
+                            color: ThemeColors.darkPrimary.withOpacity(0.8) 
+                          )
+                        ),
+                        Text(
+                          'Creado por: ${playerAudio.userName}', 
+                          style: TextStyle( 
+                            fontSize: size.width * 0.05, 
+                            color: ThemeColors.darkPrimary.withOpacity(0.4) 
+                          )
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                
+            
 
               ],
-
             ),
           ),
         ],

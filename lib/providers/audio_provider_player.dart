@@ -20,67 +20,43 @@ class AudiosProviderPlayer with ChangeNotifier {
 
   late List<Audio> _audios;
   late List<AudioTab> _audiosTab;
-  late List<Audio> dragAudio;
+  
 
   List<Audio> get audios => _audios;
   List<AudioTab> get audiostab => _audiosTab;
   
   AudiosProviderPlayer() {
-    _audios = lstAudios.toList();
-    _audiosTab = lstAudiosTab.toList();
-    dragAudio = List.generate(8, (index) => Audio(id: -1));
+    _audios = lstAudios;
+    _audiosTab = lstAudiosTab;
   }
 
   void resetAudios() {
     for (Audio aud in _audios) {
       aud.player.dispose();
     }
-    _audios = lstAudios.toList();
+    _audios = lstAudios;
   }
 
-
-  bool dragContaintAudio( int ind ) {
-    return dragAudio[ind].id != -1 ? true : false;
-  }
-
-  void resetAudiosProviderPlayer() {
-    for (var item in dragAudio) {
-      if( item.id != -1){
-        item.player.setVolume(0.0);
-      }
+  void setAllVolume0(){
+    for (var audio in _audios) {
+      audio.player.setVolume(0);
     }
-    dragAudio = List.generate(8, (index) => Audio(id: -1));
-    notifyListeners();
-  }
-
-  bool isDragAudiosEmpty() {
-
-    int cont = 0;
-
-    for (var a in dragAudio) {
-      a.id == -1 ? cont++ : null;
-    }
-    
-    return cont == 8 ? true : false;
-
   }
   
+  void setAllVolume1(){
+    for (var audio in _audios) {
+      audio.player.setVolume(1);
+    }
+  }
+
   void playAll(){
     for (var audio in _audios) {
       audio.player.play();
     }
   }
 
-  void stopAll(){
-    for (var audio in _audios) {
-      // audio.player.dispose();
-      audio.player.setVolume(0);
-    }
-  }
-
   void pauseAll(){
     for (var audio in _audios) {
-      // audio.player.dispose();
       audio.player.pause();
     }
   }

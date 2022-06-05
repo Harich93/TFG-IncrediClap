@@ -28,6 +28,46 @@ class CardAudio extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
     final rs = Provider.of<RecordService>(context);
+
+     //^ Dialog confirmacion de guardado
+    Future<void> _deleteRecordDialog(String id) async { 
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Eliminar'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const [
+                  Text('¿Desea eliminar la grabación?'),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              
+              TextButton(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+
+              TextButton(
+                child: const Text('Si'),
+                onPressed: () {
+                  rs.deleteAudiosUser(id);
+                  Navigator.of(context).pop();
+                },
+              ),
+
+              
+            ]
+          );
+        },
+      );
+    }
            
     return GestureDetector(
       onTap: () => onPressed(),
@@ -36,7 +76,7 @@ class CardAudio extends StatelessWidget {
         child: _CardBackground( 
           size: size,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,9 +103,9 @@ class CardAudio extends StatelessWidget {
                       Text(
                         title,
                         style: GoogleFonts.righteous(
-                          textStyle: const TextStyle(
+                          textStyle: TextStyle(
                             color: ThemeColors.darkPrimary, 
-                            fontSize: 40, 
+                            fontSize: size.width * 0.1, 
                           ),
                         ) 
                       ),
@@ -73,9 +113,9 @@ class CardAudio extends StatelessWidget {
                       Text(
                         userName,
                         style: GoogleFonts.righteous(
-                          textStyle: const TextStyle(
+                          textStyle: TextStyle(
                             color: ThemeColors.primary, 
-                            fontSize: 20, 
+                            fontSize: size.width * 0.05, 
                           ), 
                         )
                       ),
@@ -87,7 +127,7 @@ class CardAudio extends StatelessWidget {
                 isDeleted 
                 
                  ? IconButton(
-                    onPressed: (){rs.deleteAudiosUser(id);}, 
+                    onPressed: () => _deleteRecordDialog(id), 
                     icon: const Icon(Icons.delete_forever, color: ThemeColors.darkPrimary)
                    )
                  : const Icon(Icons.delete_forever, color: Colors.transparent)

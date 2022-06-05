@@ -49,15 +49,13 @@ class RecordService with ChangeNotifier {
   //! <-- Creación de pista --> 
 
   void addPoint( Duration duration, Audio audio ) {
-
-    Track track = Track( 
-      idAudio: audio.id, 
-      volume: audio.player.volume, 
-      duration: duration.inSeconds.toString() 
-    );
-
-    if( _isRecord ) listTrack.add( track );
-
+      Track track = Track( 
+        idAudio: audio.id, 
+        volume: audio.player.volume, 
+        duration: duration.inSeconds.toString() 
+      );
+    
+      listTrack.add( track );
   }
 
 
@@ -122,24 +120,21 @@ class RecordService with ChangeNotifier {
   }
 
   //^ Eliminar pista
+  void deleteAudiosUser(String id) async{
 
-    Future<List<AudioRecord>> deleteAudiosUser(String id) async{
-
-    final url = Uri.http( _baseUrl, '/audios/$id' );
-
-    final resp = await http.get(url, headers: { 
+    final http.Response res = await http.delete(
+      Uri.parse('https://incredibclap-backend-ts.herokuapp.com/audios/$id'),
+      headers: { 
       'Content-Type': 'application/json', 
       'x-token': Preferences.token 
-    });
-
-    await json.decode( resp.body );
+      }
+    );
+  
+    await json.decode( res.body );
     
-    return await getAudiosUser();
+    selectedListRecord = await getAudiosUser();
   }
 
-
-
-  
 
   //! <-- Funciones auxiliares ->
 

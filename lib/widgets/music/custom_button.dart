@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
       onTap: () => {
         if(ap.firstPlay) { ap.playAll() },
         ap.changeVolume(audio),
-        rs.addPoint(dm.current, audio),
+        if(rs.isRecord) rs.addPoint(dm.current, audio),
         ap.addNowPlaying()
       },
       child: Container(

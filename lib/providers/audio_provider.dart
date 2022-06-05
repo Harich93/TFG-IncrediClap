@@ -23,8 +23,8 @@ class AudiosProvider with ChangeNotifier {
   late List<AudioTab> _audiosTab;
 
   AudiosProvider() {
-    _audios = lstAudios.toList();
-    _audiosTab = lstAudiosTab.toList();
+    _audios = lstAudios;
+    _audiosTab = lstAudiosTab;
     _nowPlaying = List<Audio>.empty(growable: true);
   }
 
@@ -70,14 +70,14 @@ class AudiosProvider with ChangeNotifier {
 
   void pauseNowPlaying() {
     for (Audio audio in _nowPlaying) {
-      audio.player.pause();
+      audio.player.setVolume(0);
     }
     notifyListeners();
   }
   
   void playNowPlaying() {
     for (Audio audio in _nowPlaying) {
-      audio.player.play();
+      audio.player.setVolume(1);
     }
     notifyListeners();
   }
