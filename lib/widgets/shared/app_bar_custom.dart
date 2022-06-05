@@ -17,7 +17,7 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final AudiosProvider ap = Provider.of<AudiosProvider>(context);
+
     UiProvider uiProvider = Provider.of<UiProvider>(context);
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(

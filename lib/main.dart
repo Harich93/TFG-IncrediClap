@@ -27,11 +27,9 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: ( _ ) => AuthService()),
         ChangeNotifierProvider(create: ( _ ) => AudiosProvider()),
         ChangeNotifierProvider(create: ( _ ) => DurationModel()),
-        ChangeNotifierProvider(create: ( _ ) => AudiosProviderPlayer()),
-        ChangeNotifierProvider(create: ( _ ) => DurationModelPlayer()),
         ChangeNotifierProvider(create: ( _ ) => RecordService()),
         ChangeNotifierProvider(create: ( _ ) => MenuHidden()),
-        ChangeNotifierProvider(create: ( _ ) => PlayerAudio(sDuration: Provider.of<DurationModelPlayer>(_, listen:false), sRecord: Provider.of<RecordService>(_,listen:false) ) ),
+        ChangeNotifierProvider(create: ( _ ) => PlayerAudio(sDuration: Provider.of<DurationModel>(_, listen:false), sRecord: Provider.of<RecordService>(_,listen:false) ) ),
       ],
       child: MyApp(),
     );

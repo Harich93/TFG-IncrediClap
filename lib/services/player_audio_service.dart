@@ -14,7 +14,7 @@ class PlayerAudio with ChangeNotifier {
   final Duration _zeroDuration = const Duration(seconds: 0);
   late StreamSubscription<Duration> stream;
   late RecordService sRecord;
-  late DurationModelPlayer sDuration;
+  late DurationModel sDuration;
   late Track _currentTrack;
   late Duration _lastDuration;
   late String _title;
@@ -31,15 +31,15 @@ class PlayerAudio with ChangeNotifier {
 
 
   //^Constructor
-  PlayerAudio({required this.sRecord, required this.sDuration }) {
+  PlayerAudio({required this.sRecord, required this.sDuration}) {
 
-    _playerAudios = lstAudios.toList();
-    _playerAudiosTabs = lstAudiosTab.toList();
-    
+    _playerAudios = lstAudios;
+    _playerAudiosTabs = lstAudiosTab;
+       
     for(Audio val in _playerAudios ) {
       val.player.play();
+      val.player.setVolume(0);
     }
-
     _playRecord();
   }
 
@@ -100,7 +100,6 @@ class PlayerAudio with ChangeNotifier {
   
   // End
 
-
   //^ Reproducir
 
   void playPause() {
@@ -121,6 +120,7 @@ class PlayerAudio with ChangeNotifier {
   void _playRecord() {
 
     stream = _playerAudios[0].player.createPositionStream().listen( (duration) {  
+      
       if(isPlaying) {
   
         if(_isFirstPlay) {
@@ -144,7 +144,6 @@ class PlayerAudio with ChangeNotifier {
       }
 
     });
-    _playerAudios[0].player.createPositionStream().listen((event) { }).cancel();
   }
 
   void _playAudio(){
@@ -166,8 +165,10 @@ class PlayerAudio with ChangeNotifier {
 
   void _play(){
     isPlaying = true;
-    sDuration.controller.repeat();
     _playAudio();
+    if(sDuration.controller.duration! > _zeroDuration){
+      sDuration.controller.repeat();
+    }
   }
 
   void _pause(){
@@ -177,16 +178,19 @@ class PlayerAudio with ChangeNotifier {
   }
  
   void _nextTrack() {
-    _tracksRemove[_tracks[0].idAudio] = _tracks[0].volume;
-    _tracks.removeAt(0);
-    _tracks.isNotEmpty
-      ? _currentTrack = _tracks[0]
-      : null;
+    if(_tracks.isNotEmpty) {
+      _tracksRemove[_tracks[0].idAudio] = _tracks[0].volume;
+      _tracks.removeAt(0);
+      _tracks.isNotEmpty
+        ? _currentTrack = _tracks[0]
+        : null;
+    }
 
   }
 
   void _initTracks() {
     int aux = 0;
+    
     for(Track t in _tracks) {
       if(t.duration == "0") {
         _tracksRemove[t.idAudio] = t.volume;

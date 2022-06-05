@@ -112,33 +112,35 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                   ],
                 ),
 
-                SizedBox(height: size.height * 0.05),
+                SizedBox(height: size.height * 0.06),
                 
                 Row(
                   children: [
-                    Column(
-                      children: [
-                        Text( 
-                          playerAudio.title, 
-                          style: TextStyle( 
-                            fontSize: size.width * 0.12, 
-                            color: ThemeColors.darkPrimary.withOpacity(0.8) 
-                          )
-                        ),
-                        Text(
-                          'Creado por: ${playerAudio.userName}', 
-                          style: TextStyle( 
-                            fontSize: size.width * 0.05, 
-                            color: ThemeColors.darkPrimary.withOpacity(0.4) 
-                          )
-                        ),
-                      ],
+                    SizedBox(
+                      width: size.width * 0.6,
+                      child: Column(
+                        children: [
+                          Text( 
+                            playerAudio.title, 
+                            maxLines: 1,
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: size.width * 0.10, 
+                              color: ThemeColors.darkPrimary.withOpacity(0.8) 
+                            )
+                          ),
+                          Text(
+                            'Creado por: ${playerAudio.userName}', 
+                            style: TextStyle( 
+                              fontSize: size.width * 0.05, 
+                              color: ThemeColors.darkPrimary.withOpacity(0.4) 
+                            )
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-                
-            
-
               ],
             ),
           ),
@@ -179,12 +181,12 @@ class BarraProgreso extends StatelessWidget {
 
     final estilo = TextStyle( color: Colors.white.withOpacity(0.4) );
 
-    final dmp = Provider.of<DurationModelPlayer>(context);
+    final dm = Provider.of<DurationModel>(context);
 
     return Column(
       children: <Widget>[
 
-        Text(dmp.soundTotalDuration, style: estilo), 
+        Text(dm.soundTotalDuration, style: estilo), 
         const SizedBox( height: 10 ),
         Stack(
           children: <Widget>[
@@ -199,7 +201,7 @@ class BarraProgreso extends StatelessWidget {
               bottom: 0,
               child: Container(
                 width: 3,
-                height: dmp.porcentaje/100 * 230,
+                height: dm.porcentaje/100 * 230,
                 color: Colors.white.withOpacity(0.8),
               ),
             ),
@@ -208,7 +210,7 @@ class BarraProgreso extends StatelessWidget {
         ),
 
         const SizedBox( height: 10 ),
-        Text(dmp.currentSecond, style: estilo ),
+        Text(dm.currentSecond, style: estilo ),
       ],
     );
   }
@@ -220,9 +222,9 @@ class ImagenDisco extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final dmp = Provider.of<DurationModelPlayer>(context);
-    RecordService rs = Provider.of<RecordService>(context);
-    Duration discAnimaDuration =  rs.selectedAudioRecord.tracks.last.parseDuration();
+    final dm = Provider.of<DurationModel>(context);
+    final rs = Provider.of<RecordService>(context);
+    final Duration discAnimaDuration = rs.selectedAudioRecord.tracks.last.parseDuration();
   
     return Container(
       padding: const EdgeInsets.all(20),
@@ -239,8 +241,8 @@ class ImagenDisco extends StatelessWidget {
               infinite: true,
               manualTrigger: true,
               controller: ( animationController ) => {
-                dmp.controller = animationController,
-                dmp.controller.stop()  
+                dm.controller = animationController,
+                dm.controller.stop()  
               },
               child: const Image( image: AssetImage('assets/aurora.jpg') )
             ),

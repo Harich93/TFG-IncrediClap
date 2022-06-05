@@ -95,32 +95,37 @@ class CardAudio extends StatelessWidget {
       
                 FadeInRight(
                   duration: const Duration(milliseconds: 800),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [ 
+                  child: SizedBox(
+                    width: size.width * 0.4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [ 
                 
-                      Text(
-                        title,
-                        style: GoogleFonts.righteous(
-                          textStyle: TextStyle(
-                            color: ThemeColors.darkPrimary, 
-                            fontSize: size.width * 0.1, 
-                          ),
-                        ) 
-                      ),
+                        Text(
+                          title,
+                          maxLines: 1,
+                          style: GoogleFonts.righteous(
+                            textStyle: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: ThemeColors.darkPrimary, 
+                              fontSize: size.width * 0.1, 
+                            ),
+                          ) 
+                        ),
                 
-                      Text(
-                        userName,
-                        style: GoogleFonts.righteous(
-                          textStyle: TextStyle(
-                            color: ThemeColors.primary, 
-                            fontSize: size.width * 0.05, 
-                          ), 
-                        )
-                      ),
+                        Text(
+                          userName,
+                          style: GoogleFonts.righteous(
+                            textStyle: TextStyle(
+                              color: ThemeColors.primary, 
+                              fontSize: size.width * 0.05, 
+                            ), 
+                          )
+                        ),
 
-                    ]
+                      ]
+                    ),
                   ),
                 ),
 

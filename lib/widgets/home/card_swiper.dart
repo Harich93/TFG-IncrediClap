@@ -65,27 +65,26 @@ class CardSwiper extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 45),
+              SizedBox(height: size.width * .1),
               
-              if(currentIndex == index) 
-                FadeIn(
-                  duration: const Duration(milliseconds: 300), 
-                  child: SizedBox(
-                    width: size.width * 0.8,
-                    child: Center(
-                      child: Text(
-                        audio.cite, 
-                        style: GoogleFonts.righteous(
-                          textStyle: const TextStyle(
-                            color: ThemeColors.darkPrimary,
-                            leadingDistribution: TextLeadingDistribution.proportional,
-                            fontSize: 25
-                          )
+              FadeIn(
+                duration: const Duration(milliseconds: 300), 
+                child: SizedBox(
+                  width: size.width * 0.8,
+                  child: Center(
+                    child: Text(
+                      audio.cite, 
+                      style: GoogleFonts.righteous(
+                        textStyle: const TextStyle(
+                          color: ThemeColors.darkPrimary,
+                          leadingDistribution: TextLeadingDistribution.proportional,
+                          fontSize: 25
                         )
                       )
                     )
                   )
                 )
+              )
             ],
           );
         },

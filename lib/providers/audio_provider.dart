@@ -18,6 +18,20 @@ class AudiosProvider with ChangeNotifier {
     notifyListeners();
   }
 
+   bool _isPlaying = false;
+  bool get isPlaying => _isPlaying;
+  set isPlaying(bool isPlaying) {
+    _isPlaying = isPlaying;
+    notifyListeners();
+  }
+
+  bool _firstTime = true;
+  bool get firstTime => _firstTime;
+  set firstTime(bool firstTime) {
+    _firstTime = firstTime;
+    notifyListeners();
+  }
+
   late List<Audio> _audios;
   late List<Audio> _nowPlaying;
   late List<AudioTab> _audiosTab;
@@ -31,6 +45,18 @@ class AudiosProvider with ChangeNotifier {
   List<Audio> get audios => _audios;
   List<AudioTab> get audiostab => _audiosTab;
   List<Audio> get nowPlaying => _nowPlaying; 
+  
+  void setAllVolume0(){
+    for (var audio in _audios) {
+      audio.player.setVolume(0);
+    }
+  }
+  
+  void setAllVolume1(){
+    for (var audio in _audios) {
+      audio.player.setVolume(1);
+    }
+  }
   
   void addNowPlaying() {
     _nowPlaying = audios.where( (val) => val.player.volume == 1 ).toList(); 
