@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/services/services.dart';
 
 class AuthService extends ChangeNotifier {
 
@@ -44,6 +45,28 @@ class AuthService extends ChangeNotifier {
 
     final resp = await http.post(url, body: json.encode(body), headers: {
       'Content-Type': 'application/json'
+    });
+
+    final Map<String, dynamic> resDecode =  json.decode( resp.body );
+
+
+    return resDecode;
+
+  }
+
+  Future<Map<String, dynamic>> updateUser( String name, String password ) async{
+
+
+    final Map<String, dynamic> body = {
+      'name': name,
+      'password': password
+    };
+
+    final url = Uri.http( _baseUrl, '/users' );
+
+    final resp = await http.patch(url, body: json.encode(body), headers: {
+      'Content-Type': 'application/json',
+      'x-token' : Preferences.token
     });
 
     final Map<String, dynamic> resDecode =  json.decode( resp.body );

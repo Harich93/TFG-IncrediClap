@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:incredibclap/models/user_model.dart';
 import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/services/services.dart';
 
 class LoginProvider extends ChangeNotifier {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   
 
-  String name = '';
+  String name = Preferences.name;
   String email = '';
   String password = '';
+  String password2 = '';
 
   String textError = '';
   

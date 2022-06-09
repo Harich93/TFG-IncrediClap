@@ -57,7 +57,7 @@ class MusicScreen extends StatelessWidget {
                 Column( // Icon & sheets 
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ///TODO: Reemplazar por logo
+                    //TODO: Reemplazar por logo
                     FloatingActionButton(
                       elevation: 0,
                       onPressed: (){}, 

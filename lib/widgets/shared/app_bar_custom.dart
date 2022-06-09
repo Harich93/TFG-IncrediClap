@@ -10,15 +10,18 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required this.title,
     required this.elevation,
+    required this.menuOpt,
   }) : super(key: key);
 
   final double elevation;
   final String title;
+  final bool menuOpt;
 
   @override
   Widget build(BuildContext context) {
 
-    UiProvider uiProvider = Provider.of<UiProvider>(context);
+    final iu = Provider.of<UiProvider>(context);
+
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -29,9 +32,9 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
 
       title: Text(title),
       centerTitle: true,
-      actions: [
-        if(uiProvider.selectedMenuOpt == 0) const PopMenu()
-      ],
+      actions: menuOpt && iu.selectedMenuOpt == 0 ? [
+        const PopMenu()
+      ] : null,
       
       foregroundColor: Colors.black87,
       backgroundColor: ThemeColors.primary,

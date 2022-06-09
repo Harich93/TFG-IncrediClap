@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:incredibclap/themes/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:incredibclap/providers/login_provider.dart';
 import 'package:incredibclap/services/services.dart';
@@ -35,7 +36,7 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox( height: 30 ),
                     ChangeNotifierProvider( 
                       create: ( _ ) => LoginProvider(),
-                      child: _RegisterForm(),
+                      child: _RegisterForm(ThemeColors.primary),
                     )
                     
                   ],
@@ -59,9 +60,12 @@ class RegisterScreen extends StatelessWidget {
 
 }
 
-
+// ignore: must_be_immutable
 class _RegisterForm extends StatelessWidget {
-
+  
+  _RegisterForm(this.color);
+  Color color;
+  
   @override
   Widget build(BuildContext context) {
 
@@ -74,15 +78,15 @@ class _RegisterForm extends StatelessWidget {
       child: Column(
         children: [
 
-          InputName(loginProvider: loginProvider),
+          InputName(loginProvider: loginProvider, color: color,),
 
           const SizedBox( height: 30 ),
 
-          InputEmail(loginProvider: loginProvider),
+          InputEmail(loginProvider: loginProvider, color: color,),
           
           const SizedBox( height: 30 ),
           
-          InputPass(loginProvider: loginProvider),
+          InputPass(loginProvider: loginProvider, color: color),
 
           const SizedBox( height: 30 ),
 
@@ -109,18 +113,24 @@ class _RegisterForm extends StatelessWidget {
               if( resp['errors'] != null ) {
                 loginProvider.isError = true;
                 loginProvider.textError = resp['errors']['errors'][0]['msg'];
-                Timer(const Duration(seconds: 1), () => loginProvider.isError = false );
+                Timer(const Duration(seconds: 5), () => loginProvider.isError = false );
                 loginProvider.isLoading = false;
               } 
               else { // Login
               
-                final resLog = await authService.login( loginProvider.email, loginProvider.password );
+                final snackBar = SnackBar(
+                  content: const Text('Compruebe su correo para verificar su cuenta'),
+                  action: SnackBarAction(
+                    label: 'Ir a login',
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, LoginScreen.routeName );
+                    },
+                  ),
+                );
 
-                Preferences.email = resp['email'];
-                Preferences.name = resp['name'];
-                Preferences.token = resLog['token'];
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                Navigator.pushReplacementNamed(context, HomeScreen.routeName );
+                // Navigator.pushReplacementNamed(context, LoginScreen.routeName );
                 loginProvider.isLoading = false;
               
               }

@@ -73,14 +73,14 @@ class _LoginForm extends StatelessWidget {
           InputEmail(
             loginProvider: loginProvider,
             email: Preferences.recordUser ? Preferences.email : '',
+            color: ThemeColors.primary,
           ),
           
           const SizedBox( height: 30),
           
           InputPass(
             loginProvider: loginProvider,
-            pass: Preferences.recordUser ? Preferences.password : '',
-          
+            color: ThemeColors.primary,
           ),
 
           const SizedBox( height: 30 ),
@@ -92,11 +92,9 @@ class _LoginForm extends StatelessWidget {
                   loginProvider.textError, 
                   style: const TextStyle(color: Colors.red),
                 ),
-              const SizedBox( height: 20 ),
+                const SizedBox( height: 20 ),
               ],
             ),
-
-          
 
           AuthButton(
             text: 'Ingresar',
@@ -116,7 +114,6 @@ class _LoginForm extends StatelessWidget {
                 loginProvider.isLoading = false;
               }
 
-
             },
           ),
 
@@ -131,7 +128,7 @@ class _LoginForm extends StatelessWidget {
 
   bool _isError( LoginProvider loginProvider, Map<String,dynamic> resp ) {
     
-    if( resp['msg'] != null ) {
+    if( resp['msg'] != null) {
       loginProvider.isError = true;
       loginProvider.textError = resp['msg'];
       Timer(const Duration(seconds: 4), () => loginProvider.isError = false );
@@ -143,9 +140,8 @@ class _LoginForm extends StatelessWidget {
   }
 
   _savePreferncesResp( Map<String,dynamic> resp ){
-    
+
     try {
-      Preferences.email = resp['user']['email'];
       Preferences.name = resp['user']['name'];
       Preferences.token = resp['token'];
       

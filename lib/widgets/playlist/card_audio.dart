@@ -82,7 +82,7 @@ class CardAudio extends StatelessWidget {
               children: [
                 
                 SizedBox(
-                  width: 100,
+                  width: size.width * 0.22,
                   child: FadeInLeft(
                     duration: const Duration(milliseconds: 800),
                     child: const Image(
@@ -96,7 +96,7 @@ class CardAudio extends StatelessWidget {
                 FadeInRight(
                   duration: const Duration(milliseconds: 800),
                   child: SizedBox(
-                    width: size.width * 0.4,
+                    width: size.width * 0.5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,8 +116,10 @@ class CardAudio extends StatelessWidget {
                 
                         Text(
                           userName,
+                          maxLines: 1,
                           style: GoogleFonts.righteous(
                             textStyle: TextStyle(
+                              overflow: TextOverflow.ellipsis,
                               color: ThemeColors.primary, 
                               fontSize: size.width * 0.05, 
                             ), 
@@ -130,12 +132,11 @@ class CardAudio extends StatelessWidget {
                 ),
 
                 isDeleted 
-                
-                 ? IconButton(
-                    onPressed: () => _deleteRecordDialog(id), 
-                    icon: const Icon(Icons.delete_forever, color: ThemeColors.darkPrimary)
-                   )
-                 : const Icon(Icons.delete_forever, color: Colors.transparent)
+                  ? IconButton(
+                      onPressed: () => _deleteRecordDialog(id), 
+                      icon: const Icon(Icons.delete_forever, color: ThemeColors.darkPrimary)
+                    )
+                  : const Icon(Icons.delete_forever, color: Colors.transparent)
               ],
             ),
           ),
@@ -145,9 +146,6 @@ class CardAudio extends StatelessWidget {
     );
   }
 }
-
-
-
 
 class _CardBackground extends StatelessWidget {
 

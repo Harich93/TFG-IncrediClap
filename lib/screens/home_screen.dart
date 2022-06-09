@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
       appBar: const AppBarCustom(
         title: "",
         elevation: 0,
+        menuOpt: true,
       ),
       body: HomeBackground(
         child: uiProvider.selectedMenuOpt == 0 

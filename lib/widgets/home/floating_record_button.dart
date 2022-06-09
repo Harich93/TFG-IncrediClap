@@ -52,6 +52,7 @@ class FloatingRecordButton extends StatelessWidget {
                     decoration: InputDecorations.authInput(
                       hintText: 'Titulo',
                       labelText: 'Pista',
+                      color: ThemeColors.primary
                     ),
                     onChanged: ( value ) => nameRecord = value,
                   )

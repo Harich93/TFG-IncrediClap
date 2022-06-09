@@ -8,11 +8,21 @@ class InputPass extends StatelessWidget {
   InputPass({
     Key? key,
     required this.loginProvider,
-    this.pass 
+    required this.color,
+    this.confirmPass = false,
+    this.isRequired = true, 
+    this.pass, 
+    this.placeholder = 'Password',
+    this.label = 'Contraseña',
   }) : super(key: key);
 
   final LoginProvider loginProvider;
+  Color color;
+  bool confirmPass;
+  bool isRequired;
   String? pass = '';
+  String placeholder = '';
+  String label = '';
   
 
 
@@ -27,12 +37,13 @@ class InputPass extends StatelessWidget {
       initialValue: pass,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecorations.authInput(
-        hintText: 'Password',
-        labelText: 'Contraseña',
+        hintText: placeholder,
+        labelText: label,
+        color: color,
         prefixIcon: Icons.lock_outline
       ),
-      onChanged: ( value ) => loginProvider.password = value,
-      validator: ( value ) => Validators.pass(value) ,
+      onChanged: ( value ) => confirmPass ? loginProvider.password2 = value : loginProvider.password = value,
+      validator: ( value ) => confirmPass ? Validators.passMatch(value, loginProvider.password) : Validators.pass(value, false, isRequired) ,
     );
   }
 }
@@ -42,10 +53,12 @@ class InputEmail extends StatelessWidget {
   InputEmail({
     Key? key,
     required this.loginProvider,
+    required this.color,
     this.email
   }) : super(key: key);
 
   final LoginProvider loginProvider;
+  Color color;
   String? email = '';
 
   @override
@@ -60,6 +73,7 @@ class InputEmail extends StatelessWidget {
       decoration: InputDecorations.authInput(
         hintText: 'example@gmail.com',
         labelText: 'Email',
+        color: color,
         prefixIcon: Icons.alternate_email
       ),
       onChanged: ( value ) => loginProvider.email = value,
@@ -73,10 +87,12 @@ class InputName extends StatelessWidget {
   InputName({
     Key? key,
     required this.loginProvider,
+    required this.color,
     this.name
   }) : super(key: key);
 
   final LoginProvider loginProvider;
+  Color color;
   String? name;
 
   @override
@@ -88,6 +104,7 @@ class InputName extends StatelessWidget {
       decoration: InputDecorations.authInput(
         hintText: 'Usuario',
         labelText: 'Nombre usuario',
+        color: color,
         prefixIcon: Icons.account_circle_outlined
       ),
       onChanged: ( value ) => loginProvider.name = value,

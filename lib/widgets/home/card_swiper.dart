@@ -16,8 +16,7 @@ class CardSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    int currentIndex = 0;
+    
     final size = MediaQuery.of(context).size;
 
     if ( audios.isEmpty ) {
@@ -38,7 +37,6 @@ class CardSwiper extends StatelessWidget {
         axisDirection: AxisDirection.left,
         autoplayDisableOnInteraction: true,
         curve: Curves.easeInQuart,
-        onIndexChanged: (val) => currentIndex = val ,
         itemCount: audios.length,
         layout: SwiperLayout.DEFAULT,
         itemWidth: size.width,

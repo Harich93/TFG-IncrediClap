@@ -28,6 +28,7 @@ static const String routeName = 'ListAudios';
     return Scaffold(
       appBar: AppBarCustom(
         title: isUserRecords ? "Mis creaciones" : "Todas las creaciones" ,
+        menuOpt: false,
         elevation: menuHiden.hidden,
       ),
       body: Stack(

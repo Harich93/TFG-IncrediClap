@@ -48,7 +48,6 @@ class PopMenuState extends State<PopMenu> {
               TextButton(
                 child: const Text('No'),
                 onPressed: () {
-                  // ap.isMusicScreen == true ? ap.audiosInDragPlay() : null;
                   Navigator.of(context).pop();
                 },
               ),
@@ -79,17 +78,16 @@ class PopMenuState extends State<PopMenu> {
               ap.isMusicScreen = false;
             break;
 
-          // case ActionsPopMenu.myAccount:
-          //     Navigator.pushNamed(context, SettingsUserScreen.routeName);
-              // TODO: Implementar ajustes de cuenta
-          //   break;
+          case ActionsPopMenu.myAccount:
+              Navigator.pushNamed(context, SettingsUserScreen.routeName);
+            break;
 
           case ActionsPopMenu.myPlaylist:
               ap.isMusicScreen == true ? ap.stopAll() : null;
               rs.getAllAudios();
               rs.isSelectedReordsUser = true;
               rs.selectedListRecord = rs.userAudios;
-              Navigator.pushNamed(context, ListAudiosScreen.routeName);
+              Navigator.push(context ,MaterialPageRoute(builder: (context) => const ListAudiosScreen()));
               ap.isMusicScreen == false;
             break;
 
@@ -98,7 +96,7 @@ class PopMenuState extends State<PopMenu> {
               rs.getAudiosUser();
               rs.isSelectedReordsUser = false;
               rs.selectedListRecord = rs.allAudios;
-              Navigator.pushNamed(context, ListAudiosScreen.routeName);
+              Navigator.push(context ,MaterialPageRoute(builder: (context) => const ListAudiosScreen()));
               ap.isMusicScreen == false;
             break;
 
@@ -108,13 +106,13 @@ class PopMenuState extends State<PopMenu> {
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<ActionsPopMenu>>[
         
-        //const PopupMenuItem<ActionsPopMenu>(
-        //   value: ActionsPopMenu.myAccount,
-        //   child: _PopMenuContent(
-        //     icon: Icons.account_box_rounded,
-        //     text: Text('Mi cuenta', style: textStile),
-        //   ),
-        // ),
+        const PopupMenuItem<ActionsPopMenu>(
+          value: ActionsPopMenu.myAccount,
+          child: _PopMenuContent(
+            icon: Icons.account_box_rounded,
+            text: Text('Mi cuenta', style: textStile),
+          ),
+        ),
 
         const PopupMenuItem<ActionsPopMenu>(
           value: ActionsPopMenu.myPlaylist,

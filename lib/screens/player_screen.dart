@@ -36,6 +36,7 @@ class PlayerScreen extends StatelessWidget {
         appBar: const AppBarCustom(
           title: "",
           elevation: 0,
+          menuOpt: false,
         ),
         body: HomeBackground(
           child: Column(

@@ -8,7 +8,6 @@ class Preferences {
   static String _email = '';
   static String _password = '';
   static String _token = '';
-  static bool _isDarkmode = false;
   static bool _recordUser = false;
 
   static Future init() async{
@@ -56,18 +55,9 @@ class Preferences {
     _password = value;
     _prefs.setString('password', _password);
   }
+  
 
-  // <!-- isDarkmode -->
-  static bool get isDarkmode {
-    return _prefs.getBool('isDarkmode') ?? _isDarkmode;
-  }
-
-  static set isDarkmode( bool value ) {
-    _isDarkmode = value;
-    _prefs.setBool('isDarkmode', _isDarkmode);
-  }
-
-    // <!-- isDarkmode -->
+  // <-- recordUser -->
   static bool get recordUser {
     return _prefs.getBool('recordUser') ?? _recordUser;
   }

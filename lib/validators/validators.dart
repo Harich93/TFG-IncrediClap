@@ -11,10 +11,28 @@ class Validators {
       : 'Email no válido';
   }
 
-  static String? pass( String? value ) {
-    return ( value != null && value.length >= 6 )
-      ? null
-      : 'Debe tener minimo 6 caracteres';
+  static String? pass( String? value, bool isLogin, bool isRequired) {
+    if(isRequired) {
+      return ( value != null  && value.length >= 6 )
+        ? null
+        : isLogin ? 'Contraseña no válida'  : 'Debe tener minimo 6 caracteres';
+    }
+    
+    return null;
+  }
+  
+  static String? passMatch( String? value, String? value2 ) {
+
+    if ((value != '' && value2 != '') && (value != value2)) {
+      return 'Las contraseñas no coinciden';
+    }
+
+    else if((value != '' && value2 != '') && (value!.length < 6 && value2!.length <6) ) {
+      return 'Debe tener minimo 6 caracteres';
+    }
+
+    return null;
+
   }
 
     static String? name( String? value ) {
