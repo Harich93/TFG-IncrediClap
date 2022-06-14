@@ -58,11 +58,12 @@ class MusicScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //TODO: Reemplazar por logo
-                    FloatingActionButton(
-                      elevation: 0,
-                      onPressed: (){}, 
-                      child: const Icon(Icons.queue_music_rounded, color: Colors.black,),
-                      backgroundColor: ThemeColors.primary,
+                    SizedBox(
+                      width: size.width * .17,
+                      child: const Image(
+                        image:AssetImage('assets/icons/icon.jpg'
+                        )
+                      )
                     ),
 
                     SizedBox(height: size.height*.01),
@@ -73,7 +74,6 @@ class MusicScreen extends StatelessWidget {
                       onPressed: () => showMaterialModalBottomSheet(
                         elevation: 10,
                         duration: const Duration(seconds: 1),
-
                         context: context,
                         builder: (context) => const MusicSheets(),
                       ), 

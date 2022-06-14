@@ -16,14 +16,20 @@ class TitlePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const durationAnima = Duration(milliseconds: 800);
-    
+    final size = MediaQuery.of(context).size;
+  
     return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center, 
         children: [
           withIcon 
-            ? const Icon(Icons.library_music_sharp, size: 70) 
+            ? SizedBox(
+              width: size.width * .17,
+              child: const Image(
+                image: AssetImage('assets/icons/icon.jpg'),
+              ),
+            ) //TODO: Reemplazar logo
             : const SizedBox(height: 0),
           FadeIn(
             duration: durationAnima,

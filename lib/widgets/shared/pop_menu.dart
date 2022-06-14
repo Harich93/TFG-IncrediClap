@@ -79,7 +79,7 @@ class PopMenuState extends State<PopMenu> {
             break;
 
           case ActionsPopMenu.myAccount:
-              Navigator.pushNamed(context, SettingsUserScreen.routeName);
+              Navigator.pushNamed(context, SettignsUserScreen.routeName);
             break;
 
           case ActionsPopMenu.myPlaylist:

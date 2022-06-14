@@ -1,25 +1,27 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:incredibclap/models/s_audios.dart';
 import 'package:incredibclap/providers/login_provider.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/auth/auth.dart';
 import 'package:incredibclap/widgets/home/background.dart';
+import 'package:incredibclap/widgets/home/card_swiper.dart';
 import 'package:incredibclap/widgets/shared/shared.dart';
 import 'package:provider/provider.dart';
 
-class SettingsUserScreen extends StatelessWidget {
+class SettignsUserScreen extends StatelessWidget {
 
 static const String routeName = 'SettingsUser';
 
-  const SettingsUserScreen({Key? key}) : super(key: key);
+  const SettignsUserScreen({Key? key}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
-    
-   
-    
+  
     return Scaffold(
       appBar: const AppBarCustom(
         elevation: 0,
@@ -34,11 +36,14 @@ static const String routeName = 'SettingsUser';
               child: Column(
                 children: [
 
-                  const Center(
-                    child: Icon(
-                      Icons.account_circle, 
-                      color: Colors.white12, 
-                      size: 110
+                  Center(
+                    child: CardSwiper(
+                      audios: lstAudios, 
+                      heigth: .2,
+                      width:  .25,
+                      citeHidden: true,
+                      auto: false,
+                      save: true
                     ),
                   ),
               
@@ -69,7 +74,7 @@ class _UserForm extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(height: size.height * 0.1),
+        SizedBox(height: size.height * 0.02),
         
         CardContainer(
           child: Form(  

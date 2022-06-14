@@ -42,7 +42,7 @@ final List<Audio> lstAudios = [
       pathAudio: 'assets/audios/7_Contra_4.mp3', 
       pathIcon: "assets/artistas/GemaMoneo.png", 
       pathMusicSheet:"assets/sheets/7.jpg", 
-      cite:"Gema Moneo: "),
+      cite:"Gema Moneo: Juventud y tradición en el baile de Jerez"),
     Audio( 
       id: 7, 
       pathAudio: 'assets/audios/10_Cierre.mp3', 

@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName        : ( _ ) => const LoginScreen(),
         RegisterScreen.routeName     : ( _ ) => const RegisterScreen(),
         HomeScreen.routeName         : ( _ ) => const HomeScreen(),
-        SettingsUserScreen.routeName : ( _ ) => const SettingsUserScreen(), 
+        SettignsUserScreen.routeName : ( _ ) => const SettignsUserScreen(), 
         ListAudiosScreen.routeName   : ( _ ) => const ListAudiosScreen(), 
         PlayerScreen.routeName       : ( _ ) => PlayerScreen(),
       },

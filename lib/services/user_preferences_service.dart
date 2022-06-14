@@ -8,6 +8,7 @@ class Preferences {
   static String _email = '';
   static String _password = '';
   static String _token = '';
+  static int _idImg = 0;
   static bool _recordUser = false;
 
   static Future init() async{
@@ -46,7 +47,7 @@ class Preferences {
     _prefs.setString('email', _email);
   }
 
-    // <-- Password -->
+  // <-- Password -->
   static String get password {
     return _prefs.getString('password') ?? _password;
   }
@@ -54,6 +55,16 @@ class Preferences {
   static set password( String value ) {
     _password = value;
     _prefs.setString('password', _password);
+  }
+
+  // <-- Password -->
+  static int get idImg {
+    return _prefs.getInt('idImg') ?? _idImg;
+  }
+
+  static set idImg( int value ) {
+    _idImg = value;
+    _prefs.setInt('idImg', _idImg);
   }
   
 

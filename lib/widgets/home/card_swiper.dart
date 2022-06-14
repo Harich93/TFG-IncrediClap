@@ -3,15 +3,27 @@ import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:incredibclap/models/models.dart';
+import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/colors.dart';
 
+// ignore: must_be_immutable
 class CardSwiper extends StatelessWidget {
 
   final List<Audio> audios;
+  double heigth;
+  double width;
+  bool citeHidden;
+  bool auto;
+  bool save;
 
-  const CardSwiper({
+  CardSwiper({
     Key? key,
-    required this.audios
+    required this.audios,
+    this.heigth = 0.6,
+    this.width = 0.7,
+    this.citeHidden = false,
+    this.auto = true,
+    this.save = false
   }) : super(key: key);
 
   @override
@@ -22,7 +34,7 @@ class CardSwiper extends StatelessWidget {
     if ( audios.isEmpty ) {
       return SizedBox(
         width: double.infinity,
-        height: size.height * 0.7,
+        height: size.height * heigth,
         child: const Center(
           child: CircularProgressIndicator(),
         ),
@@ -31,9 +43,10 @@ class CardSwiper extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: size.height * 0.6,
+      height: size.height * heigth,
       child: Swiper(
-        autoplay: true,
+        index: save ? Preferences.idImg : 0,
+        autoplay: auto ? true : false,
         axisDirection: AxisDirection.left,
         autoplayDisableOnInteraction: true,
         curve: Curves.easeInQuart,
@@ -41,6 +54,7 @@ class CardSwiper extends StatelessWidget {
         layout: SwiperLayout.DEFAULT,
         itemWidth: size.width,
         itemHeight: size.width,
+        onIndexChanged: (val) => save ? Preferences.idImg = val : null,
         itemBuilder: ( _ , int index ){
 
           final audio = audios[index];
@@ -52,8 +66,8 @@ class CardSwiper extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                 ),
-                height: size.width * .7,
-                width: size.width * .7,
+                height: size.width * width,
+                width: size.width * width,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: FadeInImage(
@@ -65,7 +79,7 @@ class CardSwiper extends StatelessWidget {
               ),
               SizedBox(height: size.width * .1),
               
-              FadeIn(
+              if(!citeHidden) FadeIn(
                 duration: const Duration(milliseconds: 300), 
                 child: SizedBox(
                   width: size.width * 0.8,
