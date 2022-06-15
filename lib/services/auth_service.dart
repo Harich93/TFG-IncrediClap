@@ -64,12 +64,29 @@ class AuthService extends ChangeNotifier {
 
     final url = Uri.http( _baseUrl, '/users' );
 
-    final resp = await http.patch(url, body: json.encode(body), headers: {
+    final resp = await http.put(url, body: json.encode(body), headers: {
       'Content-Type': 'application/json',
       'x-token' : Preferences.token
     });
 
     final Map<String, dynamic> resDecode =  json.decode( resp.body );
+
+
+    return resDecode;
+
+  }
+
+  Future<Map<String, dynamic>> resetPass( String email ) async{
+
+    final url = Uri.http( _baseUrl, '/users/pass/$email' );
+
+    final resp = await http.put(url, headers: {
+      'Content-Type': 'application/json',
+    });
+
+
+    final Map<String, dynamic> resDecode =  json.decode( resp.body );
+    print('BLP -> $resDecode');
 
 
     return resDecode;

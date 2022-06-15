@@ -27,9 +27,9 @@ class TitlePage extends StatelessWidget {
             ? SizedBox(
               width: size.width * .17,
               child: const Image(
-                image: AssetImage('assets/icons/icon.jpg'),
+                image: AssetImage('assets/icons/icon.png'),
               ),
-            ) //TODO: Reemplazar logo
+            )
             : const SizedBox(height: 0),
           FadeIn(
             duration: durationAnima,

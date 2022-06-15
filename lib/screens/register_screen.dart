@@ -44,9 +44,9 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox( height: 50 ),
 
-              const TextButtonAuth(
+              TextButtonAuth(
                 text: '¿Ya tienes cuenta?', 
-                ruta: LoginScreen.routeName
+                onPressed: () => Navigator.pushReplacementNamed(context,LoginScreen.routeName)
               ),
 
               const SizedBox( height: 50 ),

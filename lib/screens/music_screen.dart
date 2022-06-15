@@ -18,7 +18,6 @@ class MusicScreen extends StatelessWidget {
 
     const durationAnima = Duration(milliseconds: 800);
     final size = MediaQuery.of(context).size;
-    // bool firstPlay = true;
     
     AudiosProvider ap = Provider.of<AudiosProvider>(context);
     DurationModel dm = Provider.of<DurationModel>(context);
@@ -57,11 +56,10 @@ class MusicScreen extends StatelessWidget {
                 Column( // Icon & sheets 
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //TODO: Reemplazar por logo
                     SizedBox(
                       width: size.width * .17,
                       child: const Image(
-                        image:AssetImage('assets/icons/icon.jpg'
+                        image:AssetImage('assets/icons/icon.png'
                         )
                       )
                     ),

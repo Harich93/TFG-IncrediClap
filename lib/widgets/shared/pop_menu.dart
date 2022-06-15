@@ -20,8 +20,6 @@ class PopMenu extends StatefulWidget {
 
 class PopMenuState extends State<PopMenu> {
 
-  // late ActionsPopMenu _selection;
-
   @override
   Widget build(BuildContext context) {
 

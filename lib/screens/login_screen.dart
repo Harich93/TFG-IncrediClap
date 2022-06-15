@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:incredibclap/themes/input_decoration.dart';
 import 'package:provider/provider.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
@@ -14,37 +15,105 @@ class LoginScreen extends StatelessWidget {
 
   static const String routeName = 'Login';
 
+  
+
 
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
+
+    final size = MediaQuery.of(context).size;
+    final authS = Provider.of<AuthService>(context);
+
+    String email = '';
+
+    Future<void> _changePassDialog() async { 
+
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Restablecer contraseña'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  const Text('Igrese email'),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecorations.authInput(
+                      hintText: 'Email...',
+                      labelText: 'Email',
+                      color: ThemeColors.primary
+                    ),
+                    onChanged: ( value ) => email = value,
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              
+              TextButton(
+                child: const Text('Cancelar'),
+                onPressed: () => Navigator.of(context).pop()
+              ),
+
+              TextButton(
+                child: const Text('Aceptar'),
+                onPressed: () async {
+                  String msg = '';
+                  final res = await authS.resetPass(email);
+                  
+                  if(res['error'] != null) { msg = res['error'];}
+                  else{ msg = 'Compruebe su correo';}
+
+                  final snackBar = SnackBar(
+                    content: Text(msg),
+                    action: SnackBarAction(
+                      label: 'Ok',
+                      onPressed: () {},
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.of(context).pop();
+                },
+              ),
+
+              
+            ]
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: AuthBackground(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 250),
+              SizedBox(height: size.height * .27),
               
               CardContainer(
                 child: Column(
                   children: [
-      
                     const SizedBox( height: 10 ),
                     Text('Login', style: Theme.of(context).textTheme.headline4,),
-                    
                     const SizedBox( height: 30 ),
                     ChangeNotifierProvider( 
                       create: ( _ ) => LoginProvider(),
                       child: _LoginForm(),
                     ),
-                    
                   ],
                 ),
               ),
               
-              const SizedBox( height: 40 ),
-              const TextButtonAuth(text: 'Crear cuenta', ruta: RegisterScreen.routeName,),
-              const SizedBox( height: 50 ),
+              SizedBox( height: size.height * .04 ),
+              TextButtonAuth(text: 'Crear cuenta', onPressed: () => Navigator.pushReplacementNamed(context,RegisterScreen.routeName)),
+              TextButtonAuth(text: '¿Has olvidado la contraseña?', onPressed: () => _changePassDialog()),
+              SizedBox( height: size.height * .04 ),
               
             ],
           ),
