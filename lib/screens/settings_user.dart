@@ -7,8 +7,6 @@ import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/themes/colors.dart';
 import 'package:incredibclap/themes/themes.dart';
 import 'package:incredibclap/widgets/auth/auth.dart';
-import 'package:incredibclap/widgets/home/background.dart';
-import 'package:incredibclap/widgets/home/card_swiper.dart';
 import 'package:incredibclap/widgets/shared/shared.dart';
 import 'package:provider/provider.dart';
 

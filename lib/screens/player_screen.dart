@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:incredibclap/themes/colors.dart';
-import 'package:incredibclap/widgets/home/background.dart';
 import 'package:incredibclap/services/services.dart';
 import 'package:incredibclap/widgets/shared/shared.dart';
 import 'package:incredibclap/models/models.dart';

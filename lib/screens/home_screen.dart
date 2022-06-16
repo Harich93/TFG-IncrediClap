@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:incredibclap/widgets/music/music.dart';
 import 'package:incredibclap/screens/music_screen.dart';
 import 'package:incredibclap/models/models.dart';
 import 'package:incredibclap/providers/providers.dart';
 import 'package:incredibclap/screens/screens.dart';
-import 'package:incredibclap/widgets/home/home.dart';
 import 'package:incredibclap/widgets/shared/shared.dart';
+
 
 
 class HomeScreen extends StatelessWidget {
