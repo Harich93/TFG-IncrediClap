@@ -54,19 +54,19 @@ final List<Audio> lstAudios = [
 final List<AudioTab> lstAudiosTab = [
   AudioTab(
       id: 8,
-      pathAudio: "assets/audios/Tabs/Palma_01.wav",
+      pathAudio: "Palma_01.wav",
       pathIcon: "assets/icons/icono_palmas_alternativo.png"),
   AudioTab(
       id: 9,
-      pathAudio: "assets/audios/Tabs/Palma_02.wav",
+      pathAudio: "Palma_02.wav",
       pathIcon: "assets/icons/icono_palmas_acento_alternativo.png"),
   AudioTab(
       id: 10,
-      pathAudio: "assets/audios/Tabs/Palma_03.wav",
+      pathAudio: "Palma_03.wav",
       pathIcon: "assets/icons/icono_palmas.png"),
   AudioTab(
       id: 11,
-      pathAudio: "assets/audios/Tabs/Palma_04.wav",
+      pathAudio: "Palma_04.wav",
       pathIcon: "assets/icons/icono_palmas_acento.png"),
   AudioTab(
       id: 12,
