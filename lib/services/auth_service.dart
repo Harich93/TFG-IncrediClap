@@ -86,9 +86,7 @@ class AuthService extends ChangeNotifier {
 
 
     final Map<String, dynamic> resDecode =  json.decode( resp.body );
-    print('BLP -> $resDecode');
-
-
+    
     return resDecode;
 
   }
