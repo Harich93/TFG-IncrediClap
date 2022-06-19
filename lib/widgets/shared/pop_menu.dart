@@ -82,8 +82,8 @@ class PopMenuState extends State<PopMenu> {
 
           case ActionsPopMenu.myPlaylist:
               ap.isMusicScreen == true ? ap.stopAll() : null;
-              rs.getAllAudios();
               rs.isSelectedReordsUser = true;
+              rs.getAudiosUser();
               rs.selectedListRecord = rs.userAudios;
               Navigator.push(context ,MaterialPageRoute(builder: (context) => const ListAudiosScreen()));
               ap.isMusicScreen == false;
@@ -91,8 +91,8 @@ class PopMenuState extends State<PopMenu> {
 
           case ActionsPopMenu.allPlaylist:
               ap.isMusicScreen == true ? ap.stopAll() : null;
-              rs.getAudiosUser();
               rs.isSelectedReordsUser = false;
+              rs.getAllAudios();
               rs.selectedListRecord = rs.allAudios;
               Navigator.push(context ,MaterialPageRoute(builder: (context) => const ListAudiosScreen()));
               ap.isMusicScreen == false;

@@ -1,4 +1,4 @@
-package com.example.incredibclap
+package com.iesalmunia.incrediclap
 
 import io.flutter.embedding.android.FlutterActivity
 

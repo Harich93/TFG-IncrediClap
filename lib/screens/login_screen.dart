@@ -197,10 +197,10 @@ class _LoginForm extends StatelessWidget {
 
   bool _isError( LoginProvider loginProvider, Map<String,dynamic> resp ) {
     
-    if( resp['msg'] != null) {
+    if( resp['msg'] != null || resp['errors'] != null) {
       loginProvider.isError = true;
       loginProvider.textError = resp['msg'];
-      Timer(const Duration(seconds: 4), () => loginProvider.isError = false );
+      Timer(const Duration(seconds: 6), () => loginProvider.isError = false );
       loginProvider.isLoading = false;
       return true;
     }
@@ -211,7 +211,7 @@ class _LoginForm extends StatelessWidget {
   _savePreferncesResp( Map<String,dynamic> resp ){
 
     try {
-      Preferences.name = resp['user']['name'];
+      Preferences.name = resp['user']?['name'];
       Preferences.token = resp['token'];
       
     } catch (e) {

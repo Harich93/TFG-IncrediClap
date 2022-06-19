@@ -31,7 +31,9 @@ class AuthButton extends StatelessWidget {
           loginProvider.isLoading
             ? 'Espere...'
             : text, 
-          style: const TextStyle( color: Colors.white) 
+          style: const TextStyle( color: Colors.white),
+          maxLines: 1,
+          
         )
       ),
       onPressed: loginProvider.isLoading ? null : () async{
