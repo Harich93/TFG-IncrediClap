@@ -54,12 +54,12 @@ class InputEmail extends StatelessWidget {
     Key? key,
     required this.loginProvider,
     required this.color,
-    this.email
+    this.email = ''
   }) : super(key: key);
 
   final LoginProvider loginProvider;
   Color color;
-  String? email = '';
+  String? email;
 
   @override
   Widget build(BuildContext context) {
