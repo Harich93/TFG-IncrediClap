@@ -21,6 +21,7 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
 
     final iu = Provider.of<UiProvider>(context);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(

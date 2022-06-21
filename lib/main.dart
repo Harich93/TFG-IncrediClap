@@ -9,15 +9,14 @@ import 'package:provider/provider.dart';
 
 void main() async { 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Preferences.init();
   configStatusBar();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   return runApp(const AppState());
 }
 
 class AppState extends StatelessWidget {
   const AppState({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +37,7 @@ class AppState extends StatelessWidget {
 
 // ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
 
@@ -55,12 +55,11 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-
-
 }
 
 void configStatusBar(){
-  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
