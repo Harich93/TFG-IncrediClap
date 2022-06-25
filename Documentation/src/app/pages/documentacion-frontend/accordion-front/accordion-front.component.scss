@@ -1,0 +1,22 @@
+a {
+   text-decoration: none;
+}
+
+.fa-link {
+   font-size: 12px;
+
+}
+
+a:hover {
+   
+   .fa-box {
+      color: #fff;
+   }
+}
+
+li {
+   &.hover:hover {
+      transition: all .3s ease-in-out;
+      background-color: darken($color: white, $amount: 10)
+   }
+}

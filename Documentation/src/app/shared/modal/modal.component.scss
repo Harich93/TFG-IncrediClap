@@ -1,0 +1,24 @@
+.modal {
+   &::-webkit-scrollbar-button {
+      display: none;
+  }
+
+  &::-webkit-scrollbar {
+      width: 4px;     
+      height: 4px;  
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: lighten($color: grey, $amount: 30);
+      border-radius: 3px;
+  }
+
+  img {
+     height: 90vh;
+  }
+}
+
+.modal-header {
+   display: flex;
+   justify-content: flex-end;
+}

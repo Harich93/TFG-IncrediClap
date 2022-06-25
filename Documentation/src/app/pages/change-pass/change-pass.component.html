@@ -1,0 +1,53 @@
+<h1 class="ms-3 ms-sm-5 text-muted">Cambiar contraseña</h1>
+<hr class="ms-3 me-3 ms-sm-5 me-sm-5"/>
+<div *ngIf="isErrorAPI == false" class="alert alert-success me-5 ms-5" role="alert">
+   Contraseña modificada correctamente
+ </div>
+<div *ngIf="isErrorAPI == true" class="alert alert-danger me-5 ms-5" role="alert">
+   Error al intentar modificar la contraseña
+ </div>
+<div class="d-flex justify-content-center p-3">
+   <form [formGroup]="form" class="p-1 p-sm-5 w-100">
+      <div class="mb-3">
+         <label for="exampleInputPassword1" class="form-label">Nueva contraseña</label>
+         <input 
+            name="pass1"
+            class="form-control"
+            [ngClass]="{
+               'text-danger' : isError1,
+               'text-success': !isError1
+            }" 
+            formControlName="pass1" 
+            type="password" 
+         >
+      </div>
+      <div class="mb-3">
+         <label for="exampleInputPassword1" class="form-label">Repite contraseña</label>
+         <input 
+            name="pass2"
+            class="form-control" 
+            [ngClass]="{
+               'text-danger' : isError2,
+               'text-success': !isError2
+            }" 
+            formControlName="pass2" 
+            type="password" 
+         >
+      </div>
+      <p class="text-danger" *ngIf="isError1 || isError2">{{msg}}</p>
+
+      <button 
+         class="btn btn-primary w-100"  
+         type="button" 
+         [disabled]="isError1 || isError2" 
+         (click)="changePass()"
+      >Aceptar</button>
+   </form>
+
+   
+</div>
+
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+   <div class="spinner-border text-primary text-center" role="status">
+   </div>
+</div>
